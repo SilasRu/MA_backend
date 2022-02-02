@@ -1,0 +1,1884 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2022-01-03">
+    <creator>NetworkX 2.6.3</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="">
+    <attributes mode="static" class="edge">
+      <attribute id="0" title="edge" type="string" />
+      <attribute id="1" title="networkx_key" type="long" />
+    </attributes>
+    <nodes>
+      <node id="next  we" label="next  we" />
+      <node id="English  samples" label="English  samples" />
+      <node id="So  this" label="So  this" />
+      <node id="them" label="them" />
+      <node id="Hopefully  it" label="Hopefully  it" />
+      <node id="you" label="you" />
+      <node id="also  we" label="also  we" />
+      <node id="next  September" label="next  September" />
+      <node id="someone" label="someone" />
+      <node id="next  person" label="next  person" />
+      <node id="Maybe  you" label="Maybe  you" />
+      <node id="screen" label="screen" />
+      <node id="Mark  we" label="Mark  we" />
+      <node id="morning  writing" label="morning  writing" />
+      <node id="we" label="we" />
+      <node id="it" label="it" />
+      <node id="summary" label="summary" />
+      <node id="how  we" label="how  we" />
+      <node id="this" label="this" />
+      <node id="maybe  you" label="maybe  you" />
+      <node id="notes" label="notes" />
+      <node id="afterwards  you" label="afterwards  you" />
+      <node id="something" label="something" />
+      <node id="I" label="I" />
+      <node id="just  it" label="just  it" />
+      <node id="meeting" label="meeting" />
+      <node id="everyone" label="everyone" />
+      <node id="what" label="what" />
+      <node id="It" label="It" />
+      <node id="one  that" label="one  that" />
+      <node id="much  details" label="much  details" />
+      <node id="people" label="people" />
+      <node id="What" label="What" />
+      <node id="only  aftermath" label="only  aftermath" />
+      <node id="of  Orphans" label="of  Orphans" />
+      <node id="space" label="space" />
+      <node id="week  I" label="week  I" />
+      <node id="new word length" label="new word length" />
+      <node id="Which" label="Which" />
+      <node id="there  moment" label="there  moment" />
+      <node id="other reason Brokers" label="other reason Brokers" />
+      <node id="why  it" label="why  it" />
+      <node id="Docker  server" label="Docker  server" />
+      <node id="old  they" label="old  they" />
+      <node id="stalkers" label="stalkers" />
+      <node id="rather  it" label="rather  it" />
+      <node id="same  manner" label="same  manner" />
+      <node id="also voice activity detection" label="also voice activity detection" />
+      <node id="past" label="past" />
+      <node id="that" label="that" />
+      <node id="me" label="me" />
+      <node id="apparently  we" label="apparently  we" />
+      <node id="audio file transcribe" label="audio file transcribe" />
+      <node id="120  it" label="120  it" />
+      <node id="120  minutes" label="120  minutes" />
+      <node id="So  I" label="So  I" />
+      <node id="So  what" label="So  what" />
+      <node id="first interscriber uphill" label="first interscriber uphill" />
+      <node id="more  we" label="more  we" />
+      <node id="too  I" label="too  I" />
+      <node id="still  it" label="still  it" />
+      <node id="just docker they" label="just docker they" />
+      <node id="just docker containers" label="just docker containers" />
+      <node id="old  that" label="old  that" />
+      <node id="later  stage" label="later  stage" />
+      <node id="somehow  Some" label="somehow  Some" />
+      <node id="magic JavaScript website" label="magic JavaScript website" />
+      <node id="then  you" label="then  you" />
+      <node id="quickly  screen" label="quickly  screen" />
+      <node id="two  person" label="two  person" />
+      <node id="super  question" label="super  question" />
+      <node id="here" label="here" />
+      <node id="just  me" label="just  me" />
+      <node id="editor" label="editor" />
+      <node id="file" label="file" />
+      <node id="You" label="You" />
+      <node id="really  all" label="really  all" />
+      <node id="words" label="words" />
+      <node id="there  it" label="there  it" />
+      <node id="somewhere  beginning" label="somewhere  beginning" />
+      <node id="now  this" label="now  this" />
+      <node id="user Behavior" label="user Behavior" />
+      <node id="only  that" label="only  that" />
+      <node id="later  project" label="later  project" />
+      <node id="basically  you" label="basically  you" />
+      <node id="one  file" label="one  file" />
+      <node id="Enter" label="Enter" />
+      <node id="everything" label="everything" />
+      <node id="Anyways  I" label="Anyways  I" />
+      <node id="other price range" label="other price range" />
+      <node id="similar" label="similar" />
+      <node id="her" label="her" />
+      <node id="So  you" label="So  you" />
+      <node id="next  one" label="next  one" />
+      <node id="much  i" label="much  i" />
+      <node id="next  me" label="next  me" />
+      <node id="maybe  it" label="maybe  it" />
+      <node id="Then  it" label="Then  it" />
+      <node id="a  times" label="a  times" />
+      <node id="when  it" label="when  it" />
+      <node id="large  number" label="large  number" />
+      <node id="integration" label="integration" />
+      <node id="Microsoft Vista I" label="Microsoft Vista I" />
+      <node id="one  field" label="one  field" />
+      <node id="object" label="object" />
+      <node id="just  what" label="just  what" />
+      <node id="locally  I" label="locally  I" />
+      <node id="stable  that" label="stable  that" />
+      <node id="out  problems" label="out  problems" />
+      <node id="more  project" label="more  project" />
+      <node id="then  me" label="then  me" />
+      <node id="a" label="a" />
+      <node id="new  new" label="new  new" />
+      <node id="how  others" label="how  others" />
+      <node id="code" label="code" />
+      <node id="somewhere  I" label="somewhere  I" />
+      <node id="last  issue" label="last  issue" />
+      <node id="morning  I" label="morning  I" />
+      <node id="morning  everything" label="morning  everything" />
+      <node id="so  much" label="so  much" />
+      <node id="one" label="one" />
+      <node id="very cloud computing" label="very cloud computing" />
+      <node id="Hehe" label="Hehe" />
+      <node id="surprising  exams" label="surprising  exams" />
+      <node id="unknown  I" label="unknown  I" />
+      <node id="heart" label="heart" />
+      <node id="mood" label="mood" />
+      <node id="back  we" label="back  we" />
+      <node id="back  what" label="back  what" />
+      <node id="We" label="We" />
+      <node id="technical  issues" label="technical  issues" />
+      <node id="two  it" label="two  it" />
+      <node id="two  weeks" label="two  weeks" />
+      <node id="today  I" label="today  I" />
+      <node id="Definitely  it" label="Definitely  it" />
+      <node id="really  much" label="really  much" />
+      <node id="Swiss  collection" label="Swiss  collection" />
+      <node id="now Th industry that" label="now Th industry that" />
+      <node id="now Th industry day" label="now Th industry day" />
+      <node id="two people recordings" label="two people recordings" />
+      <node id="So  they" label="So  they" />
+      <node id="best  what" label="best  what" />
+      <node id="also  that" label="also  that" />
+      <node id="actively  I" label="actively  I" />
+      <node id="next  week" label="next  week" />
+      <node id="still  I" label="still  I" />
+      <node id="still  things" label="still  things" />
+      <node id="ahead  what" label="ahead  what" />
+      <node id="summer" label="summer" />
+      <node id="still  they" label="still  they" />
+      <node id="back  me" label="back  me" />
+      <node id="hundred tth industry we" label="hundred tth industry we" />
+      <node id="solution" label="solution" />
+      <node id="year  we" label="year  we" />
+      <node id="audio  files" label="audio  files" />
+      <node id="Space we" label="Space we" />
+      <node id="actionable  insights" label="actionable  insights" />
+      <node id="briefly  we" label="briefly  we" />
+      <node id="mind" label="mind" />
+      <node id="September" label="September" />
+      <node id="6  1" label="6  1" />
+      <node id="24  that" label="24  that" />
+      <node id="briefly  it" label="briefly  it" />
+      <node id="next  minutes" label="next  minutes" />
+      <node id="which" label="which" />
+      <node id="of  classic" label="of  classic" />
+      <node id="meeting minutes" label="meeting minutes" />
+      <node id="summarization" label="summarization" />
+      <node id="interesting bullet point meeting" label="interesting bullet point meeting" />
+      <node id="they" label="they" />
+      <node id="smart  transcript" label="smart  transcript" />
+      <node id="efficiently  one" label="efficiently  one" />
+      <node id="Swiss  German" label="Swiss  German" />
+      <node id="standard  which" label="standard  which" />
+      <node id="standard  German" label="standard  German" />
+      <node id="political  it" label="political  it" />
+      <node id="team ours" label="team ours" />
+      <node id="team which" label="team which" />
+      <node id="one  two" label="one  two" />
+      <node id="more  detail" label="more  detail" />
+      <node id="topic" label="topic" />
+      <node id="three  I" label="three  I" />
+      <node id="three  days" label="three  days" />
+      <node id="she" label="she" />
+      <node id="basically  this" label="basically  this" />
+      <node id="facts" label="facts" />
+      <node id="here  some" label="here  some" />
+      <node id="examples" label="examples" />
+      <node id="important  topics" label="important  topics" />
+      <node id="also topic sometime" label="also topic sometime" />
+      <node id="just  examples" label="just  examples" />
+      <node id="standard  transcript" label="standard  transcript" />
+      <node id="two  steps" label="two  steps" />
+      <node id="who" label="who" />
+      <node id="structured  transcript" label="structured  transcript" />
+      <node id="available  I" label="available  I" />
+      <node id="third  which" label="third  which" />
+      <node id="highlights track" label="highlights track" />
+      <node id="standard  methods" label="standard  methods" />
+      <node id="Keywords" label="Keywords" />
+      <node id="bit tf interview" label="bit tf interview" />
+      <node id="many  Speaker" label="many  Speaker" />
+      <node id="speaker contribution" label="speaker contribution" />
+      <node id="maybe  Danny" label="maybe  Danny" />
+      <node id="mainly  algorithms" label="mainly  algorithms" />
+      <node id="templates" label="templates" />
+      <node id="hundred texts that" label="hundred texts that" />
+      <node id="sentences" label="sentences" />
+      <node id="now  these" label="now  these" />
+      <node id="users" label="users" />
+      <node id="20  minutes" label="20  minutes" />
+      <node id="five  topic" label="five  topic" />
+      <node id="all" label="all" />
+      <node id="Speaker" label="Speaker" />
+      <node id="then  we" label="then  we" />
+      <node id="such  sentence" label="such  sentence" />
+      <node id="context" label="context" />
+      <node id="recorded  meeting" label="recorded  meeting" />
+      <node id="data" label="data" />
+      <node id="much  it" label="much  it" />
+      <node id="hard  we" label="hard  we" />
+      <node id="how  that" label="how  that" />
+      <node id="how  it" label="how  it" />
+      <node id="when  keyword" label="when  keyword" />
+      <node id="keyword" label="keyword" />
+      <node id="nice  this" label="nice  this" />
+      <node id="he" label="he" />
+      <node id="separate  tab" label="separate  tab" />
+      <node id="then  he" label="then  he" />
+      <node id="audio  that" label="audio  that" />
+      <node id="together  it" label="together  it" />
+      <node id="already  it" label="already  it" />
+      <node id="even  distance" label="even  distance" />
+      <node id="German  transcript" label="German  transcript" />
+      <node id="June  we" label="June  we" />
+      <node id="June  that" label="June  that" />
+      <node id="just  students" label="just  students" />
+      <node id="perfect  it" label="perfect  it" />
+      <node id="demoed" label="demoed" />
+      <node id="then  that" label="then  that" />
+      <node id="two  interscriber" label="two  interscriber" />
+      <node id="better  solution" label="better  solution" />
+      <node id="speech engine building" label="speech engine building" />
+      <node id="audio transcription arbitrary" label="audio transcription arbitrary" />
+      <node id="Langford" label="Langford" />
+      <node id="now  German" label="now  German" />
+      <node id="So  we" label="So  we" />
+      <node id="first  German" label="first  German" />
+      <node id="there  we" label="there  we" />
+      <node id="party" label="party" />
+      <node id="How  it" label="How  it" />
+      <node id="then  restrictions" label="then  restrictions" />
+      <node id="restrictions" label="restrictions" />
+      <node id="then  it" label="then  it" />
+      <node id="laughs" label="laughs" />
+      <node id="else  it" label="else  it" />
+      <node id="else  politics" label="else  politics" />
+      <node id="least  that" label="least  that" />
+      <node id="least  everything" label="least  everything" />
+      <node id="top K sentences" label="top K sentences" />
+      <node id="how  this" label="how  this" />
+      <node id="very  we" label="very  we" />
+      <node id="different  conversation" label="different  conversation" />
+      <node id="short  they" label="short  they" />
+      <node id="really  other" label="really  other" />
+      <node id="where  someone" label="where  someone" />
+      <node id="more  monologue" label="more  monologue" />
+      <node id="discussion" label="discussion" />
+      <node id="more  relevant" label="more  relevant" />
+      <node id="higher  score" label="higher  score" />
+      <node id="higher  it" label="higher  it" />
+      <node id="more  summary" label="more  summary" />
+      <node id="how  outcome" label="how  outcome" />
+      <node id="sentence" label="sentence" />
+      <node id="also  Scheme" label="also  Scheme" />
+      <node id="scoring" label="scoring" />
+      <node id="0" label="0" />
+      <node id="randomly  that" label="randomly  that" />
+      <node id="principle" label="principle" />
+      <node id="how  sentence" label="how  sentence" />
+      <node id="yet  you" label="yet  you" />
+      <node id="also  course" label="also  course" />
+      <node id="yet  we" label="yet  we" />
+      <node id="probably  front" label="probably  front" />
+      <node id="Allah  you" label="Allah  you" />
+      <node id="tall" label="tall" />
+      <node id="some" label="some" />
+      <node id="when  we" label="when  we" />
+      <node id="email" label="email" />
+      <node id="why  I" label="why  I" />
+      <node id="collector tray" label="collector tray" />
+      <node id="80  summaries" label="80  summaries" />
+      <node id="one  I" label="one  I" />
+      <node id="one  document" label="one  document" />
+      <node id="maybe  we" label="maybe  we" />
+      <node id="first  that" label="first  that" />
+      <node id="anyone" label="anyone" />
+      <node id="audio" label="audio" />
+      <node id="Nick" label="Nick" />
+      <node id="where  it" label="where  it" />
+      <node id="link" label="link" />
+      <node id="then dynastar I" label="then dynastar I" />
+      <node id="in  Tyga" label="in  Tyga" />
+      <node id="how  priority" label="how  priority" />
+      <node id="just  note" label="just  note" />
+      <node id="next  you" label="next  you" />
+      <node id="Max  you" label="Max  you" />
+      <node id="well  meeting" label="well  meeting" />
+      <node id="again  it" label="again  it" />
+      <node id="always  time" label="always  time" />
+      <node id="also  transcriptions" label="also  transcriptions" />
+      <node id="month  we" label="month  we" />
+      <node id="Swiss Microsoft transcription service" label="Swiss Microsoft transcription service" />
+      <node id="So  anyone" label="So  anyone" />
+      <node id="extensive  Microsoft" label="extensive  Microsoft" />
+      <node id="ago  you" label="ago  you" />
+      <node id="ago  what" label="ago  what" />
+      <node id="June" label="June" />
+      <node id="probably  I" label="probably  I" />
+      <node id="probably  what" label="probably  what" />
+      <node id="whole  I" label="whole  I" />
+      <node id="again  I" label="again  I" />
+      <node id="400  francs" label="400  francs" />
+      <node id="where" label="where" />
+      <node id="anybody" label="anybody" />
+      <node id="Microsoft" label="Microsoft" />
+      <node id="just evaluation parts" label="just evaluation parts" />
+      <node id="very  you" label="very  you" />
+      <node id="training data" label="training data" />
+      <node id="really  money" label="really  money" />
+      <node id="two  holidays" label="two  holidays" />
+      <node id="still  good" label="still  good" />
+    </nodes>
+    <edges>
+      <edge source="next  we" target="English  samples" id="0">
+        <attvalues>
+          <attvalue for="0" value="recording" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="So  this" target="them" id="1">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="them" target="September" id="2">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Hopefully  it" target="you" id="3">
+        <attvalues>
+          <attvalue for="0" value="hope" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="summary" id="4">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="something" id="5">
+        <attvalues>
+          <attvalue for="0" value="want" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="people" id="6">
+        <attvalues>
+          <attvalue for="0" value="are" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="What" id="7">
+        <attvalues>
+          <attvalue for="0" value="want" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="next  person" id="8">
+        <attvalues>
+          <attvalue for="0" value="hand" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="this" id="9">
+        <attvalues>
+          <attvalue for="0" value="see" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="it" id="10">
+        <attvalues>
+          <attvalue for="0" value="lie about" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="code" id="11">
+        <attvalues>
+          <attvalue for="0" value="need" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="already  it" id="12">
+        <attvalues>
+          <attvalue for="0" value="remember" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="perfect  it" id="13">
+        <attvalues>
+          <attvalue for="0" value="gave" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="now  German" id="14">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="them" id="15">
+        <attvalues>
+          <attvalue for="0" value="Let" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="what" id="16">
+        <attvalues>
+          <attvalue for="0" value="try" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="some" id="17">
+        <attvalues>
+          <attvalue for="0" value="like" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="that" id="18">
+        <attvalues>
+          <attvalue for="0" value="do" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="you" target="who" id="19">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="also  we" target="next  September" id="20">
+        <attvalues>
+          <attvalue for="0" value="minutes" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="someone" target="next  person" id="21">
+        <attvalues>
+          <attvalue for="0" value="suggest" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="someone" target="summary" id="22">
+        <attvalues>
+          <attvalue for="0" value="be great" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Maybe  you" target="screen" id="23">
+        <attvalues>
+          <attvalue for="0" value="largest on" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Mark  we" target="morning  writing" id="24">
+        <attvalues>
+          <attvalue for="0" value="discussed" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="it" id="25">
+        <attvalues>
+          <attvalue for="0" value="do" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="it" id="26">
+        <attvalues>
+          <attvalue for="0" value="prioritize" />
+          <attvalue for="1" value="1" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="that" id="27">
+        <attvalues>
+          <attvalue for="0" value="took" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="that" id="28">
+        <attvalues>
+          <attvalue for="0" value="compared to" />
+          <attvalue for="1" value="1" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="that" id="29">
+        <attvalues>
+          <attvalue for="0" value="discussing as" />
+          <attvalue for="1" value="2" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="two people recordings" id="30">
+        <attvalues>
+          <attvalue for="0" value="guess" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="two  steps" id="31">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="standard  methods" id="32">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="still  it" id="33">
+        <attvalues>
+          <attvalue for="0" value="guess" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="data" id="34">
+        <attvalues>
+          <attvalue for="0" value="ride" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="how  that" id="35">
+        <attvalues>
+          <attvalue for="0" value="go into" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="how  it" id="36">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="how  it" id="37">
+        <attvalues>
+          <attvalue for="0" value="works" />
+          <attvalue for="1" value="1" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="together  it" id="38">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="German  transcript" id="39">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="this" id="40">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="first  that" id="41">
+        <attvalues>
+          <attvalue for="0" value="meant" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="also  transcriptions" id="42">
+        <attvalues>
+          <attvalue for="0" value="paying" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="everyone" id="43">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="only  aftermath" id="44">
+        <attvalues>
+          <attvalue for="0" value="see" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="of  Orphans" id="45">
+        <attvalues>
+          <attvalue for="0" value="creating" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="space" id="46">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="other reason Brokers" id="47">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="same  manner" id="48">
+        <attvalues>
+          <attvalue for="0" value="trying" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="just  me" id="49">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="editor" id="50">
+        <attvalues>
+          <attvalue for="0" value="work for" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="me" id="51">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="integration" id="52">
+        <attvalues>
+          <attvalue for="0" value="try" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="out  problems" id="53">
+        <attvalues>
+          <attvalue for="0" value="Today" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="mood" id="54">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="more  detail" id="55">
+        <attvalues>
+          <attvalue for="0" value="be interested" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="standard  transcript" id="56">
+        <attvalues>
+          <attvalue for="0" value="discussed with" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="nice  this" id="57">
+        <attvalues>
+          <attvalue for="0" value="need" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="demoed" id="58">
+        <attvalues>
+          <attvalue for="0" value="think for" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="how  this" id="59">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="email" id="60">
+        <attvalues>
+          <attvalue for="0" value="supposed" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="next  you" id="61">
+        <attvalues>
+          <attvalue for="0" value="say" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="June" id="62">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="where" id="63">
+        <attvalues>
+          <attvalue for="0" value="wondering" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="summary" target="what" id="64">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="how  we" target="this" id="65">
+        <attvalues>
+          <attvalue for="0" value="generate" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="how  we" target="top K sentences" id="66">
+        <attvalues>
+          <attvalue for="0" value="is clear" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="how  we" target="templates" id="67">
+        <attvalues>
+          <attvalue for="0" value="discuss" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="this" target="templates" id="68">
+        <attvalues>
+          <attvalue for="0" value="need" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="this" target="really  money" id="69">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="maybe  you" target="notes" id="70">
+        <attvalues>
+          <attvalue for="0" value="take" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="maybe  you" target="just  examples" id="71">
+        <attvalues>
+          <attvalue for="0" value="read" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="afterwards  you" target="summary" id="72">
+        <attvalues>
+          <attvalue for="0" value="transcribe" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="just  it" id="73">
+        <attvalues>
+          <attvalue for="0" value="saying" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="just  it" id="74">
+        <attvalues>
+          <attvalue for="0" value="add" />
+          <attvalue for="1" value="1" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="meeting" id="75">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="rather  it" id="76">
+        <attvalues>
+          <attvalue for="0" value="Now" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="it" id="77">
+        <attvalues>
+          <attvalue for="0" value="seems" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="it" id="78">
+        <attvalues>
+          <attvalue for="0" value="skip" />
+          <attvalue for="1" value="1" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="first interscriber uphill" id="79">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="two  person" id="80">
+        <attvalues>
+          <attvalue for="0" value="remember" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="file" id="81">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="this" id="82">
+        <attvalues>
+          <attvalue for="0" value="show" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="her" id="83">
+        <attvalues>
+          <attvalue for="0" value="gon" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="new  new" id="84">
+        <attvalues>
+          <attvalue for="0" value="Yeah" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="so  much" id="85">
+        <attvalues>
+          <attvalue for="0" value="all" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="very cloud computing" id="86">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="that" id="87">
+        <attvalues>
+          <attvalue for="0" value="assume" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="that" id="88">
+        <attvalues>
+          <attvalue for="0" value="come to" />
+          <attvalue for="1" value="1" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="one" id="89">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="really  much" id="90">
+        <attvalues>
+          <attvalue for="0" value="have much" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="Swiss  collection" id="91">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="me" id="92">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="even  distance" id="93">
+        <attvalues>
+          <attvalue for="0" value="right" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="what" id="94">
+        <attvalues>
+          <attvalue for="0" value="mean" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="what" id="95">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="1" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="what" id="96">
+        <attvalues>
+          <attvalue for="0" value="used" />
+          <attvalue for="1" value="2" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="better  solution" id="97">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="a" id="98">
+        <attvalues>
+          <attvalue for="0" value="stood" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="more  monologue" id="99">
+        <attvalues>
+          <attvalue for="0" value="did before more" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="0" id="100">
+        <attvalues>
+          <attvalue for="0" value="knows" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="everyone" id="101">
+        <attvalues>
+          <attvalue for="0" value="share" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="just evaluation parts" id="102">
+        <attvalues>
+          <attvalue for="0" value="did" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="two  holidays" id="103">
+        <attvalues>
+          <attvalue for="0" value="gone in" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="just  it" target="just  it" id="104">
+        <attvalues>
+          <attvalue for="0" value="left" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="It" target="one  that" id="105">
+        <attvalues>
+          <attvalue for="0" value="be like" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="It" target="much  details" id="106">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="It" target="of  classic" id="107">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="It" target="interesting bullet point meeting" id="108">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="It" target="recorded  meeting" id="109">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="week  I" target="new word length" id="110">
+        <attvalues>
+          <attvalue for="0" value="upload" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="week  I" target="still  good" id="111">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Which" target="there  moment" id="112">
+        <attvalues>
+          <attvalue for="0" value="messed" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="why  it" target="Docker  server" id="113">
+        <attvalues>
+          <attvalue for="0" value="understand" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="old  they" target="stalkers" id="114">
+        <attvalues>
+          <attvalue for="0" value="created" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="also voice activity detection" target="past" id="115">
+        <attvalues>
+          <attvalue for="0" value="made" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="that" target="me" id="116">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="that" target="everything" id="117">
+        <attvalues>
+          <attvalue for="0" value="Try" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="that" target="just  note" id="118">
+        <attvalues>
+          <attvalue for="0" value="put" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="apparently  we" target="audio file transcribe" id="119">
+        <attvalues>
+          <attvalue for="0" value="had" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="120  it" target="120  minutes" id="120">
+        <attvalues>
+          <attvalue for="0" value="Something like" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="So  I" target="So  what" id="121">
+        <attvalues>
+          <attvalue for="0" value="did" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="So  I" target="more  project" id="122">
+        <attvalues>
+          <attvalue for="0" value="'m" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="more  we" target="them" id="123">
+        <attvalues>
+          <attvalue for="0" value="going" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="too  I" target="still  it" id="124">
+        <attvalues>
+          <attvalue for="0" value="believe" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="just docker they" target="just docker containers" id="125">
+        <attvalues>
+          <attvalue for="0" value="looking at" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="old  that" target="later  stage" id="126">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="somehow  Some" target="magic JavaScript website" id="127">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  you" target="quickly  screen" id="128">
+        <attvalues>
+          <attvalue for="0" value="replay" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  you" target="audio" id="129">
+        <attvalues>
+          <attvalue for="0" value="need to" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="super  question" target="here" id="130">
+        <attvalues>
+          <attvalue for="0" value="Really" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="You" target="me" id="131">
+        <attvalues>
+          <attvalue for="0" value="sent" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="You" target="similar" id="132">
+        <attvalues>
+          <attvalue for="0" value="defined" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="You" target="80  summaries" id="133">
+        <attvalues>
+          <attvalue for="0" value="get" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="really  all" target="words" id="134">
+        <attvalues>
+          <attvalue for="0" value="yeah" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="there  it" target="somewhere  beginning" id="135">
+        <attvalues>
+          <attvalue for="0" value="did" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="now  this" target="user Behavior" id="136">
+        <attvalues>
+          <attvalue for="0" value="Yeah" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="only  that" target="later  project" id="137">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="basically  you" target="one  file" id="138">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Enter" target="everything" id="139">
+        <attvalues>
+          <attvalue for="0" value="did" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="everything" target="me" id="140">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Anyways  I" target="other price range" id="141">
+        <attvalues>
+          <attvalue for="0" value="found" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="So  you" target="next  one" id="142">
+        <attvalues>
+          <attvalue for="0" value="pick" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="next  one" target="me" id="143">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="much  i" target="next  me" id="144">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="maybe  it" target="it" id="145">
+        <attvalues>
+          <attvalue for="0" value="try" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Then  it" target="a  times" id="146">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="when  it" target="large  number" id="147">
+        <attvalues>
+          <attvalue for="0" value="going" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Microsoft Vista I" target="it" id="148">
+        <attvalues>
+          <attvalue for="0" value="was able" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="one  field" target="object" id="149">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="just  what" target="just  it" id="150">
+        <attvalues>
+          <attvalue for="0" value="affect" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="locally  I" target="stable  that" id="151">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  me" target="a" id="152">
+        <attvalues>
+          <attvalue for="0" value="started" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="how  others" target="them" id="153">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="somewhere  I" target="last  issue" id="154">
+        <attvalues>
+          <attvalue for="0" value="okay" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="morning  I" target="morning  everything" id="155">
+        <attvalues>
+          <attvalue for="0" value="hope" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="one" target="everything" id="156">
+        <attvalues>
+          <attvalue for="0" value="Going" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Hehe" target="surprising  exams" id="157">
+        <attvalues>
+          <attvalue for="0" value="makes surprising" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="unknown  I" target="heart" id="158">
+        <attvalues>
+          <attvalue for="0" value="learn" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="back  we" target="back  what" id="159">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="We" target="technical  issues" id="160">
+        <attvalues>
+          <attvalue for="0" value="had" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="We" target="that" id="161">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="We" target="email" id="162">
+        <attvalues>
+          <attvalue for="0" value="send" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="two  it" target="two  weeks" id="163">
+        <attvalues>
+          <attvalue for="0" value="had" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="today  I" target="Definitely  it" id="164">
+        <attvalues>
+          <attvalue for="0" value="okay with" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="now Th industry that" target="now Th industry day" id="165">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="So  they" target="just  it" id="166">
+        <attvalues>
+          <attvalue for="0" value="do" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="best  what" target="also  that" id="167">
+        <attvalues>
+          <attvalue for="0" value="missing" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="actively  I" target="next  week" id="168">
+        <attvalues>
+          <attvalue for="0" value="going" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="still  I" target="still  things" id="169">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="ahead  what" target="summer" id="170">
+        <attvalues>
+          <attvalue for="0" value="going" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="still  they" target="back  me" id="171">
+        <attvalues>
+          <attvalue for="0" value="hope" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="hundred tth industry we" target="solution" id="172">
+        <attvalues>
+          <attvalue for="0" value="be several" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="year  we" target="audio  files" id="173">
+        <attvalues>
+          <attvalue for="0" value="showed" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Space we" target="actionable  insights" id="174">
+        <attvalues>
+          <attvalue for="0" value="like" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="briefly  we" target="mind" id="175">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="6  1" target="24  that" id="176">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="briefly  it" target="next  minutes" id="177">
+        <attvalues>
+          <attvalue for="0" value="So" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="which" target="meeting" id="178">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="which" target="sentences" id="179">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="meeting minutes" target="summarization" id="180">
+        <attvalues>
+          <attvalue for="0" value="likes abstract" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="they" target="smart  transcript" id="181">
+        <attvalues>
+          <attvalue for="0" value="want" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="efficiently  one" target="Swiss  German" id="182">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="standard  which" target="standard  German" id="183">
+        <attvalues>
+          <attvalue for="0" value="built" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="political  it" target="team ours" id="184">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="team which" target="one  two" id="185">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="topic" target="meeting" id="186">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="three  I" target="three  days" id="187">
+        <attvalues>
+          <attvalue for="0" value="know" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="she" target="it" id="188">
+        <attvalues>
+          <attvalue for="0" value="talked about" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="basically  this" target="facts" id="189">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="here  some" target="examples" id="190">
+        <attvalues>
+          <attvalue for="0" value="are" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="important  topics" target="also topic sometime" id="191">
+        <attvalues>
+          <attvalue for="0" value="were topic" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="who" target="structured  transcript" id="192">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="who" target="that" id="193">
+        <attvalues>
+          <attvalue for="0" value="click On" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="available  I" target="meeting" id="194">
+        <attvalues>
+          <attvalue for="0" value="am relevant" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="third  which" target="highlights track" id="195">
+        <attvalues>
+          <attvalue for="0" value="select in" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Keywords" target="bit tf interview" id="196">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="many  Speaker" target="speaker contribution" id="197">
+        <attvalues>
+          <attvalue for="0" value="count" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="maybe  Danny" target="mainly  algorithms" id="198">
+        <attvalues>
+          <attvalue for="0" value="means" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="hundred texts that" target="meeting" id="199">
+        <attvalues>
+          <attvalue for="0" value="thought" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="now  these" target="users" id="200">
+        <attvalues>
+          <attvalue for="0" value="says" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="20  minutes" target="five  topic" id="201">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="all" target="Speaker" id="202">
+        <attvalues>
+          <attvalue for="0" value="See" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  we" target="that" id="203">
+        <attvalues>
+          <attvalue for="0" value="Define" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  we" target="randomly  that" id="204">
+        <attvalues>
+          <attvalue for="0" value="select" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="such  sentence" target="context" id="205">
+        <attvalues>
+          <attvalue for="0" value="write" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="much  it" target="data" id="206">
+        <attvalues>
+          <attvalue for="0" value="Delete" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="hard  we" target="September" id="207">
+        <attvalues>
+          <attvalue for="0" value="require" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="when  keyword" target="keyword" id="208">
+        <attvalues>
+          <attvalue for="0" value="want" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="he" target="separate  tab" id="209">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  he" target="audio  that" id="210">
+        <attvalues>
+          <attvalue for="0" value="click" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  he" target="Nick" id="211">
+        <attvalues>
+          <attvalue for="0" value="drive to" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="June  we" target="June  that" id="212">
+        <attvalues>
+          <attvalue for="0" value="based on" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="just  students" target="that" id="213">
+        <attvalues>
+          <attvalue for="0" value="Let" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  that" target="two  interscriber" id="214">
+        <attvalues>
+          <attvalue for="0" value="link" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="speech engine building" target="audio transcription arbitrary" id="215">
+        <attvalues>
+          <attvalue for="0" value="'s more" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Langford" target="that" id="216">
+        <attvalues>
+          <attvalue for="0" value="stuff like" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="So  we" target="first  German" id="217">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="there  we" target="party" id="218">
+        <attvalues>
+          <attvalue for="0" value="control" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="How  it" target="then  restrictions" id="219">
+        <attvalues>
+          <attvalue for="0" value="be aware" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="restrictions" target="that" id="220">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  it" target="laughs" id="221">
+        <attvalues>
+          <attvalue for="0" value="work" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  it" target="higher  score" id="222">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="else  it" target="else  politics" id="223">
+        <attvalues>
+          <attvalue for="0" value="work" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="least  that" target="least  everything" id="224">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="very  we" target="different  conversation" id="225">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="short  they" target="really  other" id="226">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="where  someone" target="something" id="227">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="discussion" target="discussion" id="228">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="more  relevant" target="summary" id="229">
+        <attvalues>
+          <attvalue for="0" value="say" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="higher  it" target="more  summary" id="230">
+        <attvalues>
+          <attvalue for="0" value="gets" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="how  outcome" target="sentence" id="231">
+        <attvalues>
+          <attvalue for="0" value="Define" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="also  Scheme" target="scoring" id="232">
+        <attvalues>
+          <attvalue for="0" value="Implement" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="principle" target="how  sentence" id="233">
+        <attvalues>
+          <attvalue for="0" value="clear" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="yet  you" target="also  course" id="234">
+        <attvalues>
+          <attvalue for="0" value="mean" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="yet  we" target="probably  front" id="235">
+        <attvalues>
+          <attvalue for="0" value="know" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Allah  you" target="tall" id="236">
+        <attvalues>
+          <attvalue for="0" value="stay for" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="when  we" target="you" id="237">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="why  I" target="collector tray" id="238">
+        <attvalues>
+          <attvalue for="0" value="do with" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="one  I" target="one  document" id="239">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="maybe  we" target="it" id="240">
+        <attvalues>
+          <attvalue for="0" value="use" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="anyone" target="it" id="241">
+        <attvalues>
+          <attvalue for="0" value="need" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="where  it" target="link" id="242">
+        <attvalues>
+          <attvalue for="0" value="send" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="where  it" target="400  francs" id="243">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then dynastar I" target="in  Tyga" id="244">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="how  priority" target="them" id="245">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Max  you" target="well  meeting" id="246">
+        <attvalues>
+          <attvalue for="0" value="send" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="again  it" target="always  time" id="247">
+        <attvalues>
+          <attvalue for="0" value="generate" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="month  we" target="Swiss Microsoft transcription service" id="248">
+        <attvalues>
+          <attvalue for="0" value="paid" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="So  anyone" target="extensive  Microsoft" id="249">
+        <attvalues>
+          <attvalue for="0" value="run extensive" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="ago  you" target="ago  what" id="250">
+        <attvalues>
+          <attvalue for="0" value="mean" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="probably  I" target="probably  what" id="251">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="whole  I" target="it" id="252">
+        <attvalues>
+          <attvalue for="0" value="was" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="again  I" target="400  francs" id="253">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="anybody" target="Microsoft" id="254">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="very  you" target="training data" id="255">
+        <attvalues>
+          <attvalue for="0" value="'re" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

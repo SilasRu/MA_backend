@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2022-01-03">
+    <creator>NetworkX 2.6.3</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="">
+    <attributes mode="static" class="edge">
+      <attribute id="0" title="edge" type="string" />
+      <attribute id="1" title="networkx_key" type="long" />
+    </attributes>
+    <nodes>
+      <node id="next  we" label="next  we" />
+      <node id="English  samples" label="English  samples" />
+      <node id="also  we" label="also  we" />
+      <node id="next  September" label="next  September" />
+      <node id="we" label="we" />
+      <node id="two  steps" label="two  steps" />
+      <node id="it" label="it" />
+      <node id="email" label="email" />
+      <node id="how  we" label="how  we" />
+      <node id="templates" label="templates" />
+      <node id="this" label="this" />
+      <node id="I" label="I" />
+      <node id="meeting" label="meeting" />
+      <node id="first interscriber uphill" label="first interscriber uphill" />
+      <node id="It" label="It" />
+      <node id="interesting bullet point meeting" label="interesting bullet point meeting" />
+      <node id="recorded  meeting" label="recorded  meeting" />
+      <node id="week  I" label="week  I" />
+      <node id="new word length" label="new word length" />
+      <node id="120  it" label="120  it" />
+      <node id="120  minutes" label="120  minutes" />
+      <node id="super  question" label="super  question" />
+      <node id="here" label="here" />
+      <node id="there  it" label="there  it" />
+      <node id="somewhere  beginning" label="somewhere  beginning" />
+      <node id="briefly  it" label="briefly  it" />
+      <node id="next  minutes" label="next  minutes" />
+      <node id="which" label="which" />
+      <node id="meeting minutes" label="meeting minutes" />
+      <node id="summarization" label="summarization" />
+      <node id="topic" label="topic" />
+      <node id="available  I" label="available  I" />
+      <node id="hundred texts that" label="hundred texts that" />
+      <node id="20  minutes" label="20  minutes" />
+      <node id="five  topic" label="five  topic" />
+      <node id="then  that" label="then  that" />
+      <node id="two  interscriber" label="two  interscriber" />
+      <node id="Max  you" label="Max  you" />
+      <node id="well  meeting" label="well  meeting" />
+    </nodes>
+    <edges>
+      <edge source="next  we" target="English  samples" id="0">
+        <attvalues>
+          <attvalue for="0" value="recording" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="also  we" target="next  September" id="1">
+        <attvalues>
+          <attvalue for="0" value="minutes" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="we" target="two  steps" id="2">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="it" target="email" id="3">
+        <attvalues>
+          <attvalue for="0" value="supposed" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="how  we" target="templates" id="4">
+        <attvalues>
+          <attvalue for="0" value="discuss" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="this" target="templates" id="5">
+        <attvalues>
+          <attvalue for="0" value="need" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="meeting" id="6">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="I" target="first interscriber uphill" id="7">
+        <attvalues>
+          <attvalue for="0" value="think" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="It" target="interesting bullet point meeting" id="8">
+        <attvalues>
+          <attvalue for="0" value="'s" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="It" target="recorded  meeting" id="9">
+        <attvalues>
+          <attvalue for="0" value="have" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="week  I" target="new word length" id="10">
+        <attvalues>
+          <attvalue for="0" value="upload" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="120  it" target="120  minutes" id="11">
+        <attvalues>
+          <attvalue for="0" value="Something like" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="super  question" target="here" id="12">
+        <attvalues>
+          <attvalue for="0" value="Really" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="there  it" target="somewhere  beginning" id="13">
+        <attvalues>
+          <attvalue for="0" value="did" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="briefly  it" target="next  minutes" id="14">
+        <attvalues>
+          <attvalue for="0" value="So" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="which" target="meeting" id="15">
+        <attvalues>
+          <attvalue for="0" value="is" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="meeting minutes" target="summarization" id="16">
+        <attvalues>
+          <attvalue for="0" value="likes abstract" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="topic" target="meeting" id="17">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="available  I" target="meeting" id="18">
+        <attvalues>
+          <attvalue for="0" value="am relevant" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="hundred texts that" target="meeting" id="19">
+        <attvalues>
+          <attvalue for="0" value="thought" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="20  minutes" target="five  topic" id="20">
+        <attvalues>
+          <attvalue for="0" value="be" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="then  that" target="two  interscriber" id="21">
+        <attvalues>
+          <attvalue for="0" value="link" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+      <edge source="Max  you" target="well  meeting" id="22">
+        <attvalues>
+          <attvalue for="0" value="send" />
+          <attvalue for="1" value="0" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
