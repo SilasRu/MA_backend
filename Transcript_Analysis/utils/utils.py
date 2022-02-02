@@ -51,8 +51,7 @@ class Utils:
     def load_stop_words() -> Set[str]:
         import spacy
         import nltk
-        nltk.download('stopwords')
-        os.system('python -m spacy download en_core_web_sm')
+
         sp = spacy.load('en_core_web_sm')
         spacy_stopwords = sp.Defaults.stop_words
         en_stop = set(nltk.corpus.stopwords.words('english'))
