@@ -56,7 +56,7 @@ class Utils:
         sp = spacy.load('en_core_web_sm')
         spacy_stopwords = sp.Defaults.stop_words
         en_stop = set(nltk.corpus.stopwords.words('english'))
-        file_path = 'datasets/stopwords.txt'
+        file_path = 'Transcript_Analysis/utils/stopwords.txt'
         with open(file_path, 'r') as f:
             stop_words = set(f.read().strip().split('\n'))
             f.close()
@@ -97,7 +97,7 @@ class Utils:
         return backchannel
 
     @staticmethod
-    def remove_punct(text):
+    def remove_punct(text: str):
         punct_list = re.compile('[%s]' % re.escape(string.punctuation))
         text = re.sub(punct_list, ' ', text)
         text = re.sub("  +", ' ', text)

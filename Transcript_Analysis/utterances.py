@@ -9,9 +9,7 @@ import re
 from Transcript_Analysis.utils.utils import *
 from termcolor import colored
 from nltk.tokenize import WhitespaceTokenizer
-from Dash.functions.tfidf import tfidf
 from keybert import KeyBERT
-from Dash.functions.rake import Rake
 from yake import KeywordExtractor
 from transformers import pipeline
 import json
@@ -58,10 +56,6 @@ class Utterance:
             use_path = (base_path / "topic_clustering").resolve()
             self.embed_fn = embed_useT(str(use_path))
 
-    def get_tf_idf_keywords(self, utterances):
-        tf_idf_results = tfidf(utterances)
-        return tf_idf_results
-
     def get_utterances_by_speaker(self, speaker):
         return '. '.join(list(np.array(self.utterances)[np.where(self.speakers == speaker)[0]]))
 
@@ -90,12 +84,6 @@ class Utterance:
         )
         summary = kw_extractor.extract_keywords(utterances)
         return [pair[0] for pair in summary]
-
-    def get_rake_keywords(self, utterances, num_of_sentences):
-        r = Rake()
-        r.extract_keywords_from_text(utterances)
-        summaries = r.get_ranked_phrases()
-        return summaries[:num_of_sentences]
 
     def get_bart_keywords_without_limit(self, utterances):
         utterances = utterances.split()

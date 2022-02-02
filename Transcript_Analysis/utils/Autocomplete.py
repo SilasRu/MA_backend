@@ -4,11 +4,14 @@ from fast_autocomplete import AutoComplete
 from collections import Counter
 import nltk
 
+from Transcript_Analysis.utils.utils import Utils
+
 
 class Meeting_Autocomplete:
 
     def __init__(self, transcript: Transcript) -> None:
         text = transcript.text
+        text = Utils.remove_punct(text)
 
         vocab = Counter(set(text.split()))
 
