@@ -52,3 +52,4 @@ yake
 textsplit
 uvicorn
 python-louvain
+python-multipart

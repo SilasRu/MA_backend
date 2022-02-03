@@ -3,14 +3,37 @@ from typing import Any, List, Optional, Tuple
 import warnings
 from Transcript_Analysis.Output import *
 from Transcript_Analysis.interface import Interface
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI, HTTPException, Security
+from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
 import json
 
 from fastapi.responses import HTMLResponse
 
 warnings.filterwarnings("ignore")
 
-app = FastAPI()
+API_KEY = "bcqoieyqp98DAHJBABJBy3498ypiuqhriuqy984"
+API_KEY_NAME = "access_token"
+
+
+api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
+
+
+async def get_api_key(
+
+    api_key_header: str = Security(api_key_header),
+
+):
+
+    if api_key_header == API_KEY:
+        return api_key_header
+
+    else:
+        raise HTTPException(
+            status_code=403, detail="Could not validate credentials"
+        )
+
+
+app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
 origins = ["*"]
 
@@ -27,6 +50,7 @@ app.add_middleware(
 async def get_keywords(
     json_obj: dict,
     algorithm: str,
+    api_key: APIKey = Depends(get_api_key),
     n_keywords: Optional[int] = None,
     n_grams_min: Optional[int] = 0,
     n_grams_max: Optional[int] = 0
@@ -43,6 +67,7 @@ async def get_keywords(
 @app.post('/TranscriptAnalysis/statistics/')
 async def get_statistics(
     json_obj: dict,
+    api_key: APIKey = Depends(get_api_key),
 ) -> json:
     return Interface.get_statistics(json_obj=json_obj)
 
@@ -51,6 +76,7 @@ async def get_statistics(
 async def get_highlights(
     json_obj: dict,
     highlight_type: str,
+    api_key: APIKey = Depends(get_api_key),
 ) -> List[Keyword] or HTMLResponse:
     return Interface.get_highlights(
         json_obj=json_obj,
@@ -62,6 +88,7 @@ async def get_highlights(
 async def get_related_words(
     json_obj: dict,
     target_word: str,
+    api_key: APIKey = Depends(get_api_key),
     n_keywords: Optional[int] = 0
 ) -> List[Keyword]:
     return Interface.get_related_words(
