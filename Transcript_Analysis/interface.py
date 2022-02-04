@@ -30,7 +30,7 @@ class Interface:
     def get_keyphrases(
         json_obj: dict,
         algorithm: str,
-        n_keywords: int,
+        n_keyphrases: int,
         n_grams_min: int,
         n_grams_max: int
     ) -> List[str or dict] or str:
@@ -46,7 +46,7 @@ class Interface:
             return Abstractive.get_keybert_keywords(
                 text=transcript.text,
                 keyphrase_ngram_range=(n_grams_min, n_grams_max),
-                n_keywords=n_keywords
+                n_keyphrases=n_keyphrases
             )
 
         elif algorithm == "rake":
@@ -83,7 +83,7 @@ class Interface:
             end_times=json_obj['end_times'], speaker_ids=json_obj['speaker_ids']
         )
         topics = Abstractive.get_keybert_keywords(
-            text=transcript.text, keyphrase_ngram_range=(0, 0), n_keywords=3)
+            text=transcript.text, keyphrase_ngram_range=(0, 0), n_keyphrases=3)
         statistics = Extractive.get_statistics(transcript=transcript)
         return {
             'topics': topics,
@@ -119,7 +119,7 @@ class Interface:
     def get_related_words(
         json_obj: dict,
         target_word: str,
-        n_keywords: int
+        n_keyphrases: int
     ) -> List[str]:
         """
         Get the list of related words to the target word
@@ -132,7 +132,7 @@ class Interface:
         return Extractive.get_related_words(
             transcript=transcript,
             target_word=target_word,
-            n_keywords=n_keywords
+            n_keyphrases=n_keyphrases
         )
 
     @ staticmethod

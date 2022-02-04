@@ -15,14 +15,14 @@ class Abstractive:
         cls,
         text: str,
         keyphrase_ngram_range: Tuple,
-        n_keywords: int
+        n_keyphrases: int
     ):
         print(text)
         if cls.keybert_model == None:
             cls.keybert_model = KeyBERT()
         keyphrase_ngram_range = keyphrase_ngram_range if keyphrase_ngram_range != (
             0, 0) else (1, 3)
-        top_n = n_keywords if n_keywords != None else 3
+        top_n = n_keyphrases if n_keyphrases != None else 3
         keywords = [entity for entity in
                     cls.keybert_model.extract_keywords(
                         text,

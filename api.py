@@ -47,18 +47,18 @@ app.add_middleware(
 
 
 @app.post('/TranscriptAnalysis/keyphrases/')
-async def get_keywords(
+async def get_keyphrases(
     json_obj: dict,
     algorithm: str,
     api_key: APIKey = Depends(get_api_key),
-    n_keywords: Optional[int] = None,
+    n_keyphrases: Optional[int] = None,
     n_grams_min: Optional[int] = 0,
     n_grams_max: Optional[int] = 0
 ) -> List[Any]:
     return Interface.get_keyphrases(
         json_obj=json_obj,
         algorithm=algorithm,
-        n_keywords=n_keywords,
+        n_keyphrases=n_keyphrases,
         n_grams_min=n_grams_min,
         n_grams_max=n_grams_max
     )
@@ -89,10 +89,10 @@ async def get_related_words(
     json_obj: dict,
     target_word: str,
     api_key: APIKey = Depends(get_api_key),
-    n_keywords: Optional[int] = 0
+    n_keyphrases: Optional[int] = 0
 ) -> List[Keyword]:
     return Interface.get_related_words(
         json_obj=json_obj,
         target_word=target_word,
-        n_keywords=n_keywords
+        n_keyphrases=n_keyphrases
     )

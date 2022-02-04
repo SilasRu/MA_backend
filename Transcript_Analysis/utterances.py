@@ -79,7 +79,7 @@ class Utterance:
         kw_extractor = KeywordExtractor(
             lan=kwargs['language'],
             n=kwargs['max_ngram_size'],
-            top=kwargs['n_keywords'],
+            top=kwargs['n_keyphrases'],
             dedupLim=kwargs['deduplication_threshold']
         )
         summary = kw_extractor.extract_keywords(utterances)

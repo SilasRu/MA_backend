@@ -20,14 +20,14 @@ class Extractive:
     def get_related_words(
         transcript: Transcript,
         target_word: str,
-        n_keywords: int
+        n_keyphrases: int
     ) -> List:
 
-        n_keywords = 5 if n_keywords == 0 else n_keywords
+        n_keyphrases = 5 if n_keyphrases == 0 else n_keyphrases
 
         autocomplete_obj = Meeting_Autocomplete(transcript=transcript)
         autocomplete_results = autocomplete_obj.search(
-            query=target_word, size_of_results=n_keywords)
+            query=target_word, size_of_results=n_keyphrases)
         print('**' * 10)
         print(autocomplete_results)
         if len(autocomplete_results) == 1:
@@ -37,7 +37,7 @@ class Extractive:
             return Extractive.get_related_words_cooc_matrix(
                 transcript=transcript,
                 target_word=target_word,
-                n_keywords=n_keywords
+                n_keyphrases=n_keyphrases
             )
         elif len(autocomplete_results) > 1:
             results = [
@@ -51,7 +51,7 @@ class Extractive:
     def get_related_words_cooc_matrix(
         transcript: Transcript,
         target_word: str,
-        n_keywords: int
+        n_keyphrases: int
     ) -> np.array:
         """
         Get the co-occurrence matrix
@@ -85,7 +85,7 @@ class Extractive:
 
         sorted_list = sorted(list_of_words, key=lambda word: cos_dis(
             cooc[list_of_words.index(target_word), :], cooc[list_of_words.index(word), :]))
-        return sorted_list[0:n_keywords + 1]
+        return sorted_list[0:n_keyphrases + 1]
 
     @staticmethod
     def get_rake_keywords(
