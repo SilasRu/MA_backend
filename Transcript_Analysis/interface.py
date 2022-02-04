@@ -91,12 +91,12 @@ class Interface:
         }
 
     @staticmethod
-    def get_highlights(
+    def get_important_text_blocks(
         json_obj: dict,
         highlight_type: str,
     ) -> List[dict] or HTMLResponse:
         """
-        Get the highlights of the meeting based on different algorithms such as Louvain community detection or sentence weights
+        Get the important_text_blocks of the meeting based on different algorithms such as Louvain community detection or sentence weights
         """
         transcript = Transcript(json_obj['transcript'])
         transcript = Interface.apply_conditions(

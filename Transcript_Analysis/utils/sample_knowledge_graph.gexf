@@ -206,7 +206,7 @@
       <node id="structured  transcript" label="structured  transcript" />
       <node id="available  I" label="available  I" />
       <node id="third  which" label="third  which" />
-      <node id="highlights track" label="highlights track" />
+      <node id="important_text_blocks track" label="important_text_blocks track" />
       <node id="standard  methods" label="standard  methods" />
       <node id="Keywords" label="Keywords" />
       <node id="bit tf interview" label="bit tf interview" />
@@ -1513,7 +1513,7 @@
           <attvalue for="1" value="0" />
         </attvalues>
       </edge>
-      <edge source="third  which" target="highlights track" id="195">
+      <edge source="third  which" target="important_text_blocks track" id="195">
         <attvalues>
           <attvalue for="0" value="select in" />
           <attvalue for="1" value="0" />

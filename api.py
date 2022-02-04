@@ -72,13 +72,13 @@ async def get_statistics(
     return Interface.get_statistics(json_obj=json_obj)
 
 
-@app.post('/TranscriptAnalysis/highlights/')
-async def get_highlights(
+@app.post('/TranscriptAnalysis/important_text_blocks/')
+async def get_important_text_blocks(
     json_obj: dict,
     highlight_type: str,
     api_key: APIKey = Depends(get_api_key),
 ) -> List[Keyword] or HTMLResponse:
-    return Interface.get_highlights(
+    return Interface.get_important_text_blocks(
         json_obj=json_obj,
         highlight_type=highlight_type
     )
