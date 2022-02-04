@@ -93,7 +93,7 @@ class Interface:
     @staticmethod
     def get_important_text_blocks(
         json_obj: dict,
-        highlight_type: str,
+        type: str,
     ) -> List[dict] or HTMLResponse:
         """
         Get the important_text_blocks of the meeting based on different algorithms such as Louvain community detection or sentence weights
@@ -104,11 +104,11 @@ class Interface:
             end_times=json_obj['end_times'], speaker_ids=json_obj['speaker_ids']
         )
 
-        if highlight_type == "sentence_weights":
+        if type == "sentence_weights":
             return Extractive.get_sentence_weights(
                 transcript=transcript
             )
-        elif highlight_type == "topics_by_louvain":
+        elif type == "topics_by_louvain":
             return Extractive.get_louvain_topics_sentences(
                 transcript=transcript
             )
