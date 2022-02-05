@@ -1,5 +1,6 @@
+from decimal import DefaultContext
 from numpy.linalg import norm
-from typing import Any, List
+from typing import Any, DefaultDict, List
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -213,11 +214,21 @@ class Extractive:
         """
         Get certain statistics regarding the speakers and the whole utterances
         """
+
+        def get_time_for_all_speakers() -> float:
+            speakers_total_times = DefaultDict(lambda: 0)
+            for turn in transcript.turns:
+                speakers_total_times[turn.speaker_id] += turn.end_time - \
+                    turn.start_time
+            return speakers_total_times
+
         num_speakers = len(set([turn.speaker_id for turn in transcript.turns]))
         num_utterances = len(transcript)
+        speakers_total_times = get_time_for_all_speakers()
         return {
             'num_speakers': num_speakers,
-            'num_utterances': num_utterances
+            'num_utterances': num_utterances,
+            'speaker_times': speakers_total_times
         }
 
 

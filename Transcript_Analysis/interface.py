@@ -77,6 +77,7 @@ class Interface:
         """
         Get some descriptive statistics about the utterances being fed
         """
+        print(json_obj.keys())
         transcript = Transcript(json_obj['transcript'])
         transcript = Interface.apply_conditions(
             transcript=transcript, start_times=json_obj['start_times'],
@@ -84,6 +85,7 @@ class Interface:
         )
         topics = Abstractive.get_keybert_keywords(
             text=transcript.text, keyphrase_ngram_range=(0, 0), n_keyphrases=3)
+
         statistics = Extractive.get_statistics(transcript=transcript)
         return {
             'topics': topics,
