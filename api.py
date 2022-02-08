@@ -72,7 +72,7 @@ async def get_statistics(
     return Interface.get_statistics(json_obj=json_obj)
 
 
-@app.post('/TranscriptAnalysis/important_text_blocks/')
+@app.post('/TranscriptAnalysis/importantTextBlocks/')
 async def get_important_text_blocks(
     json_obj: dict,
     type: str,
