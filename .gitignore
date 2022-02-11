@@ -2,3 +2,7 @@
 **/__pycache__/
 tmp-01/**
 *.html
+transcript-analysis-0*/
+build/
+Transcript_Analysis.egg-info/
+Transcript_Analysis/Transcript_Analysis.egg-info/

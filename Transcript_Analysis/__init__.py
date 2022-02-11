@@ -1,5 +1,5 @@
 import os
-from Transcript_Analysis.utils.Autocomplete import Meeting_Autocomplete
+from Transcript_Analysis.data_types.Transcript import *
 import nltk
 
 
