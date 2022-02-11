@@ -13,5 +13,5 @@ setup(
     author_email='zhivarsourati@gmail.com',
     package_dir={'': '.'},
     packages=['Transcript_Analysis'],
-    install_requires=requirements
+    # install_requires=requirements
 )
