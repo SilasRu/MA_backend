@@ -1,10 +1,9 @@
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Any, List, Optional, Tuple
 import warnings
-from Transcript_Analysis.Output import *
 from Transcript_Analysis.interface import Interface
 from fastapi import Depends, FastAPI, HTTPException, Security
-from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
+from fastapi.security.api_key import APIKeyHeader, APIKey
 import json
 
 from fastapi.responses import HTMLResponse
@@ -77,7 +76,7 @@ async def get_important_text_blocks(
     json_obj: dict,
     type: str,
     api_key: APIKey = Depends(get_api_key),
-) -> List[Keyword] or HTMLResponse:
+) -> List[str] or HTMLResponse:
     return Interface.get_important_text_blocks(
         json_obj=json_obj,
         type=type
@@ -90,7 +89,7 @@ async def get_related_words(
     target_word: str,
     api_key: APIKey = Depends(get_api_key),
     n_keyphrases: Optional[int] = 0
-) -> List[Keyword]:
+) -> List[str]:
     return Interface.get_related_words(
         json_obj=json_obj,
         target_word=target_word,
