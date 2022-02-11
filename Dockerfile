@@ -10,10 +10,6 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
-RUN pip3 install --upgrade pip
-
-RUN pip install --upgrade pip setuptools wheel
-
 RUN pip install -r requirements.txt
 
 COPY . .
