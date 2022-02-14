@@ -5,13 +5,14 @@ from Transcript_Analysis.interface import Interface
 from fastapi import Depends, FastAPI, HTTPException, Security
 from fastapi.security.api_key import APIKeyHeader, APIKey
 import json
+import os
 
 from fastapi.responses import HTMLResponse
 
 warnings.filterwarnings("ignore")
 
-API_KEY = "bcqoieyqp98DAHJBABJBy3498ypiuqhriuqy984"
-API_KEY_NAME = "access_token"
+API_KEY = os.getenv('API_KEY')
+API_KEY_NAME = os.getenv('API_KEY_NAME')
 
 
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
