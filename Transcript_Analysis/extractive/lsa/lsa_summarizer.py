@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from __future__ import division, print_function, unicode_literals
 import math
 import numpy
+import nltk
 
 from warnings import warn
 from nltk.tokenize import sent_tokenize, word_tokenize
@@ -35,7 +36,6 @@ class LsaSummarizer(BaseSummarizer):
         sentences = sent_tokenize(document)
 
         matrix = self._create_matrix(document, dictionary)
-        print(matrix.shape)
         matrix = self._compute_term_frequency(matrix)
         u, sigma, v = singular_value_decomposition(matrix, full_matrices=False)
 

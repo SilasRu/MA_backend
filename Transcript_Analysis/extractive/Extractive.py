@@ -21,13 +21,17 @@ class Extractive:
     @staticmethod
     def get_lsa_sentences(
         transcript: Transcript,
-        n_sentences: int
+        n_keyphrases: int
     ) -> str:
+
+        n_keyphrases = 3 if n_keyphrases == None else n_keyphrases
         summarizer = LsaSummarizer()
+
         stopwords = Utils.load_stop_words()
         summarizer.stop_words = stopwords
+        summary = summarizer(transcript.text, n_keyphrases)
 
-        return summarizer(transcript.text, n_sentences)
+        return " ".join(summary)
 
     @staticmethod
     def get_related_words(

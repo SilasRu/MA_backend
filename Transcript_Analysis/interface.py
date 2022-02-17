@@ -70,7 +70,7 @@ class Interface:
         elif algorithm == "lsa":
             return Extractive.get_lsa_sentences(
                 transcript=transcript,
-                n_sentences=n_keyphrases
+                n_keyphrases=n_keyphrases
             )
         else:
             raise NotImplementedError
