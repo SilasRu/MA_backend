@@ -67,6 +67,11 @@ class Interface:
             return Abstractive.get_bart_summary(
                 text=transcript.text
             )
+        elif algorithm == "lsa":
+            return Extractive.get_lsa_sentences(
+                transcript=transcript,
+                n_sentences=n_keyphrases
+            )
         else:
             raise NotImplementedError
 

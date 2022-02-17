@@ -11,11 +11,23 @@ from fastapi.responses import HTMLResponse
 import yake
 from rake_nltk import Rake
 from nltk.tokenize import sent_tokenize
+from Transcript_Analysis.extractive.lsa.lsa_summarizer import LsaSummarizer
 
 from Transcript_Analysis.utils.Autocomplete import Meeting_Autocomplete
 
 
 class Extractive:
+
+    @staticmethod
+    def get_lsa_sentences(
+        transcript: Transcript,
+        n_sentences: int
+    ) -> str:
+        summarizer = LsaSummarizer()
+        stopwords = Utils.load_stop_words()
+        summarizer.stop_words = stopwords
+
+        return summarizer(transcript.text, n_sentences)
 
     @staticmethod
     def get_related_words(
