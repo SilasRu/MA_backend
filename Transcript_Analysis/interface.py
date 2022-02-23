@@ -69,7 +69,7 @@ class Interface:
             )
         elif algorithm == "lsa":
             return Extractive.get_lsa_sentences(
-                transcript=transcript,
+                text=transcript.text,
                 n_keyphrases=n_keyphrases
             )
         else:
@@ -137,7 +137,7 @@ class Interface:
             end_times=json_obj['end_times'], speaker_ids=json_obj['speaker_ids']
         )
         return Extractive.get_related_words(
-            transcript=transcript,
+            text=transcript.text,
             target_word=target_word,
             n_keyphrases=n_keyphrases
         )

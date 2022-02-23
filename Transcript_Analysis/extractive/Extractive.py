@@ -20,7 +20,7 @@ class Extractive:
 
     @staticmethod
     def get_lsa_sentences(
-        transcript: Transcript,
+        text: str,
         n_keyphrases: int
     ) -> str:
 
@@ -29,20 +29,20 @@ class Extractive:
 
         stopwords = Utils.load_stop_words()
         summarizer.stop_words = stopwords
-        summary = summarizer(transcript.text, n_keyphrases)
+        summary = summarizer(text, n_keyphrases)
 
         return " ".join(summary)
 
     @staticmethod
     def get_related_words(
-        transcript: Transcript,
+        text: str,
         target_word: str,
         n_keyphrases: int
     ) -> List:
 
         n_keyphrases = 5 if n_keyphrases == 0 else n_keyphrases
 
-        autocomplete_obj = Meeting_Autocomplete(transcript=transcript)
+        autocomplete_obj = Meeting_Autocomplete(text=text)
         autocomplete_results = autocomplete_obj.search(
             query=target_word, size_of_results=n_keyphrases)
         print('**' * 10)
@@ -52,7 +52,7 @@ class Extractive:
             print(target_word)
             print('*' * 10)
             return Extractive.get_related_words_cooc_matrix(
-                transcript=transcript,
+                text=text,
                 target_word=target_word,
                 n_keyphrases=n_keyphrases
             )
@@ -66,7 +66,7 @@ class Extractive:
 
     @staticmethod
     def get_related_words_cooc_matrix(
-        transcript: Transcript,
+        text: str,
         target_word: str,
         n_keyphrases: int
     ) -> np.array:
@@ -83,7 +83,6 @@ class Extractive:
                     if index1 != index2 and abs(i - j) <= window_size:
                         cooc[index1, index2] += 1
 
-        text = '.'.join([turn.text for turn in transcript.turns])
         stop_words = Utils.load_stop_words()
         text = ' '.join([word for word in text.split()
                         if word not in stop_words])

@@ -1,7 +1,6 @@
 import os
-
-from matplotlib.pyplot import quiver
 from Transcript_Analysis.data_types.Transcript import *
+# from Transcript_Analysis.extractive.Extractive import
 import nltk
 
 

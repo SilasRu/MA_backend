@@ -55,8 +55,9 @@ class Utils:
         sp = spacy.load('en_core_web_sm')
         spacy_stopwords = sp.Defaults.stop_words
         en_stop = set(nltk.corpus.stopwords.words('english'))
-        file_path = 'Transcript_Analysis/utils/stopwords.txt'
-        with open(file_path, 'r') as f:
+        dirname = os.path.dirname(__file__)
+        filename = 'stopwords.txt'
+        with open(os.path.join(dirname, filename), 'r') as f:
             stop_words = set(f.read().strip().split('\n'))
             f.close()
         stop_words = set.union(en_stop, stop_words)

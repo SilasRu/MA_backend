@@ -1,4 +1,4 @@
-from tracemalloc import stop
+from distutils import text_file
 from typing import List
 import pandas as pd
 from sentence_transformers import SentenceTransformer, util
@@ -7,16 +7,27 @@ import torch as th
 import networkx as nx
 from sklearn.preprocessing import normalize
 from rouge_score import rouge_scorer
+from nltk.tokenize import sent_tokenize
 
 
-def get_text(
+def get_utterances(
     path: str = '/Users/user/Documents/dialogue_summarization/transcriptsforkeyphraseextraction/2021-07-12 14.35.38 Interscriber Wrapup.m4a.csv'
 ) -> List[str]:
     df = pd.read_csv(path)
     return df['Utterance'].tolist()
 
 
-def get_sentence_embedding(sentences: List[str]) -> np.array:
+def get_sentences(
+    text: str,
+    min_sent_length: int = 20
+) -> List[str]:
+    sentences = sent_tokenize(text)
+    sentences = [sent for sent in sentences if len(
+        sent.split()) > min_sent_length]
+    return sentences
+
+
+def get_sentence_embedding(sentences: List[str] or str) -> np.array:
     checkpoint = 'sentence-transformers/all-mpnet-base-v2'
     model = SentenceTransformer(checkpoint)
     embeddings = model.encode(sentences=sentences)
@@ -46,7 +57,15 @@ def create_sentences_graph(similarity_matrix: np.array, embeddings: np.array) ->
     return g
 
 
-def get_max_flow(g: nx.DiGraph): raise NotImplementedError
+def get_tf_idf_keywords(sentences):
+    from sklearn.feature_extraction.text import TfidfVectorizer
+
+    vectorizer = TfidfVectorizer(min_df=3, stop_words='english')
+    X = vectorizer.fit_transform(sentences)
+    return X
+
+
+def get_graph_centralities(g: nx.DiGraph): pass
 
 
 def get_sentence_scores(g: nx.DiGraph, lambda_1: float = 1, lambda_2: float = 1) -> List[float]:
@@ -64,36 +83,27 @@ def get_sentence_scores(g: nx.DiGraph, lambda_1: float = 1, lambda_2: float = 1)
 
 
 def get_top_sentences(sentence_scores: List[float], num_sentences: int = 5) -> List[int]:
-    top_indices = np.argsort(sentence_scores)[:num_sentences]
+    top_indices = np.argsort(sentence_scores)[::-1][:num_sentences]
     return sorted(top_indices)
 
 
-reference_summary = 'Templates Brief Summary of the dialogues Voice activity detection Interscriber  Dynatrace User behavior Replay the session of user Swiss-german Demo Exhibition in September Increasing estimated transcription time Preparing for the industry day Transcript explorer Expensive invoice Someone to generate the summaries Unexpected different stuff in cloud computing exam Rule-based system for looking at particular segments of the meeting in more detail Detect main decisions in a meeting'
-
-if __name__ == "__main__":
-    results_df = pd.DataFrame()
-    scorer = rouge_scorer.RougeScorer(
-        ['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
-    sentences = get_text()
+def get_summary(text_file_path: str = None):
+    if text_file_path != None:
+        utterances = get_utterances(text_file_path)
+    else:
+        utterances = get_utterances()
+    text = ' '.join(utterances)
+    sentences = get_sentences(text)
     embeddings = get_sentence_embedding(sentences)
     similarity_matrix = get_similarity_matrix(embeddings)
     g = create_sentences_graph(
         similarity_matrix=similarity_matrix, embeddings=embeddings)
-    values_for_lambda_1 = np.linspace(start=-1, stop=1, num=10)
-    values_for_lambda_2 = np.linspace(start=-1, stop=1, num=10)
-    for lambda_1 in values_for_lambda_1:
-        for lambda_2 in values_for_lambda_2:
-            sentence_scores = get_sentence_scores(
-                g, lambda_1=lambda_1, lambda_2=lambda_2)
-            sorted_indices = get_top_sentences(sentence_scores)
-            summary = '. '.join([sentences[index] for index in sorted_indices])
-            scores = scorer.score(reference_summary, summary)
-            results_df = results_df.append({
-                "lambda_1": lambda_1,
-                "lambda_2": lambda_2,
-                "rouge1": scores['rouge1'].fmeasure,
-                "rouge2": scores['rouge2'].fmeasure,
-                "rougeL": scores['rougeL'].fmeasure,
-            }, ignore_index=True)
-    results_df.sort_values(by=['rouge1', 'rouge2', 'rougeL'], inplace=True)
-    results_df.to_csv('results.csv', index=False)
+    sentence_scores = get_sentence_scores(g)
+    sorted_indices = get_top_sentences(sentence_scores)
+
+    summary = '\n'.join([sentences[index] for index in sorted_indices])
+    return summary
+
+
+if __name__ == "__main__":
+    get_summary()

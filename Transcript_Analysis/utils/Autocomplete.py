@@ -9,8 +9,8 @@ from Transcript_Analysis.utils.utils import Utils
 
 class Meeting_Autocomplete:
 
-    def __init__(self, transcript: Transcript) -> None:
-        text = transcript.text
+    def __init__(self, text: str) -> None:
+        text = text
         text = Utils.remove_punct(text)
 
         vocab = Counter(set(text.split()))

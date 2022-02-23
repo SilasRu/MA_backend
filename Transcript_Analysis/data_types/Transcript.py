@@ -33,7 +33,8 @@ class Turn:
         self.start_time = turn_obj['attrs']['startTime']
         self.end_time = turn_obj['attrs']['endTime']
         for word_obj in turn_obj['content']:
-            self.words.append(Word(word_obj))
+            if word_obj['attrs']['type'] == 'WORD':
+                self.words.append(Word(word_obj))
 
     @property
     def text(self):

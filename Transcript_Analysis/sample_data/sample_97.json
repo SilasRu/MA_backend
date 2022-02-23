@@ -1,1 +1,621 @@
-{"type": "doc", "content": [{"type": "transcription", "content": [{"type": "speaker_frame", "attrs": {"startTime": 0.0, "endTime": 17.5, "speakerId": 1, "parallel": false}, "content": [{"type": "phrase", "attrs": {"confidence": 0.75368696, "startTime": 0.0, "endTime": 1.4, "type": "WORD"}, "content": [{"type": "text", "text": "Weil "}]}, {"type": "phrase", "attrs": {"confidence": 0.75368685, "startTime": 1.4, "endTime": 1.6, "type": "WORD"}, "content": [{"type": "text", "text": "der "}]}, {"type": "phrase", "attrs": {"confidence": 0.90543896, "startTime": 1.6, "endTime": 2.0, "type": "WORD"}, "content": [{"type": "text", "text": "niedrige "}]}, {"type": "phrase", "attrs": {"confidence": 0.9178017, "startTime": 2.0, "endTime": 3.0, "type": "WORD"}, "content": [{"type": "text", "text": "Rheinpegel "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 3.0, "endTime": 3.7, "type": "WORD"}, "content": [{"type": "text", "text": "andauert "}]}, {"type": "phrase", "attrs": {"confidence": 0.73874724, "startTime": 3.7, "endTime": 4.2, "type": "WORD"}, "content": [{"type": "text", "text": "rechnen "}]}, {"type": "phrase", "attrs": {"confidence": 0.75393945, "startTime": 4.2, "endTime": 4.3, "type": "WORD"}, "content": [{"type": "text", "text": "die "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 4.3, "endTime": 4.301, "type": "WORD"}, "content": [{"type": "text", "text": "Experten "}]}, {"type": "phrase", "attrs": {"confidence": 0.8137811, "startTime": 4.3, "endTime": 5.6, "type": "WORD"}, "content": [{"type": "text", "text": "auch "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 5.6, "endTime": 5.8, "type": "WORD"}, "content": [{"type": "text", "text": "in "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 5.8, "endTime": 5.9, "type": "WORD"}, "content": [{"type": "text", "text": "den "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 5.9, "endTime": 6.2, "type": "WORD"}, "content": [{"type": "text", "text": "n\\u00e4chsten "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 6.2, "endTime": 6.3, "type": "WORD"}, "content": [{"type": "text", "text": "Tagen "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 6.3, "endTime": 6.7, "type": "WORD"}, "content": [{"type": "text", "text": "mit "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 6.7, "endTime": 7.0, "type": "WORD"}, "content": [{"type": "text", "text": "Lieferproblemen "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 7.0, "endTime": 8.0, "type": "WORD"}, "content": [{"type": "text", "text": "so "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 8.0, "endTime": 8.3, "type": "WORD"}, "content": [{"type": "text", "text": "schlimm "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 8.3, "endTime": 8.4, "type": "WORD"}, "content": [{"type": "text", "text": "wie "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 8.4, "endTime": 8.5, "type": "WORD"}, "content": [{"type": "text", "text": "in "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 8.5, "endTime": 8.8, "type": "WORD"}, "content": [{"type": "text", "text": "England "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 8.8, "endTime": 9.2, "type": "WORD"}, "content": [{"type": "text", "text": "soll "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 9.2, "endTime": 9.3, "type": "WORD"}, "content": [{"type": "text", "text": "es "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 9.3, "endTime": 9.4, "type": "WORD"}, "content": [{"type": "text", "text": "aber "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 9.4, "endTime": 9.7, "type": "WORD"}, "content": [{"type": "text", "text": "nicht "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 9.7, "endTime": 10.1, "type": "WORD"}, "content": [{"type": "text", "text": "werden, "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 10.1, "endTime": 11.2, "type": "WORD"}, "content": [{"type": "text", "text": "wo "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 11.2, "endTime": 11.3, "type": "WORD"}, "content": [{"type": "text", "text": "die "}]}, {"type": "phrase", "attrs": {"confidence": 0.8262817, "startTime": 11.3, "endTime": 11.9, "type": "WORD"}, "content": [{"type": "text", "text": "Tankstellen "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 11.9, "endTime": 12.8, "type": "WORD"}, "content": [{"type": "text", "text": "regelrecht "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 12.8, "endTime": 13.5, "type": "WORD"}, "content": [{"type": "text", "text": "ausgetrocknet "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 13.5, "endTime": 13.6, "type": "WORD"}, "content": [{"type": "text", "text": "sind "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 13.6, "endTime": 14.5, "type": "WORD"}, "content": [{"type": "text", "text": "die "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 14.5, "endTime": 14.7, "type": "WORD"}, "content": [{"type": "text", "text": "Engp\\u00e4sse "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 14.7, "endTime": 15.1, "type": "WORD"}, "content": [{"type": "text", "text": "in "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 15.1, "endTime": 15.6, "type": "WORD"}, "content": [{"type": "text", "text": "Deutschland "}]}, {"type": "phrase", "attrs": {"confidence": 0.6932272, "startTime": 15.6, "endTime": 15.8, "type": "WORD"}, "content": [{"type": "text", "text": "werden "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 15.8, "endTime": 16.0, "type": "WORD"}, "content": [{"type": "text", "text": "jeweils "}]}, {"type": "phrase", "attrs": {"confidence": 0.86080307, "startTime": 16.0, "endTime": 16.3, "type": "WORD"}, "content": [{"type": "text", "text": "nur "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 16.3, "endTime": 16.9, "type": "WORD"}, "content": [{"type": "text", "text": "tempor\\u00e4r "}]}, {"type": "phrase", "attrs": {"confidence": 0.91906416, "startTime": 16.9, "endTime": 17.5, "type": "WORD"}, "content": [{"type": "text", "text": "andauern."}]}]}]}]}
+{
+    "type": "doc",
+    "content": [
+        {
+            "type": "transcription",
+            "content": [
+                {
+                    "type": "speaker_frame",
+                    "attrs": {
+                        "startTime": 0.0,
+                        "endTime": 17.5,
+                        "speakerId": 1,
+                        "parallel": false
+                    },
+                    "content": [
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.75368696,
+                                "startTime": 0.0,
+                                "endTime": 1.4,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Weil "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.75368685,
+                                "startTime": 1.4,
+                                "endTime": 1.6,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "der "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.90543896,
+                                "startTime": 1.6,
+                                "endTime": 2.0,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "niedrige "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.9178017,
+                                "startTime": 2.0,
+                                "endTime": 3.0,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Rheinpegel "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 3.0,
+                                "endTime": 3.7,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "andauert "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.73874724,
+                                "startTime": 3.7,
+                                "endTime": 4.2,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "rechnen "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.75393945,
+                                "startTime": 4.2,
+                                "endTime": 4.3,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "die "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 4.3,
+                                "endTime": 4.301,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Experten "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8137811,
+                                "startTime": 4.3,
+                                "endTime": 5.6,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "auch "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 5.6,
+                                "endTime": 5.8,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "in "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 5.8,
+                                "endTime": 5.9,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "den "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 5.9,
+                                "endTime": 6.2,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "n\\u00e4chsten "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 6.2,
+                                "endTime": 6.3,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Tagen "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 6.3,
+                                "endTime": 6.7,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "mit "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 6.7,
+                                "endTime": 7.0,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Lieferproblemen "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 7.0,
+                                "endTime": 8.0,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "so "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 8.0,
+                                "endTime": 8.3,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "schlimm "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 8.3,
+                                "endTime": 8.4,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "wie "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 8.4,
+                                "endTime": 8.5,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "in "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 8.5,
+                                "endTime": 8.8,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "England "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 8.8,
+                                "endTime": 9.2,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "soll "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 9.2,
+                                "endTime": 9.3,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "es "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 9.3,
+                                "endTime": 9.4,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "aber "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 9.4,
+                                "endTime": 9.7,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "nicht "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 9.7,
+                                "endTime": 10.1,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "werden, "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 10.1,
+                                "endTime": 11.2,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "wo "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 11.2,
+                                "endTime": 11.3,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "die "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8262817,
+                                "startTime": 11.3,
+                                "endTime": 11.9,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Tankstellen "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 11.9,
+                                "endTime": 12.8,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "regelrecht "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 12.8,
+                                "endTime": 13.5,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "ausgetrocknet "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 13.5,
+                                "endTime": 13.6,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "sind "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 13.6,
+                                "endTime": 14.5,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "die "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 14.5,
+                                "endTime": 14.7,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Engp\\u00e4sse "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 14.7,
+                                "endTime": 15.1,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "in "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 15.1,
+                                "endTime": 15.6,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Deutschland "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.6932272,
+                                "startTime": 15.6,
+                                "endTime": 15.8,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "werden "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 15.8,
+                                "endTime": 16.0,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "jeweils "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.86080307,
+                                "startTime": 16.0,
+                                "endTime": 16.3,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "nur "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 16.3,
+                                "endTime": 16.9,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "tempor\\u00e4r "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.91906416,
+                                "startTime": 16.9,
+                                "endTime": 17.5,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "andauern."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
