@@ -8,6 +8,7 @@ import networkx as nx
 from sklearn.preprocessing import normalize
 from rouge_score import rouge_scorer
 from nltk.tokenize import sent_tokenize
+from tqdm.auto import tqdm
 
 
 def get_utterances(
@@ -32,6 +33,36 @@ def get_sentence_embedding(sentences: List[str] or str) -> np.array:
     model = SentenceTransformer(checkpoint)
     embeddings = model.encode(sentences=sentences)
     return embeddings
+
+
+def get_text_embedding(text: str):
+
+    from transformers import BartTokenizer, BartModel
+
+    tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
+    model = BartModel.from_pretrained(
+        "facebook/bart-large", output_hidden_states=True)
+
+    def get_chunks(text, max_len=800):
+        tokenized_sents = text.split()
+        length = len(tokenized_sents)
+        tokenized_sents_chunks = [' '.join(tokenized_sents[i:min(
+            length, i + max_len)]) for i in range(0, length, max_len)]
+        return tokenized_sents_chunks
+
+    def get_last_hidden_state(text):
+        inputs = tokenizer(text, return_tensors='pt',
+                           add_special_tokens=False, padding='max_length')
+        outputs = model(**inputs)
+        return outputs.last_hidden_state.squeeze().cpu().detach().numpy()
+
+    chunks = get_chunks(text)
+    last_hiddent_states = np.zeros((len(chunks), 1024, 1024))
+    for i, chunk in tqdm(enumerate(chunks)):
+        last_hiddent_states[i] = get_last_hidden_state(chunk)
+
+    mean_hidden_state = np.mean(np.mean(last_hiddent_states, axis=1), axis=0)
+    return mean_hidden_state
 
 
 def get_similarity_matrix(embeddings: np.array, do_normalize: bool = True) -> np.array:
@@ -106,4 +137,11 @@ def get_summary(text_file_path: str = None):
 
 
 if __name__ == "__main__":
-    get_summary()
+    # get_summary()
+
+    utterances = get_utterances()
+    text = ' '.join(utterances)
+    text = ' '.join(get_sentences(text))
+
+    text_embedding = get_text_embedding(text)
+    breakpoint()

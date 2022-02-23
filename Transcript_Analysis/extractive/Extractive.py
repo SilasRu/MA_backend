@@ -157,7 +157,7 @@ class Extractive:
 
     @staticmethod
     def get_sentence_weights(
-        transcript: Transcript
+        transcript: Transcript or str
     ) -> List[dict]:
         dt = DialogueTranscript(
             csv_file=None,
@@ -176,11 +176,18 @@ class Extractive:
 
     @staticmethod
     def get_frequent_keywords(
-        transcript: Transcript
+        transcript: Transcript or str
     ) -> List[dict]:
+        if isinstance(transcript, Transcript):
+            source_dataframe = transcript.df
+        elif isinstance(transcript, str):
+            source_dataframe = Utils.text2df(transcript)
+        else:
+            print('Instance provided by user to the function is not supported!')
+            exit(1)
         dt = DialogueTranscript(
             csv_file=None,
-            source_dataframe=transcript.df
+            source_dataframe=source_dataframe
         )
         dt.filter_backchannels()
         dt.count_keywords()
@@ -196,12 +203,18 @@ class Extractive:
 
     @staticmethod
     def get_louvain_topics_sentences(
-        transcript: Transcript
+        transcript: Transcript or str
     ) -> HTMLResponse:
-
+        if isinstance(transcript, Transcript):
+            source_dataframe = transcript.df
+        elif isinstance(transcript, str):
+            source_dataframe = Utils.text2df(transcript)
+        else:
+            print('Instance provided by user to the function is not supported!')
+            exit(1)
         dt = DialogueTranscript(
             csv_file=None,
-            source_dataframe=transcript.df
+            source_dataframe=source_dataframe
         )
 
         dt.filter_backchannels()

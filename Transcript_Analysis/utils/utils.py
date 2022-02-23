@@ -1,6 +1,7 @@
 from typing import List, Tuple, Set
 from sentence_transformers.SentenceTransformer import SentenceTransformer
 from transformers import pipeline
+import pandas as pd
 import numpy as np
 import re
 import os
@@ -11,6 +12,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from Transcript_Analysis.utils.network_backbone import *
 import networkx as nx
 from rouge_score import rouge_scorer
+from nltk.tokenize import sent_tokenize
 
 
 class Utils:
@@ -19,6 +21,17 @@ class Utils:
 
     def __init__(self) -> None:
         pass
+
+    @staticmethod
+    def text2df(text: str) -> pd.DataFrame:
+        df = pd.DataFrame()
+        sentences = sent_tokenize(text)
+        for sent in sentences:
+            df = df.append({
+                'Utterance': sent,
+                'Speaker': None
+            }, ignore_index=True)
+        return df
 
     @staticmethod
     def sentence_to_wordlist(raw: str):

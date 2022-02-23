@@ -1,1 +1,943 @@
-{"type": "doc", "content": [{"type": "transcription", "content": [{"type": "speaker_frame", "attrs": {"startTime": 0.0, "endTime": 7.5, "speakerId": 106, "parallel": false}, "content": [{"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 0.0, "endTime": 3.31, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.372320324, "startTime": 3.31, "endTime": 4.08, "type": "WORD"}, "content": [{"type": "text", "text": "Mary. "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 4.08, "endTime": 5.47, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 5.47, "endTime": 6.22, "type": "WORD"}, "content": [{"type": "text", "text": "Hawaii. "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 6.22, "endTime": 7.5, "type": "PAUSE"}, "content": [{"type": "text", "text": " "}]}]}, {"type": "speaker_frame", "attrs": {"startTime": 7.5, "endTime": 16.55, "speakerId": 105, "parallel": false}, "content": [{"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 7.5, "endTime": 7.96, "type": "WORD"}, "content": [{"type": "text", "text": "Thompson "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 7.96, "endTime": 7.97, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 7.97, "endTime": 8.4, "type": "WORD"}, "content": [{"type": "text", "text": "Resource "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 8.4, "endTime": 8.41, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 8.41, "endTime": 8.86, "type": "WORD"}, "content": [{"type": "text", "text": "Manager "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 8.86, "endTime": 9.33, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 9.33, "endTime": 9.68, "type": "WORD"}, "content": [{"type": "text", "text": "Hi "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 9.68, "endTime": 9.69, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 9.69, "endTime": 9.84, "type": "WORD"}, "content": [{"type": "text", "text": "I'm "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 9.84, "endTime": 9.85, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 9.85, "endTime": 10.13, "type": "WORD"}, "content": [{"type": "text", "text": "Mary "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 10.13, "endTime": 10.14, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 10.14, "endTime": 10.92, "type": "WORD"}, "content": [{"type": "text", "text": "Hanson. "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 10.92, "endTime": 10.93, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 10.93, "endTime": 11.05, "type": "WORD"}, "content": [{"type": "text", "text": "I'm "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 11.05, "endTime": 11.06, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 11.06, "endTime": 11.47, "type": "WORD"}, "content": [{"type": "text", "text": "applying "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 11.47, "endTime": 11.48, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 11.48, "endTime": 11.59, "type": "WORD"}, "content": [{"type": "text", "text": "for "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 11.59, "endTime": 11.6, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 11.6, "endTime": 11.72, "type": "WORD"}, "content": [{"type": "text", "text": "one "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 11.72, "endTime": 11.73, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 11.73, "endTime": 11.82, "type": "WORD"}, "content": [{"type": "text", "text": "of "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 11.82, "endTime": 11.83, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 11.83, "endTime": 11.96, "type": "WORD"}, "content": [{"type": "text", "text": "your "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 11.96, "endTime": 11.97, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 11.97, "endTime": 12.34, "type": "WORD"}, "content": [{"type": "text", "text": "kitchen "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 12.34, "endTime": 12.35, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 12.35, "endTime": 13.17, "type": "WORD"}, "content": [{"type": "text", "text": "jobs. "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 13.17, "endTime": 13.7, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 13.7, "endTime": 14.0, "type": "WORD"}, "content": [{"type": "text", "text": "Here's "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 14.0, "endTime": 14.01, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 14.01, "endTime": 14.08, "type": "WORD"}, "content": [{"type": "text", "text": "a "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 14.08, "endTime": 14.09, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 14.09, "endTime": 14.48, "type": "WORD"}, "content": [{"type": "text", "text": "copy "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 14.48, "endTime": 14.49, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 14.49, "endTime": 14.6, "type": "WORD"}, "content": [{"type": "text", "text": "of "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 14.6, "endTime": 14.61, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 14.61, "endTime": 14.74, "type": "WORD"}, "content": [{"type": "text", "text": "my "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 14.74, "endTime": 14.75, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 14.75, "endTime": 15.42, "type": "WORD"}, "content": [{"type": "text", "text": "resume "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 15.42, "endTime": 15.82, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 15.82, "endTime": 16.3, "type": "WORD"}, "content": [{"type": "text", "text": "great "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 16.3, "endTime": 16.31, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 16.31, "endTime": 16.46, "type": "WORD"}, "content": [{"type": "text", "text": "have "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 16.46, "endTime": 16.47, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 16.47, "endTime": 16.54, "type": "WORD"}, "content": [{"type": "text", "text": "a. "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 16.54, "endTime": 16.55, "type": "PAUSE"}, "content": [{"type": "text", "text": " "}]}]}, {"type": "speaker_frame", "attrs": {"startTime": 16.55, "endTime": 17.93, "speakerId": 106, "parallel": false}, "content": [{"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 16.55, "endTime": 16.81, "type": "WORD"}, "content": [{"type": "text", "text": "Seat "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 16.81, "endTime": 16.82, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 16.82, "endTime": 17.08, "type": "WORD"}, "content": [{"type": "text", "text": "Mary. "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 17.08, "endTime": 17.09, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 17.09, "endTime": 17.38, "type": "WORD"}, "content": [{"type": "text", "text": "Thank "}]}, {"type": "phrase", "attrs": {"confidence": 1.0, "startTime": 17.38, "endTime": 17.39, "type": "PAUSE"}, "content": [{"type": "text", "text": "  "}]}, {"type": "phrase", "attrs": {"confidence": 0.8688667, "startTime": 17.39, "endTime": 17.93, "type": "WORD"}, "content": [{"type": "text", "text": "you."}]}]}]}]}
+{
+    "type": "doc",
+    "content": [
+        {
+            "type": "transcription",
+            "content": [
+                {
+                    "type": "speaker_frame",
+                    "attrs": {
+                        "startTime": 0.0,
+                        "endTime": 7.5,
+                        "speakerId": 106,
+                        "parallel": false
+                    },
+                    "content": [
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 0.0,
+                                "endTime": 3.31,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.372320324,
+                                "startTime": 3.31,
+                                "endTime": 4.08,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Mary. "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 4.08,
+                                "endTime": 5.47,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 5.47,
+                                "endTime": 6.22,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Hawaii. "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 6.22,
+                                "endTime": 7.5,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": " "
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "speaker_frame",
+                    "attrs": {
+                        "startTime": 7.5,
+                        "endTime": 16.55,
+                        "speakerId": 105,
+                        "parallel": false
+                    },
+                    "content": [
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 7.5,
+                                "endTime": 7.96,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Thompson "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 7.96,
+                                "endTime": 7.97,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 7.97,
+                                "endTime": 8.4,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Resource "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 8.4,
+                                "endTime": 8.41,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 8.41,
+                                "endTime": 8.86,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Manager "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 8.86,
+                                "endTime": 9.33,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 9.33,
+                                "endTime": 9.68,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Hi "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 9.68,
+                                "endTime": 9.69,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 9.69,
+                                "endTime": 9.84,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "I'm "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 9.84,
+                                "endTime": 9.85,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 9.85,
+                                "endTime": 10.13,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Mary "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 10.13,
+                                "endTime": 10.14,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 10.14,
+                                "endTime": 10.92,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Hanson. "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 10.92,
+                                "endTime": 10.93,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 10.93,
+                                "endTime": 11.05,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "I'm "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 11.05,
+                                "endTime": 11.06,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 11.06,
+                                "endTime": 11.47,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "applying "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 11.47,
+                                "endTime": 11.48,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 11.48,
+                                "endTime": 11.59,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "for "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 11.59,
+                                "endTime": 11.6,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 11.6,
+                                "endTime": 11.72,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "one "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 11.72,
+                                "endTime": 11.73,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 11.73,
+                                "endTime": 11.82,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "of "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 11.82,
+                                "endTime": 11.83,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 11.83,
+                                "endTime": 11.96,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "your "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 11.96,
+                                "endTime": 11.97,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 11.97,
+                                "endTime": 12.34,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "kitchen "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 12.34,
+                                "endTime": 12.35,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 12.35,
+                                "endTime": 13.17,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "jobs. "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 13.17,
+                                "endTime": 13.7,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 13.7,
+                                "endTime": 14.0,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Here's "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 14.0,
+                                "endTime": 14.01,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 14.01,
+                                "endTime": 14.08,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "a "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 14.08,
+                                "endTime": 14.09,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 14.09,
+                                "endTime": 14.48,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "copy "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 14.48,
+                                "endTime": 14.49,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 14.49,
+                                "endTime": 14.6,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "of "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 14.6,
+                                "endTime": 14.61,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 14.61,
+                                "endTime": 14.74,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "my "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 14.74,
+                                "endTime": 14.75,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 14.75,
+                                "endTime": 15.42,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "resume "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 15.42,
+                                "endTime": 15.82,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 15.82,
+                                "endTime": 16.3,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "great "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 16.3,
+                                "endTime": 16.31,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 16.31,
+                                "endTime": 16.46,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "have "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 16.46,
+                                "endTime": 16.47,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 16.47,
+                                "endTime": 16.54,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "a. "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 16.54,
+                                "endTime": 16.55,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": " "
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "speaker_frame",
+                    "attrs": {
+                        "startTime": 16.55,
+                        "endTime": 17.93,
+                        "speakerId": 106,
+                        "parallel": false
+                    },
+                    "content": [
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 16.55,
+                                "endTime": 16.81,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Seat "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 16.81,
+                                "endTime": 16.82,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 16.82,
+                                "endTime": 17.08,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Mary. "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 17.08,
+                                "endTime": 17.09,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 17.09,
+                                "endTime": 17.38,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Thank "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 1.0,
+                                "startTime": 17.38,
+                                "endTime": 17.39,
+                                "type": "PAUSE"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "  "
+                                }
+                            ]
+                        },
+                        {
+                            "type": "phrase",
+                            "attrs": {
+                                "confidence": 0.8688667,
+                                "startTime": 17.39,
+                                "endTime": 17.93,
+                                "type": "WORD"
+                            },
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "you."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
