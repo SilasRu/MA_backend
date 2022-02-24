@@ -37,12 +37,6 @@ def get_sentence_embedding(sentences: List[str] or str) -> np.array:
 
 def get_text_embedding(text: str):
 
-    from transformers import BartTokenizer, BartModel
-
-    tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
-    model = BartModel.from_pretrained(
-        "facebook/bart-large", output_hidden_states=True)
-
     def get_chunks(text, max_len=800):
         tokenized_sents = text.split()
         length = len(tokenized_sents)
@@ -52,17 +46,16 @@ def get_text_embedding(text: str):
 
     def get_last_hidden_state(text):
         inputs = tokenizer(text, return_tensors='pt',
-                           add_special_tokens=False, padding='max_length')
+                           add_special_tokens=False)
         outputs = model(**inputs)
         return outputs.last_hidden_state.squeeze().cpu().detach().numpy()
 
     chunks = get_chunks(text)
-    last_hiddent_states = np.zeros((len(chunks), 1024, 1024))
-    for i, chunk in tqdm(enumerate(chunks)):
-        last_hiddent_states[i] = get_last_hidden_state(chunk)
+    last_hidden_states = np.zeros((len(chunks), 1024))
+    for i, chunk in tqdm(enumerate(chunks), leave=False):
+        last_hidden_states[i] = np.mean(get_last_hidden_state(chunk), axis=0)
 
-    mean_hidden_state = np.mean(np.mean(last_hiddent_states, axis=1), axis=0)
-    return mean_hidden_state
+    return np.mean(last_hidden_states, axis=0)
 
 
 def get_similarity_matrix(embeddings: np.array, do_normalize: bool = True) -> np.array:
@@ -73,6 +66,10 @@ def get_similarity_matrix(embeddings: np.array, do_normalize: bool = True) -> np
         similarity_matrix = normalize(similarity_matrix)
     np.fill_diagonal(similarity_matrix, 0)
     return similarity_matrix
+
+
+def get_similarity_score(a, b):
+    return util.dot_score(th.Tensor(a), th.Tensor(b)).numpy()
 
 
 def create_sentences_graph(similarity_matrix: np.array, embeddings: np.array) -> nx.DiGraph:
@@ -118,7 +115,11 @@ def get_top_sentences(sentence_scores: List[float], num_sentences: int = 5) -> L
     return sorted(top_indices)
 
 
-def get_summary(text_file_path: str = None):
+def get_summary_v1(text_file_path: str = None):
+    """
+    In this algorithm the sentence embeddings of the sentences are computed and then with the similarity between them as edges of a graph
+    the most central nodes which are the central sentences are picked to generate the summary
+    """
     if text_file_path != None:
         utterances = get_utterances(text_file_path)
     else:
@@ -136,12 +137,39 @@ def get_summary(text_file_path: str = None):
     return summary
 
 
+def get_summary_v2():
+    """
+    First the embedding of the whole text which consists of chunks are gathered and then all of them are fed through a AVG pooling layer.
+    The same thing is done for all the sentences and then getting the similarity between sentences and the summary itself the most similar sentences are picked to be shown as the summary
+    """
+    from transformers import BartTokenizer, BartModel
+
+    tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
+    model = BartModel.from_pretrained(
+        "facebook/bart-large", output_hidden_states=True)
+
+    text = ' '.join(get_utterances())
+    sentences = get_sentences(text)
+    text = ' '.join(sentences)
+
+    all_embeddings = np.zeros((len(sentences) + 1, 1024))
+
+    all_embeddings[0] = get_text_embedding(text)
+    for i, sent in tqdm(enumerate(sentences), leave=False):
+        all_embeddings[i + 1] = get_text_embedding(sent)
+
+    from sklearn import preprocessing
+    scaler = preprocessing.StandardScaler()
+
+    X = scaler.fit_transform(all_embeddings)
+
+    similarity_scores = []
+    for embd in all_embeddings[1:]:
+        similarity_scores.append(
+            get_similarity_score(embd, all_embeddings[0])[0][0])
+
+    similarity_scores_indices = np.argsort(similarity_scores)[::-1]
+    return [sentences[i] for i in sorted(similarity_scores_indices[:10])]
+
+
 if __name__ == "__main__":
-    # get_summary()
-
-    utterances = get_utterances()
-    text = ' '.join(utterances)
-    text = ' '.join(get_sentences(text))
-
-    text_embedding = get_text_embedding(text)
-    breakpoint()
