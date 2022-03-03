@@ -6,7 +6,6 @@ import numpy as np
 import torch as th
 import networkx as nx
 from sklearn.preprocessing import normalize
-from rouge_score import rouge_scorer
 from nltk.tokenize import sent_tokenize
 from tqdm.auto import tqdm
 
@@ -173,3 +172,4 @@ def get_summary_v2():
 
 
 if __name__ == "__main__":
+    pass

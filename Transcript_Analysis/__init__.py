@@ -5,7 +5,7 @@ from Transcript_Analysis.abstractive.Abstractive import Abstractive
 from Transcript_Analysis.utils.utils import Utils
 import nltk
 
-
+print('**** Attempting to load the package ... **** ')
 nltk.download('punkt', quiet=True)
 nltk.download('stopwords', quiet=True)
 
