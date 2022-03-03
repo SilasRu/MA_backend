@@ -2,7 +2,6 @@ from __future__ import absolute_import
 from __future__ import division, print_function, unicode_literals
 import math
 import numpy
-import nltk
 
 from warnings import warn
 from nltk.tokenize import sent_tokenize, word_tokenize
