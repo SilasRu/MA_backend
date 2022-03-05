@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from Transcript_Analysis.data_types.Transcript import Transcript
-from Transcript_Analysis.don_unsupervised_sentence_weighing import *
+from Transcript_Analysis.custom_unsupervised_summarizer import *
 from fastapi.responses import HTMLResponse
 import yake
 from rake_nltk import Rake
@@ -45,8 +45,8 @@ class Extractive:
         autocomplete_obj = Meeting_Autocomplete(text=text)
         autocomplete_results = autocomplete_obj.search(
             query=target_word, size_of_results=n_keyphrases)
-        print('**' * 10)
-        print(autocomplete_results)
+        # print('**' * 10)
+        # print(autocomplete_results)
         if len(autocomplete_results) == 1:
             target_word = autocomplete_results[0][0]
             print(target_word)
@@ -136,30 +136,10 @@ class Extractive:
         return keywords
 
     @staticmethod
-    def get_tf_idf_keywords(
-        documents: List[str],
-        ngram_range: Tuple,
-        num_keywords: int
-    ) -> np.array:
-        ngram_range = ngram_range if ngram_range != (0, 0) else (1, 3)
-        num_keywords = num_keywords if num_keywords != None else 2
-
-        vectorizer = TfidfVectorizer(
-            ngram_range=ngram_range)
-        X = vectorizer.fit_transform(documents)
-        df = pd.DataFrame(X.A, columns=vectorizer.get_feature_names())
-        keywords = []
-        columns = df.columns
-        for _, row in df.iterrows():
-            indices = np.argsort(row)
-            keywords.append(list(np.take(columns, indices[:num_keywords])))
-        return keywords
-
-    @staticmethod
     def get_sentence_weights(
         transcript: Transcript or str
     ) -> List[dict]:
-        dt = DialogueTranscript(
+        dt = Unsupervised_Summarizer(
             csv_file=None,
             source_dataframe=transcript.df
         )
@@ -185,7 +165,7 @@ class Extractive:
         else:
             print('Instance provided by user to the function is not supported!')
             exit(1)
-        dt = DialogueTranscript(
+        dt = Unsupervised_Summarizer(
             csv_file=None,
             source_dataframe=source_dataframe
         )
@@ -212,7 +192,7 @@ class Extractive:
         else:
             print('Instance provided by user to the function is not supported!')
             exit(1)
-        dt = DialogueTranscript(
+        dt = Unsupervised_Summarizer(
             csv_file=None,
             source_dataframe=source_dataframe
         )
