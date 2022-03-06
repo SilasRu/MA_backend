@@ -4,7 +4,6 @@ from typing import Any, Optional
 import numpy as np
 import pandas as pd
 import spacy
-import torch as th
 from community.community_louvain import best_partition
 from kneed.knee_locator import KneeLocator
 from sklearn.cluster import KMeans
@@ -29,10 +28,11 @@ class Unsupervised_Summarizer:
         elif source == 'icsi':
             self.df: pd.DataFrame = pd.read_csv(
                 csv_file, names=['Speaker', 'Utterance'], sep='\t') if csv_file != None else source_dataframe
+
         else:
             raise NotImplementedError
         self.nlp = spacy.load('en_core_web_sm')  # TODO lang-specific model
-        self.sentences: List[str] = [self.nlp(sent) for sent in sent_tokenize(
+        self.sentences: List[Any] = [self.nlp(sent) for sent in sent_tokenize(
             ' '.join(self.df['Utterance'].tolist()))]
         # self.speakers =
         self.sentence_similarity_graph: Optional[nx.Graph] = None
@@ -63,6 +63,7 @@ class Unsupervised_Summarizer:
         if filter_backchannels:
             self.filter_backchannels_duplicates()
         self.count_keywords()
+
         if output == Output_type.WORD:
             return {'WORD': self.keyword_counts}
 
@@ -74,19 +75,14 @@ class Unsupervised_Summarizer:
 
         self.generate_sentence_similarity_graph()
 
-        # up to here
-
         if remove_entailed_sentences:
             self.simple_entailment()
             self.remove_nodes_based_on_entailment_matrix_and_similarity_graph()
-
-        breakpoint()
 
         if get_graph_backbone:
             self.sentence_similarity_graph = Utils.get_graph_backbone(
                 self.sentence_similarity_graph)
 
-        breakpoint()
         if do_cluster:
             if clustering_algorithm == 'louvain':
                 self.cluster_sentences_by_louvain()
@@ -98,11 +94,11 @@ class Unsupervised_Summarizer:
                 )
             if per_cluster_results:
                 output_bert = self.get_clustered_sentences_w_keywords()
-                otuput_tfidf = self.get_keywords_per_sentence_cluster()
+                output_tfidf = self.get_keywords_per_sentence_cluster()
                 output_best_per_cluster = self.best_sentences_per_cluster()
                 return {
                     'output_bert': output_bert,
-                    'otuput_tfidf': otuput_tfidf,
+                    'output_tfidf': output_tfidf,
                     'output_best_per_cluster': output_best_per_cluster
                 }
 
@@ -254,17 +250,17 @@ class Unsupervised_Summarizer:
                 continue
             if highest_sim >= sim_thresh or max_only:
                 self.sentence_similarity_graph.add_edge(
-                    self.sentences[i], self.sentences[nearest_sent_ix], weight=highest_sim)
+                    self.sentences[i].text, self.sentences[nearest_sent_ix].text, weight=highest_sim)
             else:
                 for j in range(i + 1, len(sim_vec)):
                     if sim_vec[j] >= sim_thresh:
                         self.sentence_similarity_graph.add_edge(
-                            self.sentences[i], self.sentences[j], weight=sim_vec[j])
+                            self.sentences[i].text, self.sentences[j].text, weight=sim_vec[j])
         for i, sent in enumerate(self.sentences):  # add sentence weights to nodes
-            if sent in self.sentence_similarity_graph:
+            if sent.text in self.sentence_similarity_graph:
                 self.sentence_similarity_graph.nodes(
-                )[sent]['weight'] = self.sentence_weights[i]
-                self.sentence_similarity_graph.nodes()[sent]['id'] = i
+                )[sent.text]['weight'] = self.sentence_weights[i]
+                self.sentence_similarity_graph.nodes()[sent.text]['id'] = i
 
     def cluster_sentences(self, num_clusters: int = None, ks: tuple = (2, 20)):
         if self.sentence_similarity is None:
@@ -292,13 +288,14 @@ class Unsupervised_Summarizer:
             self.cluster_sentences()
         clustered_sentences = defaultdict(list)
         for cluster_id, sent in zip(self.sentence_cluster_ids, self.sentences):
-            clustered_sentences[cluster_id].append(sent)
+            clustered_sentences[cluster_id].append(sent.text)
 
         outputs = {}
         for cluster_id, sents in clustered_sentences.items():
             outputs[cluster_id] = {}
-            cluster_weight = np.mean(
-                [self.sentence_weights[self.sentences.index(sent)] for sent in sents])
+            cluster_weight = np.mean([self.sentence_weights[i] for i, sent in enumerate(
+                self.sentences) if sent.text in sents])
+
             print('cluster weight', cluster_weight)
             print('cluster size', len(sents))
             keyword_counts = Counter([t.lemma_ for t in self.nlp(
@@ -317,7 +314,7 @@ class Unsupervised_Summarizer:
             self.cluster_sentences()
         texts_per_cluster = defaultdict(str)
         for sent, cluster_id in zip(self.sentences, self.sentence_cluster_ids):
-            texts_per_cluster[cluster_id] += ' ' + sent
+            texts_per_cluster[cluster_id] += ' ' + sent.text
         from sklearn.feature_extraction.text import TfidfVectorizer
         tfidf = TfidfVectorizer(
             sublinear_tf=True, ngram_range=(1, 2), stop_words='english')
@@ -338,15 +335,17 @@ class Unsupervised_Summarizer:
             self.weigh_sentences()
         if self.sentence_cluster_ids is None:
             self.cluster_sentences()
-        sent_weights = {sent: weight for sent, weight in zip(
+        sent_weights = {sent.text: weight for sent, weight in zip(
             self.sentences, self.sentence_weights)}
         sents_per_cluster = defaultdict(list)
         for sent, cluster_id in zip(self.sentences, self.sentence_cluster_ids):
-            sents_per_cluster[cluster_id].append((sent_weights[sent], sent))
+            sents_per_cluster[cluster_id].append(
+                (sent_weights[sent.text], sent.text))
         for cluster_id, sents in sents_per_cluster.items():
-            outputs[cluster_id] = '\n'.join(
-                list(sorted(sents, reverse=True)[:num_sent])
-            )
+            outputs[cluster_id] = '\n'.join([tup[1] for tup in
+                                             list(sorted(sents, reverse=True,
+                                                         key=lambda x: x[0])[:num_sent])
+                                             ])
         return outputs
 
     def cluster_sentences_by_louvain(self):
@@ -360,14 +359,15 @@ class Unsupervised_Summarizer:
         nx.set_node_attributes(self.sentence_similarity_graph,
                                self.sentences_communities, 'community')
         self.sentence_cluster_ids = []
-        sentence_ids_in_graph = map(
-            lambda x: x['id'], self.sentence_similarity_graph.nodes(data=True).values())
+        sentence_ids_in_graph = list(map(
+            lambda x: x['id'], dict(self.sentence_similarity_graph.nodes(data=True)).values()))
+
         for i, sent in enumerate(self.sentences):
             if i not in sentence_ids_in_graph:
                 self.sentence_cluster_ids.append(-1)
             else:
                 self.sentence_cluster_ids.append(
-                    self.sentence_similarity_graph.nodes(data=True)[sent]['id']
+                    self.sentences_communities[sent.text]
                 )
 
     @ staticmethod
@@ -386,61 +386,22 @@ class Unsupervised_Summarizer:
             np.save(f, array)
             f.close()
 
-    def compute_entailment_matrix(self, threshold: float = 0.5, npy_file: str = 'entailment_matrix.npy'):
-        """
-        Computing the entailment matrix between pairs of sentences
-        """
-        self.entailment_matrix = Unsupervised_Summarizer._load_numpy_object(
-            npy_file)
-        if self.entailment_matrix:
-            return
-        # to check (smaller models): https://huggingface.co/typeform/distilbert-base-uncased-mnli
-        # https://huggingface.co/valhalla/distilbart-mnli-12-9
-        from transformers import AutoTokenizer, AutoModelForSequenceClassification
-        tokenizer = AutoTokenizer.from_pretrained(
-            "microsoft/deberta-base-mnli")
-        model = AutoModelForSequenceClassification.from_pretrained(
-            "microsoft/deberta-base-mnli")
-
-        if self.sentence_similarity is None:
-            self.calculate_sentence_similarity()
-
-        num_sentences = len(self.sentences)
-        entailment_matrix = np.zeros([num_sentences, num_sentences])
-        G = nx.DiGraph()
-        for i, sent_a in enumerate(self.sentences):
-            if self.sentence_weights[i] == 0:
-                continue
-            for j, sent_b in enumerate(self.sentences):
-                if i == j or self.sentence_weights[j] == 0 or self.sentence_similarity[i, j] < 2 \
-                        or len(sent_a) < len(sent_b):
-                    continue
-                print(f'\r{i} {j}', end='')
-                sentence = '[CLS]' + sent_a + '[SEP]' + sent_b + '[SEP]'
-                inputs = tokenizer(
-                    sentence, padding='max_length', return_tensors='pt')
-                outputs = model(**inputs)
-                logits = outputs.logits.detach().numpy()
-                probs = th.nn.Softmax(dim=1)(th.tensor(logits))
-                entailment_prob = probs[0][2].numpy()
-                # if entailment_prob > threshold:
-                if int(np.argmax(probs.numpy())) == 2:
-                    entailment_matrix[i, j] = float(entailment_prob)
-                    G.add_edge(sent_a, sent_b, weight=float(entailment_prob))
-        self.entailment_matrix = entailment_matrix
-        self.entailment_graph = G
-        Unsupervised_Summarizer._store_numpy_object(
-            self.entailment_matrix, npy_file)
-
     def remove_nodes_based_on_entailment_matrix_and_similarity_graph(self):
         if self.sentence_similarity_graph is None:
             self.generate_sentence_similarity_graph()
         if np.any(self.entailment_matrix) is None:
             self.simple_entailment()
 
-        sentences_to_remove_ids = set(np.nonzero(self.entailment_matrix)[1])
-        sentences_to_remove = [self.sentences[i]
-                               for i in sentences_to_remove_ids]
+        sentences_to_remove_ids = np.nonzero(self.entailment_matrix)[1]
+        sentences_to_keep_ids = np.nonzero(self.entailment_matrix)[0]
+
+        for i in range(len(sentences_to_keep_ids)):
+            print(f'keep: {self.sentences[sentences_to_keep_ids[i]].text}')
+            print(f'remove: {self.sentences[sentences_to_remove_ids[i]].text}')
+            print(10 * '*')
+
+        sentences_to_remove = [self.sentences[i].text
+                               for i in set(sentences_to_remove_ids)]
 
         print(
             f'Number of nodes before applying removing sentences using entailment matrix {self.sentence_similarity_graph.number_of_nodes()}\n',
@@ -475,6 +436,9 @@ class Unsupervised_Summarizer:
                             self.entailment_graph.add_edge(j, i)
                             self.entailment_matrix[j, i] = 1
 
+# TODO
+# do something for the speaker part and align it with the self.sentences property
+
     def write_dataframe_with_weight_community_html(self):
         self.kw_model = KeyBERT()
         html_output = ""
@@ -485,7 +449,7 @@ class Unsupervised_Summarizer:
         normalized_sentence_weights = np.array(
             self.sentence_weights) / max(self.sentence_weights)
         sentence_weight_mapping = {
-            self.sentences[i]: normalized_sentence_weights[i]
+            self.sentences[i].text: normalized_sentence_weights[i]
             for i in range(len(self.sentences))
         }
         keywords = []
@@ -574,6 +538,8 @@ class Unsupervised_Summarizer:
 
 
 if __name__ == '__main__':
+    # df = pd.read_csv(
+    #     '../../dialogue_summarization/transcriptsforkeyphraseextraction/2021-07-12 14.35.38 Interscriber Wrapup.m4a.csv')
     with open('sample_data/sample_01.json') as f:
         data = json.load(f)
         f.close()
@@ -584,6 +550,7 @@ if __name__ == '__main__':
 
     result = dt(
         output=Output_type.SENTENCE,
-        do_cluster=False
+        do_cluster=True,
+        clustering_algorithm='kmeans'
     )
     breakpoint()

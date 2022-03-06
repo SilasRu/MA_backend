@@ -183,9 +183,19 @@ class Utils:
         """
         if G.number_of_edges() < 30:
             return G
+        print(
+            f'Number of nodes before applying backboning {G.number_of_nodes()}\n',
+            f'Number of edges before applying backboning {G.number_of_edges()}',
+        )
+        nodes_attributes = dict(G.nodes(data=True))
         G = disparity_filter(G)
         G = nx.Graph([(u, v, d)
                       for u, v, d in G.edges(data=True) if d['alpha'] < alpha])
+        G = nx.set_node_attributes(G, values=nodes_attributes)
+        print(
+            f'Number of nodes after applying backboning {G.number_of_nodes()}\n',
+            f'Number of edges after applying backboning {G.number_of_edges()}',
+        )
         return G
 
     @staticmethod
@@ -208,9 +218,5 @@ class Utils:
         return False
 
 
-def main():
-    print('Hello World!')
-
-
 if __name__ == "__main__":
-    main()
+    print('Calling from the utils.py')
