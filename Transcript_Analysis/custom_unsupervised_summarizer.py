@@ -18,23 +18,23 @@ from nltk.tokenize import sent_tokenize
 
 class Unsupervised_Summarizer:
 
-    def __init__(self, csv_file: str, source_dataframe: pd.DataFrame = None, source: str = 'interscriber', lang: str = 'en', keyword_pos: Tuple = ('NOUN',)):
+    def __init__(self, csv_file: str, source_dataframe: pd.DataFrame = None, lang: str = 'en', keyword_pos: Tuple = ('NOUN',)):
         self.keyword_pos = keyword_pos
         self.lang = lang
         self.keyword_counts: Counter[str] = None
-        if source == 'interscriber':
-            self.df: pd.DataFrame = pd.read_csv(
-                csv_file) if csv_file != None else source_dataframe
-        elif source == 'icsi':
-            self.df: pd.DataFrame = pd.read_csv(
-                csv_file, names=['Speaker', 'Utterance'], sep='\t') if csv_file != None else source_dataframe
-
-        else:
-            raise NotImplementedError
+        self.df: pd.DataFrame = pd.read_csv(
+            csv_file) if csv_file != None else source_dataframe
+        # elif source == 'icsi':
+        #     self.df: pd.DataFrame = pd.read_csv(
+        #         csv_file, names=['Speaker', 'Utterance'], sep='\t') if csv_file != None else source_dataframe
         self.nlp = spacy.load('en_core_web_sm')  # TODO lang-specific model
         self.sentences: List[Any] = [self.nlp(sent) for sent in sent_tokenize(
             ' '.join(self.df['Utterance'].tolist()))]
-        # self.speakers =
+        speakers_num_sentences = list(
+            map(lambda x: len(sent_tokenize(x)), self.df['Utterance']))
+        self.speakers = []
+        for speaker, num in zip(self.df['Speaker'].tolist(), speakers_num_sentences):
+            self.speakers.extend([speaker] * num)
         self.sentence_similarity_graph: Optional[nx.Graph] = None
         self.sentence_similarity: Optional[np.array] = None
         self.sentence_vectors: Optional[list] = None
@@ -119,6 +119,8 @@ class Unsupervised_Summarizer:
             len(self.sentences)) if i not in unnecessary_sentences_indices]
         self.sentence_weights = [self.sentence_weights[i] for i in range(
             len(self.sentence_weights)) if i not in unnecessary_sentences_indices]
+        self.speakers = [self.speakers[i] for i in range(
+            len(self.speakers)) if i not in unnecessary_sentences_indices]
 
     def filter_backchannels_duplicates(self):
         """
@@ -132,6 +134,7 @@ class Unsupervised_Summarizer:
             else:
                 print(sent.text)
         self.sentences = [self.sentences[i] for i in proper_sentence_indices]
+        self.speakers = [self.speakers[i] for i in proper_sentence_indices]
 
         count_sentences_after_filtering = len(self.sentences)
         print(
@@ -145,6 +148,7 @@ class Unsupervised_Summarizer:
         print(
             f'Found {len(self.sentences) - len(keep_indices)} duplicate sentences')
         self.sentences = [self.sentences[i] for i in keep_indices]
+        self.speakers = [self.speakers[i] for i in keep_indices]
 
     def count_keywords(self, max_np_len: int = 5, min_count: int = 0):
         self.keyword_counts = Counter()
