@@ -191,7 +191,7 @@ class Utils:
         G = disparity_filter(G)
         G = nx.Graph([(u, v, d)
                       for u, v, d in G.edges(data=True) if d['alpha'] < alpha])
-        G = nx.set_node_attributes(G, values=nodes_attributes)
+        nx.set_node_attributes(G, values=nodes_attributes)
         print(
             f'Number of nodes after applying backboning {G.number_of_nodes()}\n',
             f'Number of edges after applying backboning {G.number_of_edges()}',

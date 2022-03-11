@@ -135,87 +135,63 @@ class Extractive:
         keywords = [keyword[0] for keyword in keywords]
         return keywords
 
+    # TODO change the methods being used according to the changes in Unsupervised_Summarizer
+
     @staticmethod
     def get_sentence_weights(
         transcript: Transcript or str
     ) -> List[dict]:
-        dt = Unsupervised_Summarizer(
-            csv_file=None,
-            source_dataframe=transcript.df
-        )
-        dt.filter_backchannels()
-        dt.count_keywords()
-        dt.weigh_sentences()
-        output_json = []
-        for sentence, weight in zip(dt.sentences, dt.sentence_weights):
-            output_json.append({
-                'content': sentence,
-                'weight': weight
-            })
-        return output_json
+        raise NotImplementedError()
+        # dt = Unsupervised_Summarizer(
+        #     csv_file=None,
+        #     source_dataframe=transcript.df
+        # )
+        # dt.filter_backchannels()
+        # dt.count_keywords()
+        # dt.weigh_sentences()
+        # output_json = []
+        # for sentence, weight in zip(dt.sentences, dt.sentence_weights):
+        #     output_json.append({
+        #         'content': sentence,
+        #         'weight': weight
+        #     })
+        # return output_json
 
+    # TODO change the methods being used according to the changes in Unsupervised_Summarizer
     @staticmethod
     def get_frequent_keywords(
         transcript: Transcript or str
     ) -> List[dict]:
-        if isinstance(transcript, Transcript):
-            source_dataframe = transcript.df
-        elif isinstance(transcript, str):
-            source_dataframe = Utils.text2df(transcript)
-        else:
-            print('Instance provided by user to the function is not supported!')
-            exit(1)
-        dt = Unsupervised_Summarizer(
-            csv_file=None,
-            source_dataframe=source_dataframe
-        )
-        dt.filter_backchannels()
-        dt.count_keywords()
-        sorted_keywords = dict(
-            sorted(dt.keyword_counts.items(), key=lambda x: x[1], reverse=True))
-        output_json = []
-        for keyword, score in sorted_keywords.items():
-            output_json.append({
-                'content': keyword,
-                'weight': score
-            })
-        return output_json
+        raise NotImplementedError()
+        # if isinstance(transcript, Transcript):
+        #     source_dataframe = transcript.df
+        # elif isinstance(transcript, str):
+        #     source_dataframe = Utils.text2df(transcript)
+        # else:
+        #     print('Instance provided by user to the function is not supported!')
+        #     exit(1)
+        # dt = Unsupervised_Summarizer(
+        #     csv_file=None,
+        #     source_dataframe=source_dataframe
+        # )
+        # dt.filter_backchannels()
+        # dt.count_keywords()
+        # sorted_keywords = dict(
+        #     sorted(dt.keyword_counts.items(), key=lambda x: x[1], reverse=True))
+        # output_json = []
+        # for keyword, score in sorted_keywords.items():
+        #     output_json.append({
+        #         'content': keyword,
+        #         'weight': score
+        #     })
+        # return output_json
 
+    # TODO change the methods being used according to the changes in Unsupervised_Summarizer
     @staticmethod
     def get_louvain_topics_sentences(
         transcript: Transcript or str
     ) -> HTMLResponse:
-        if isinstance(transcript, Transcript):
-            source_dataframe = transcript.df
-        elif isinstance(transcript, str):
-            source_dataframe = Utils.text2df(transcript)
-        else:
-            print('Instance provided by user to the function is not supported!')
-            exit(1)
-        dt = Unsupervised_Summarizer(
-            csv_file=None,
-            source_dataframe=source_dataframe
-        )
-
-        dt.filter_backchannels()
-        dt.count_keywords()
-        dt.weigh_sentences()
-        dt.vectorize_sentences_with_keywords()
-        dt.calculate_sentence_similarity()
-        dt.simple_entailment()
-        dt.construct_sentences_graph()
-
-        dt.simple_entailment()
-        dt.remove_nodes_based_on_entailment_matrix_and_similarity_graph()
-
-        dt.sentences_graph = Utils.get_graph_backbone(
-            dt.sentences_graph)
-        dt.load_sentence_weights_to_graph()
-        dt.cluster_sentences_by_louvain(dt.sentences_graph)
-        # whether to do community detection before entailment process and removing the nodes or after it
-
-        html_output = dt.write_dataframe_with_weight_community_html()
-        return HTMLResponse(content=html_output, status_code=200)
+        raise NotImplementedError()
 
     @staticmethod
     def get_statistics(transcript: Transcript) -> Any:

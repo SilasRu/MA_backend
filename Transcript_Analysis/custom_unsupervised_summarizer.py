@@ -24,9 +24,6 @@ class Unsupervised_Summarizer:
         self.keyword_counts: Counter[str] = None
         self.df: pd.DataFrame = pd.read_csv(
             csv_file) if csv_file != None else source_dataframe
-        # elif source == 'icsi':
-        #     self.df: pd.DataFrame = pd.read_csv(
-        #         csv_file, names=['Speaker', 'Utterance'], sep='\t') if csv_file != None else source_dataframe
         self.nlp = spacy.load('en_core_web_sm')  # TODO lang-specific model
         self.sentences: List[Any] = [self.nlp(sent) for sent in sent_tokenize(
             ' '.join(self.df['Utterance'].tolist()))]
@@ -83,6 +80,7 @@ class Unsupervised_Summarizer:
             self.sentence_similarity_graph = Utils.get_graph_backbone(
                 self.sentence_similarity_graph)
 
+        # TODO use the information gathered by the sentence similarity graph to the clustering algorithm input
         if do_cluster:
             if clustering_algorithm == 'louvain':
                 self.cluster_sentences_by_louvain()
@@ -105,8 +103,8 @@ class Unsupervised_Summarizer:
         if output == Output_type.SENTENCE:
             return dict(self.sentence_similarity_graph.nodes(data=True))
 
-        if output == Output_type.HTML:
-            return {'HTML': self.write_dataframe_with_weight_community_html()}
+        # if output == Output_type.HTML:
+            # return {'HTML': self.write_dataframe_with_weight_community_html()}
 
     def remove_unnecessary_sentences(self):
         if self.sentence_weights is None:
@@ -131,14 +129,15 @@ class Unsupervised_Summarizer:
         for i, sent in tqdm(enumerate(self.sentences), leave=False):
             if not Utils._nlp_backchannel(sent.text)[0]:
                 proper_sentence_indices.append(i)
-            else:
-                print(sent.text)
+            # else:
+                # print(sent.text)
         self.sentences = [self.sentences[i] for i in proper_sentence_indices]
         self.speakers = [self.speakers[i] for i in proper_sentence_indices]
 
         count_sentences_after_filtering = len(self.sentences)
         print(
             f'Number of back channels in the sentences {count_sentences_before_filtering - count_sentences_after_filtering}')
+
         sentences_set = set()
         keep_indices = []
         for i, sent in enumerate(self.sentences):
@@ -374,22 +373,6 @@ class Unsupervised_Summarizer:
                     self.sentences_communities[sent.text]
                 )
 
-    @ staticmethod
-    def _load_numpy_object(file_name: str):
-        if os.path.exists(file_name):
-            with open(file_name, 'rb') as f:
-                array = np.load(f)
-                f.close()
-            return array
-        else:
-            return None
-
-    @ staticmethod
-    def _store_numpy_object(array: np.array, file_name: str):
-        with open(file_name, 'wb') as f:
-            np.save(f, array)
-            f.close()
-
     def remove_nodes_based_on_entailment_matrix_and_similarity_graph(self):
         if self.sentence_similarity_graph is None:
             self.generate_sentence_similarity_graph()
@@ -443,118 +426,116 @@ class Unsupervised_Summarizer:
 # TODO
 # do something for the speaker part and align it with the self.sentences property
 
-    def write_dataframe_with_weight_community_html(self):
-        self.kw_model = KeyBERT()
-        html_output = ""
-        num_communities = len(set(self.sentences_communities.values()))
-        colors = np.random.rand(num_communities, 3)
-        colors *= 256
-        colors = colors.astype('int')
-        normalized_sentence_weights = np.array(
-            self.sentence_weights) / max(self.sentence_weights)
-        sentence_weight_mapping = {
-            self.sentences[i].text: normalized_sentence_weights[i]
-            for i in range(len(self.sentences))
-        }
-        keywords = []
-        for community in set(self.sentences_communities.values()):
-            community_sentences = '; '.join([
-                sent for sent, sent_att in self.sentence_similarity_graph.nodes(data=True) if sent_att['community'] == community])
-            keywords.append([word[0] for word in self.kw_model.extract_keywords(
-                community_sentences, keyphrase_ngram_range=(1, 2), top_n=3)])
+    # def write_dataframe_with_weight_community_html(self):
+    #     self.kw_model = KeyBERT()
+    #     html_output = ""
+    #     num_communities = len(set(self.sentences_communities.values()))
+    #     colors = np.random.rand(num_communities, 3)
+    #     colors *= 256
+    #     colors = colors.astype('int')
+    #     normalized_sentence_weights = np.array(
+    #         self.sentence_weights) / max(self.sentence_weights)
+    #     sentence_weight_mapping = {
+    #         self.sentences[i].text: normalized_sentence_weights[i]
+    #         for i in range(len(self.sentences))
+    #     }
+    #     keywords = []
+    #     for community in set(self.sentences_communities.values()):
+    #         community_sentences = '; '.join([
+    #             sent for sent, sent_att in self.sentence_similarity_graph.nodes(data=True) if sent_att['community'] == community])
+    #         keywords.append([word[0] for word in self.kw_model.extract_keywords(
+    #             community_sentences, keyphrase_ngram_range=(1, 2), top_n=3)])
 
-        html_legend = """
-        <div class="legend">
-        """
-        for i in range(num_communities):
-            html_legend += """<div style="margin: 5px 0;">\n"""
-            html_legend += f"""
-                    <div class="community" style="color: rgb{str(tuple(colors[i]))};">
-                        community {i + 1}
-                    </div>
-            """
-            html_legend += "<div>\n"
-            for keyword in keywords[i]:
-                html_legend += f"""<span style="color: rgb{str(tuple(colors[i]))}
-                ">{keyword}, </span>"""
-            html_legend += "</div>\n"
-            html_legend += "</div>\n"
-        html_legend += "</div>\n"
-        graph_nodes_sentences = [sent for sent,
-                                 _ in self.sentence_similarity_graph.nodes(data=True)]
+    #     html_legend = """
+    #     <div class="legend">
+    #     """
+    #     for i in range(num_communities):
+    #         html_legend += """<div style="margin: 5px 0;">\n"""
+    #         html_legend += f"""
+    #                 <div class="community" style="color: rgb{str(tuple(colors[i]))};">
+    #                     community {i + 1}
+    #                 </div>
+    #         """
+    #         html_legend += "<div>\n"
+    #         for keyword in keywords[i]:
+    #             html_legend += f"""<span style="color: rgb{str(tuple(colors[i]))}
+    #             ">{keyword}, </span>"""
+    #         html_legend += "</div>\n"
+    #         html_legend += "</div>\n"
+    #     html_legend += "</div>\n"
+    #     graph_nodes_sentences = [sent for sent,
+    #                              _ in self.sentence_similarity_graph.nodes(data=True)]
 
-        html_output += """
-        <style>
-            .legend {
-                transition-property: opacity;
-                transition-duration: .2s;
-                width: 200px;
-                display: flex;
-                justify-content: center;
-                align-content: center;
-                padding: 23px;
-                background: gray;
-                position: fixed;
-                right: 20px;
-                top: 10%;
-                opacity: 50%;
-                border-radius: 8px;
-                flex-direction: column;
-            }
+    #     html_output += """
+    #     <style>
+    #         .legend {
+    #             transition-property: opacity;
+    #             transition-duration: .2s;
+    #             width: 200px;
+    #             display: flex;
+    #             justify-content: center;
+    #             align-content: center;
+    #             padding: 23px;
+    #             background: gray;
+    #             position: fixed;
+    #             right: 20px;
+    #             top: 10%;
+    #             opacity: 50%;
+    #             border-radius: 8px;
+    #             flex-direction: column;
+    #         }
 
-            .community::first-letter {
-                font-size: 30px;
-            }
+    #         .community::first-letter {
+    #             font-size: 30px;
+    #         }
 
-            .community {
-                font-size: 20px;
-            }
+    #         .community {
+    #             font-size: 20px;
+    #         }
 
-
-            .legend:hover {
-                opacity: 100%;
-            }
-        </style>
-        """
-        html_output += '<html>\n'
-        html_output += html_legend
-        html_output += '<table border=1>\n'
-        for _, turn in self.df.iterrows():
-            html_output += '<tr><td>' + str(turn['Speaker']) + '</td><td>'
-            for sent in self.nlp(turn['Utterance']).sents:
-                if sent.text not in graph_nodes_sentences:
-                    font = 11
-                else:
-                    font = max(sentence_weight_mapping[sent.text] * 20, 16)
-                if sent.text not in graph_nodes_sentences:
-                    color = (169, 169, 169)
-                else:
-                    color = tuple(
-                        colors[self.sentences_communities[sent.text]])
-                html_output += f'<span style="font-size: {str(int(font))}; color: rgb{str(color)};">' + \
-                    sent.text + ' </span>'
-            html_output += '</td></tr>\n'
-        html_output += '</table></html>'
-        with open('weighted_sentences_per_speaker.html', 'w') as f:
-            f.write(html_output)
-            f.close()
-        return html_output
+    #         .legend:hover {
+    #             opacity: 100%;
+    #         }
+    #     </style>
+    #     """
+    #     html_output += '<html>\n'
+    #     html_output += html_legend
+    #     html_output += '<table border=1>\n'
+    #     for sent, speaker in zip(self.sentences, self.speakers):
+    #         html_output += '<tr><td>' + str(speaker) + '</td><td>'
+    #         for sent in self.nlp(turn['Utterance']).sents:
+    #             if sent.text not in graph_nodes_sentences:
+    #                 font = 11
+    #             else:
+    #                 font = max(sentence_weight_mapping[sent.text] * 20, 16)
+    #             if sent.text not in graph_nodes_sentences:
+    #                 color = (169, 169, 169)
+    #             else:
+    #                 color = tuple(
+    #                     colors[self.sentences_communities[sent.text]])
+    #             html_output += f'<span style="font-size: {str(int(font))}; color: rgb{str(color)};">' + \
+    #                 sent.text + ' </span>'
+    #         html_output += '</td></tr>\n'
+    #     html_output += '</table></html>'
+    #     with open('weighted_sentences_per_speaker.html', 'w') as f:
+    #         f.write(html_output)
+    #         f.close()
+    #     return html_output
 
 
 if __name__ == '__main__':
-    # df = pd.read_csv(
-    #     '../../dialogue_summarization/transcriptsforkeyphraseextraction/2021-07-12 14.35.38 Interscriber Wrapup.m4a.csv')
-    with open('sample_data/sample_01.json') as f:
-        data = json.load(f)
-        f.close()
-    transcript = Transcript(data)
-    source_dataframe = transcript.df
+    df = pd.read_csv(
+        '../../dialogue_summarization/transcriptsforkeyphraseextraction/2021-07-12 14.35.38 Interscriber Wrapup.m4a.csv')
+    # with open('sample_data/sample_01.json') as f:
+    #     data = json.load(f)
+    #     f.close()
+    # transcript = Transcript(data)
+    # source_dataframe = transcript.df
     dt = Unsupervised_Summarizer(
-        csv_file=None, source_dataframe=source_dataframe)
+        csv_file=None, source_dataframe=df)
 
     result = dt(
         output=Output_type.SENTENCE,
-        do_cluster=True,
         clustering_algorithm='kmeans'
     )
     breakpoint()
