@@ -83,7 +83,7 @@ class Interface:
             end_times=json_obj['end_times'], speaker_ids=json_obj['speaker_ids']
         )
         topics = Abstractive.get_keybert_keywords(
-            text=transcript.text, keyphrase_ngram_range=(0, 0), n_keyphrases=3)
+            text=transcript.text, keyphrase_ngram_range=(1, 3), n_keyphrases=3)
 
         statistics = Extractive.get_statistics(transcript=transcript)
         return {
