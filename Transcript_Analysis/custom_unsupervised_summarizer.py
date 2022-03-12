@@ -62,7 +62,7 @@ class Unsupervised_Summarizer:
         self.count_keywords()
 
         if output == Output_type.WORD:
-            return {'WORD': self.keyword_counts}
+            return self.keyword_counts
 
         self.weigh_sentences()
 
@@ -86,6 +86,7 @@ class Unsupervised_Summarizer:
                 self.cluster_sentences_by_louvain()
             elif clustering_algorithm == 'kmeans':
                 self.cluster_sentences()
+
             else:
                 raise Exception(
                     'the algorithm specified is not in the accepted ones!'
@@ -94,6 +95,7 @@ class Unsupervised_Summarizer:
                 output_bert = self.get_clustered_sentences_w_keywords()
                 output_tfidf = self.get_keywords_per_sentence_cluster()
                 output_best_per_cluster = self.best_sentences_per_cluster()
+
                 return {
                     'output_bert': output_bert,
                     'output_tfidf': output_tfidf,
@@ -129,8 +131,7 @@ class Unsupervised_Summarizer:
         for i, sent in tqdm(enumerate(self.sentences), leave=False):
             if not Utils._nlp_backchannel(sent.text)[0]:
                 proper_sentence_indices.append(i)
-            # else:
-                # print(sent.text)
+
         self.sentences = [self.sentences[i] for i in proper_sentence_indices]
         self.speakers = [self.speakers[i] for i in proper_sentence_indices]
 
@@ -263,11 +264,13 @@ class Unsupervised_Summarizer:
             if sent.text in self.sentence_similarity_graph:
                 self.sentence_similarity_graph.nodes(
                 )[sent.text]['weight'] = self.sentence_weights[i]
-                self.sentence_similarity_graph.nodes()[sent.text]['id'] = i
+                self.sentence_similarity_graph.nodes(
+                )[sent.text]['sentence_id'] = i
 
     def cluster_sentences(self, num_clusters: int = None, ks: tuple = (2, 20)):
         if self.sentence_similarity is None:
             self.calculate_sentence_similarity()
+
         if not num_clusters:
             sse: dict[int, float] = dict()  # Sum of squared errors
             # Store fitted kmeans estimators
@@ -283,7 +286,7 @@ class Unsupervised_Summarizer:
         else:
             kmeans = KMeans(n_clusters=num_clusters, max_iter=1000).fit(
                 self.sentence_vectors)
-        self.sentence_cluster_ids = kmeans.labels_
+        self.sentence_cluster_ids = [int(label) for label in kmeans.labels_]
 
     def get_clustered_sentences_w_keywords(self):
         self.kw_model = KeyBERT()
@@ -299,16 +302,20 @@ class Unsupervised_Summarizer:
             cluster_weight = np.mean([self.sentence_weights[i] for i, sent in enumerate(
                 self.sentences) if sent.text in sents])
 
-            print('cluster weight', cluster_weight)
-            print('cluster size', len(sents))
             keyword_counts = Counter([t.lemma_ for t in self.nlp(
                 ' '.join(sents)) if t.pos_ in self.keyword_pos])
-            outputs[cluster_id]['common_keywords'] = keyword_counts.most_common(
-                5)
-            # print(keyword_counts.most_common(5))
+            outputs[cluster_id]['common_keywords'] = [{
+                'content': entity[0],
+                'weight': entity[1]
+            }
+                for entity in keyword_counts.most_common(5)
+            ]
             keywords = self.kw_model.extract_keywords(
                 ' '.join(sents), keyphrase_ngram_range=(1, 3), top_n=5)
-            outputs[cluster_id]['keybert'] = keywords
+            outputs[cluster_id]['keybert'] = [{
+                'content': entity[0],
+                'weight': entity[1]
+            } for entity in keywords]
 
         return outputs
 
@@ -363,7 +370,7 @@ class Unsupervised_Summarizer:
                                self.sentences_communities, 'community')
         self.sentence_cluster_ids = []
         sentence_ids_in_graph = list(map(
-            lambda x: x['id'], dict(self.sentence_similarity_graph.nodes(data=True)).values()))
+            lambda x: x['sentence_id'], dict(self.sentence_similarity_graph.nodes(data=True)).values()))
 
         for i, sent in enumerate(self.sentences):
             if i not in sentence_ids_in_graph:

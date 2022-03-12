@@ -1,9 +1,10 @@
+from typing import Any, List
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Any, List, Optional, Tuple
 import warnings
+
 from Transcript_Analysis.interface import Interface
 from fastapi import Depends, FastAPI, HTTPException, Security
-from fastapi.security.api_key import APIKeyHeader, APIKey
+from fastapi.security.api_key import APIKeyHeader
 import json
 import os
 
@@ -33,7 +34,12 @@ async def get_api_key(
         )
 
 
-app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+app = FastAPI(
+    docs_url=None,
+    redoc_url=None,
+    openapi_url=None,
+    dependencies=[Depends(get_api_key)]
+)
 
 origins = ["*"]
 
@@ -50,10 +56,9 @@ app.add_middleware(
 async def get_keyphrases(
     json_obj: dict,
     algorithm: str,
-    api_key: APIKey = Depends(get_api_key),
-    n_keyphrases: Optional[int] = None,
-    n_grams_min: Optional[int] = 0,
-    n_grams_max: Optional[int] = 0
+    n_keyphrases: int = 3,
+    n_grams_min: int = 1,
+    n_grams_max: int = 3
 ) -> List[Any]:
     return Interface.get_keyphrases(
         json_obj=json_obj,
@@ -67,7 +72,6 @@ async def get_keyphrases(
 @app.post('/TranscriptAnalysis/statistics/')
 async def get_statistics(
     json_obj: dict,
-    api_key: APIKey = Depends(get_api_key),
 ) -> json:
     return Interface.get_statistics(json_obj=json_obj)
 
@@ -75,12 +79,23 @@ async def get_statistics(
 @app.post('/TranscriptAnalysis/importantTextBlocks/')
 async def get_important_text_blocks(
     json_obj: dict,
-    type: str,
-    api_key: APIKey = Depends(get_api_key),
-) -> List[str] or HTMLResponse:
+    output_type: str = "WORD",
+    filter_backchannels: bool = True,
+    remove_entailed_sentences: bool = True,
+    get_graph_backbone: bool = True,
+    do_cluster: bool = True,
+    clustering_algorithm: str = 'louvain',
+    per_cluster_results: bool = False,
+) -> List[dict or str]:
     return Interface.get_important_text_blocks(
         json_obj=json_obj,
-        type=type
+        output_type=output_type,
+        filter_backchannels=filter_backchannels,
+        remove_entailed_sentences=remove_entailed_sentences,
+        get_graph_backbone=get_graph_backbone,
+        do_cluster=do_cluster,
+        clustering_algorithm=clustering_algorithm,
+        per_cluster_results=per_cluster_results
     )
 
 
@@ -88,8 +103,7 @@ async def get_important_text_blocks(
 async def get_related_words(
     json_obj: dict,
     target_word: str,
-    api_key: APIKey = Depends(get_api_key),
-    n_keyphrases: Optional[int] = 0
+    n_keyphrases: int = 5
 ) -> List[str]:
     return Interface.get_related_words(
         json_obj=json_obj,

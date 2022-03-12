@@ -93,7 +93,6 @@ def main():
     with open('transcriptsforkeyphraseextraction/transcript_document.json') as f:
         transcript = Transcript(json.load(f))
         f.close()
-    print(transcript.df)
     Utils.pretty_print_json(transcript.json)
 
 

@@ -17,10 +17,14 @@ from nltk.tokenize import sent_tokenize
 
 class Utils:
     classifier = None
-    sentence_transformer = None
+    sentence_transformer = SentenceTransformer('all-MiniLM-L6-v2')
 
     def __init__(self) -> None:
         pass
+
+    @staticmethod
+    def sort_json_by_property(json_obj: List[dict], property: str) -> List:
+        return sorted(json_obj, key=lambda x: x[property], reverse=True)
 
     @staticmethod
     def text2df(text: str) -> pd.DataFrame:
@@ -36,7 +40,7 @@ class Utils:
     @staticmethod
     def sentence_to_wordlist(raw: str):
         clean = re.sub("[^a-zA-Z]", " ", raw)
-        words = clean.split()
+        words = [word for word in clean.split() if len(word) > 2]
         return words
 
     @classmethod
@@ -44,11 +48,6 @@ class Utils:
         if not cls.classifier:
             cls.classifier = pipeline("zero-shot-classification",
                                       model="facebook/bart-large-mnli")
-
-    @classmethod
-    def load_sentence_transformer(cls):
-        if not cls.sentence_transformer:
-            cls.sentence_transformer = SentenceTransformer('all-MiniLM-L6-v2')
 
     @classmethod
     def get_classes_scores(cls, utterance: str, labels: List[str], threshold: float = 0.5):
@@ -135,7 +134,6 @@ class Utils:
             utterances = [utterances]
 
         return_list = [False]*len(utterances)
-        cls.load_sentence_transformer()
         back_ch_vect = cls.sentence_transformer.encode(backchannel_consts)
         back_ch_vect = [np.mean(back_ch_vect, axis=0)]
         utterance_vect = cls.sentence_transformer.encode(utterances)

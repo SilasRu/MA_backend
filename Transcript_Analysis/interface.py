@@ -1,9 +1,7 @@
+from pydantic import Extra
 from .abstractive.Abstractive import Abstractive
 from .data_types.Transcript import *
 from .extractive.Extractive import *
-from fastapi.responses import HTMLResponse
-
-from .utils.Autocomplete import Meeting_Autocomplete
 
 
 class CustomError(Exception):
@@ -51,7 +49,8 @@ class Interface:
 
         elif algorithm == "rake":
             return Extractive.get_rake_keywords(
-                text=transcript.text
+                text=transcript.text,
+                top_n=n_keyphrases
             )
 
         elif algorithm == "yake":
@@ -59,10 +58,6 @@ class Interface:
                 text=transcript.text
             )
 
-        elif algorithm == "frequency":
-            return Extractive.get_frequent_keywords(
-                transcript=transcript
-            )
         elif algorithm == "bart":
             return Abstractive.get_bart_summary(
                 text=transcript.text
@@ -82,7 +77,6 @@ class Interface:
         """
         Get some descriptive statistics about the utterances being fed
         """
-        print(json_obj.keys())
         transcript = Transcript(json_obj['transcript'])
         transcript = Interface.apply_conditions(
             transcript=transcript, start_times=json_obj['start_times'],
@@ -100,8 +94,14 @@ class Interface:
     @staticmethod
     def get_important_text_blocks(
         json_obj: dict,
-        type: str,
-    ) -> List[dict] or HTMLResponse:
+        output_type: str = "WORD",
+        filter_backchannels: bool = True,
+        remove_entailed_sentences: bool = True,
+        get_graph_backbone: bool = True,
+        do_cluster: bool = True,
+        clustering_algorithm: str = 'louvain',
+        per_cluster_results: bool = False,
+    ) -> List[dict or str]:
         """
         Get the important_text_blocks of the meeting based on different algorithms such as Louvain community detection or sentence weights
         """
@@ -111,16 +111,16 @@ class Interface:
             end_times=json_obj['end_times'], speaker_ids=json_obj['speaker_ids']
         )
 
-        if type == "sentence_weights":
-            return Extractive.get_sentence_weights(
-                transcript=transcript
-            )
-        elif type == "topics_by_louvain":
-            return Extractive.get_louvain_topics_sentences(
-                transcript=transcript
-            )
-        else:
-            raise NotImplementedError
+        return Extractive.get_sentence_properties(
+            transcript=transcript,
+            output_type=Output_type[output_type],
+            filter_backchannels=filter_backchannels,
+            remove_entailed_sentences=remove_entailed_sentences,
+            get_graph_backbone=get_graph_backbone,
+            do_cluster=do_cluster,
+            clustering_algorithm=clustering_algorithm,
+            per_cluster_results=per_cluster_results
+        )
 
     @staticmethod
     def get_related_words(
@@ -163,7 +163,3 @@ class Interface:
         transcript.turns = [
             turn for turn in transcript.turns if len(turn.words) != 0]
         return transcript
-
-
-if __name__ == '__main__':
-    print(Interface.tmp_function())
