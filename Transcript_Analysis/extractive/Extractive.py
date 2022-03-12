@@ -1,13 +1,9 @@
-from decimal import DefaultContext
 from numpy.linalg import norm
 from typing import Any, DefaultDict, List
-import pandas as pd
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 from Transcript_Analysis.data_types.Transcript import Transcript
-from Transcript_Analysis.don_unsupervised_sentence_weighing import *
-from fastapi.responses import HTMLResponse
+from Transcript_Analysis.custom_unsupervised_summarizer import *
 import yake
 from rake_nltk import Rake
 from nltk.tokenize import sent_tokenize
@@ -24,7 +20,6 @@ class Extractive:
         n_keyphrases: int
     ) -> str:
 
-        n_keyphrases = 3 if n_keyphrases == None else n_keyphrases
         summarizer = LsaSummarizer()
 
         stopwords = Utils.load_stop_words()
@@ -39,18 +34,13 @@ class Extractive:
         target_word: str,
         n_keyphrases: int
     ) -> List:
-
-        n_keyphrases = 5 if n_keyphrases == 0 else n_keyphrases
-
         autocomplete_obj = Meeting_Autocomplete(text=text)
         autocomplete_results = autocomplete_obj.search(
             query=target_word, size_of_results=n_keyphrases)
-        print('**' * 10)
-        print(autocomplete_results)
+
         if len(autocomplete_results) == 1:
             target_word = autocomplete_results[0][0]
-            print(target_word)
-            print('*' * 10)
+
             return Extractive.get_related_words_cooc_matrix(
                 text=text,
                 target_word=target_word,
@@ -76,7 +66,7 @@ class Extractive:
 
         def process_sentence(sentence, window_size=5):
             words_in_sentence = Utils.sentence_to_wordlist(sentence)
-            list_of_indeces = [list_of_words.index(
+            list_of_indeces = [vocab.index(
                 word) for word in words_in_sentence]
             for i, index1 in enumerate(list_of_indeces):
                 for j, index2 in enumerate(list_of_indeces):
@@ -87,11 +77,13 @@ class Extractive:
         text = ' '.join([word for word in text.split()
                         if word not in stop_words])
 
-        list_of_words = list(set(Utils.sentence_to_wordlist(text)))
+        splited_text = Utils.sentence_to_wordlist(text)
+        vocab = list(set(splited_text))
+        text = ' '.join(splited_text)
 
         list_of_sentences = sent_tokenize(text)
 
-        cooc = np.zeros([len(list_of_words), len(list_of_words)], np.float64)
+        cooc = np.zeros([len(vocab), len(vocab)], np.float64)
         for sentence in list_of_sentences:
             process_sentence(sentence)
 
@@ -99,8 +91,8 @@ class Extractive:
             dist = 1.0 - np.dot(u, v) / (norm(u) * norm(v))
             return dist
 
-        sorted_list = sorted(list_of_words, key=lambda word: cos_dis(
-            cooc[list_of_words.index(target_word), :], cooc[list_of_words.index(word), :]))
+        sorted_list = sorted(vocab, key=lambda word: cos_dis(
+            cooc[vocab.index(target_word), :], cooc[vocab.index(word), :]))
         return sorted_list[0:n_keyphrases + 1]
 
     @staticmethod
@@ -136,106 +128,61 @@ class Extractive:
         return keywords
 
     @staticmethod
-    def get_tf_idf_keywords(
-        documents: List[str],
-        ngram_range: Tuple,
-        num_keywords: int
-    ) -> np.array:
-        ngram_range = ngram_range if ngram_range != (0, 0) else (1, 3)
-        num_keywords = num_keywords if num_keywords != None else 2
-
-        vectorizer = TfidfVectorizer(
-            ngram_range=ngram_range)
-        X = vectorizer.fit_transform(documents)
-        df = pd.DataFrame(X.A, columns=vectorizer.get_feature_names())
-        keywords = []
-        columns = df.columns
-        for _, row in df.iterrows():
-            indices = np.argsort(row)
-            keywords.append(list(np.take(columns, indices[:num_keywords])))
-        return keywords
-
-    @staticmethod
-    def get_sentence_weights(
-        transcript: Transcript or str
-    ) -> List[dict]:
-        dt = DialogueTranscript(
-            csv_file=None,
-            source_dataframe=transcript.df
-        )
-        dt.filter_backchannels()
-        dt.count_keywords()
-        dt.weigh_sentences()
-        output_json = []
-        for sentence, weight in zip(dt.sentences, dt.sentence_weights):
-            output_json.append({
-                'content': sentence,
-                'weight': weight
-            })
-        return output_json
-
-    @staticmethod
-    def get_frequent_keywords(
-        transcript: Transcript or str
+    def get_sentence_properties(
+        transcript: Transcript or str,
+        output_type: Output_type,
+        filter_backchannels: bool = True,
+        remove_entailed_sentences: bool = True,
+        get_graph_backbone: bool = True,
+        do_cluster: bool = True,
+        clustering_algorithm: str = 'louvain',
+        per_cluster_results: bool = True,
     ) -> List[dict]:
         if isinstance(transcript, Transcript):
             source_dataframe = transcript.df
         elif isinstance(transcript, str):
             source_dataframe = Utils.text2df(transcript)
         else:
-            print('Instance provided by user to the function is not supported!')
-            exit(1)
-        dt = DialogueTranscript(
+            return 'Instance provided by user is not supported!'
+        dt = Unsupervised_Summarizer(
             csv_file=None,
             source_dataframe=source_dataframe
         )
-        dt.filter_backchannels()
-        dt.count_keywords()
-        sorted_keywords = dict(
-            sorted(dt.keyword_counts.items(), key=lambda x: x[1], reverse=True))
-        output_json = []
-        for keyword, score in sorted_keywords.items():
-            output_json.append({
-                'content': keyword,
-                'weight': score
-            })
-        return output_json
-
-    @staticmethod
-    def get_louvain_topics_sentences(
-        transcript: Transcript or str
-    ) -> HTMLResponse:
-        if isinstance(transcript, Transcript):
-            source_dataframe = transcript.df
-        elif isinstance(transcript, str):
-            source_dataframe = Utils.text2df(transcript)
+        results = dt(
+            output=output_type,
+            filter_backchannels=filter_backchannels,
+            remove_entailed_sentences=remove_entailed_sentences,
+            get_graph_backbone=get_graph_backbone,
+            do_cluster=do_cluster,
+            clustering_algorithm=clustering_algorithm,
+            per_cluster_results=per_cluster_results,
+        )
+        if output_type == Output_type.WORD:
+            results = [
+                {
+                    'content': word,
+                    'weight': cnt,
+                }
+                for word, cnt in results.items()
+            ]
+        elif output_type == Output_type.SENTENCE:
+            if per_cluster_results:
+                return results
+            results = [
+                {
+                    'content': sentence,
+                    'weight': properties['weight'],
+                    'properties': {
+                        key: value
+                        for key, value in properties.items() if key != 'weight'
+                    }
+                }
+                for sentence, properties in results.items()
+            ]
         else:
-            print('Instance provided by user to the function is not supported!')
-            exit(1)
-        dt = DialogueTranscript(
-            csv_file=None,
-            source_dataframe=source_dataframe
-        )
-
-        dt.filter_backchannels()
-        dt.count_keywords()
-        dt.weigh_sentences()
-        dt.vectorize_sentences_with_keywords()
-        dt.calculate_sentence_similarity()
-        dt.simple_entailment()
-        dt.construct_sentences_graph()
-
-        dt.simple_entailment()
-        dt.remove_nodes_based_on_entailment_matrix_and_similarity_graph()
-
-        dt.sentences_graph = Utils.get_graph_backbone(
-            dt.sentences_graph)
-        dt.load_sentence_weights_to_graph()
-        dt.cluster_sentences_by_louvain(dt.sentences_graph)
-        # whether to do community detection before entailment process and removing the nodes or after it
-
-        html_output = dt.write_dataframe_with_weight_community_html()
-        return HTMLResponse(content=html_output, status_code=200)
+            raise Exception(
+                'The output type you requested is not being supported!')
+        return Utils.sort_json_by_property(results, "weight")
 
     @staticmethod
     def get_statistics(transcript: Transcript) -> Any:

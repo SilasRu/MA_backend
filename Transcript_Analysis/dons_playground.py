@@ -36,7 +36,8 @@ def get_noun_chunks(text: str, nlp: spacy.language, lemmatize: bool = False, sto
         if any(tok for tok in chunk if tok.pos_ in {'PROPN', 'NOUN'}):
 
             if stopword_removal:
-                chunk = [tok for tok in chunk if not tok.lemma_.lower() in stops]
+                chunk = [tok for tok in chunk if not tok.lemma_.lower()
+                         in stops]
 
             if lemmatize:
                 ncs.append(' '.join([t.lemma_ for t in chunk]))
@@ -56,11 +57,13 @@ def keyphrases_per_speaker_tfidf(df: pd.DataFrame, nlp: spacy.language, num_keyp
     speakers = text_per_speaker.keys()
     texts_per_speaker = text_per_speaker.values()
 
-    noun_chunks_per_speaker = [' '.join(get_noun_chunks(text, nlp)) for text in texts_per_speaker]
+    noun_chunks_per_speaker = [
+        ' '.join(get_noun_chunks(text, nlp)) for text in texts_per_speaker]
 
     #vectorizer = TfidfVectorizer(sublinear_tf=True, ngram_range=NGRAM_RANGE, stop_words='english')
     vectorizer = CountVectorizer(ngram_range=NGRAM_RANGE, stop_words='english')
-    vecs_per_speaker = vectorizer.fit_transform(noun_chunks_per_speaker).toarray()
+    vecs_per_speaker = vectorizer.fit_transform(
+        noun_chunks_per_speaker).toarray()
     features = vectorizer.get_feature_names()
 
     for speaker, vec, text in zip(speakers, vecs_per_speaker, texts_per_speaker):
@@ -108,14 +111,16 @@ def frequent_noun_chunks(df: pd.DataFrame, nlp: spacy.language, num_keyphrases: 
 
     for idx in idxs[:num_keyphrases]:
         ngram = features[idx]
-        children = [(nc, c) for nc, c in nc_counts.most_common() if ngram in nc]
+        children = [(nc, c)
+                    for nc, c in nc_counts.most_common() if ngram in nc]
         print(vec[idx], features[idx], '-', children)
         g.add_node(ngram, weight=vec[idx], label='ngram')
 
         if add_speakers_to_graph:
             for speaker, nc_counts_speaker in nc_per_speaker.items():
                 if ngram in nc_counts_speaker:
-                    g.add_edge(speaker, ngram, weight=nc_counts_speaker[ngram], label='speaker2ngram')
+                    g.add_edge(
+                        speaker, ngram, weight=nc_counts_speaker[ngram], label='speaker2ngram')
 
         for (child, weight) in children:
             if not child == ngram:
@@ -144,24 +149,32 @@ def frequent_noun_chunks(df: pd.DataFrame, nlp: spacy.language, num_keyphrases: 
         for idx in idxs[:num_keyphrases]:
             html_out_file.write('<table>\n')
             keyword = features[idx]
-            sents_w_keyword = [sent for sent in sents if keyword.lower() in sent.lower()]
+            sents_w_keyword = [
+                sent for sent in sents if keyword.lower() in sent.lower()]
             print()
             print(keyword)
             print('-' * len(keyword))
 
             kwic_window_size = 12
-            html_out_file.write('<tr><td></td><td><b>' + keyword + '</b></td><td></td></tr>')
+            html_out_file.write('<tr><td></td><td><b>' +
+                                keyword + '</b></td><td></td></tr>')
             for sent in sents_w_keyword:
 
                 if selection_method == 'kwic':
                     toks = word_tokenize(sent)
-                    kw_tok_ixs = [i for i, tok in enumerate(toks) if tok == keyword]
+                    kw_tok_ixs = [i for i, tok in enumerate(
+                        toks) if tok == keyword]
                     for ix in kw_tok_ixs:
-                        start_ix = ix - kwic_window_size if (ix - kwic_window_size) > 0 else 0
-                        end_ix = ix + kwic_window_size + 1 if (ix + kwic_window_size + 1) < len(toks) else len(toks) + 1
+                        start_ix = ix - \
+                            kwic_window_size if (
+                                ix - kwic_window_size) > 0 else 0
+                        end_ix = ix + kwic_window_size + \
+                            1 if (ix + kwic_window_size +
+                                  1) < len(toks) else len(toks) + 1
                         phrase_str = ' '.join(toks[start_ix: end_ix])
                         html = '<tr><td style="text-align: right">' + ' '.join(toks[start_ix:ix]) + '</td><td style="background-color: pink; text-align: center"> ' + keyword + \
-                               ' </td><td>' + ' '.join(toks[ix+1: end_ix]) + '</td></tr>'
+                               ' </td><td>' + \
+                            ' '.join(toks[ix+1: end_ix]) + '</td></tr>'
                         print(html, file=html_out_file)
                         print(phrase_str)
 
@@ -174,9 +187,12 @@ def frequent_noun_chunks(df: pd.DataFrame, nlp: spacy.language, num_keyphrases: 
                             head = find_verbal_head(kw_tok, doc)
                         except RecursionError:
                             head = kw_tok.head
-                        siblings = [child for child in head.children if child.pos_ not in {'PUNCT', 'VERB', 'CCONJ'}]
+                        siblings = [child for child in head.children if child.pos_ not in {
+                            'PUNCT', 'VERB', 'CCONJ'}]
                         if siblings:
-                            end_tok_ix = siblings[-1].i + 1 if siblings[-1].i + 1 <= len(doc) else len(doc)
+                            end_tok_ix = siblings[-1].i + \
+                                1 if siblings[-1].i + \
+                                1 <= len(doc) else len(doc)
                             phrase = doc[siblings[0].i: end_tok_ix]
                             phrase_str = ' '.join([t.text for t in phrase])
                             print(phrase_str)
@@ -192,7 +208,8 @@ def tfidf_noun_chunks(df: pd.DataFrame, nlp: spacy.language, num_keyphrases: int
     print('\nTfidf noun chunks')
     texts = list(df['Utterance'])
     noun_chunks = [' '.join(get_noun_chunks(text, nlp)) for text in texts]
-    vectorizer = TfidfVectorizer(sublinear_tf=True, ngram_range=NGRAM_RANGE, stop_words='english')
+    vectorizer = TfidfVectorizer(
+        sublinear_tf=True, ngram_range=NGRAM_RANGE, stop_words='english')
     vectorizer.fit(noun_chunks)
     features = vectorizer.get_feature_names()
     vec = vectorizer.transform([' '.join(noun_chunks)]).toarray()[0]
@@ -204,7 +221,8 @@ def tfidf_noun_chunks(df: pd.DataFrame, nlp: spacy.language, num_keyphrases: int
 def tfidf_sentences(df: pd.DataFrame, num_keyphrases: int = 20) -> None:
     texts = ' '.join(df['Utterance'])
     sentences = sent_tokenize(texts)
-    vectorizer = TfidfVectorizer(sublinear_tf=True, ngram_range=NGRAM_RANGE, stop_words='english')
+    vectorizer = TfidfVectorizer(
+        sublinear_tf=True, ngram_range=NGRAM_RANGE, stop_words='english')
     sent_vecs = vectorizer.fit_transform(sentences).toarray()
     features = vectorizer.get_feature_names()
 
@@ -264,10 +282,12 @@ def pmi_keyphrases(df: pd.DataFrame, window_size: int = 5, stride: int = 3) -> N
     print('\nPMI keyphrases ngrams')
     texts = ' '.join(df['Utterance'])
 
-    cv = CountVectorizer(ngram_range=(2, 4))#, stop_words='english')  #instead of stop words, make sure that there is a noun in the ngram?
+    # , stop_words='english')  #instead of stop words, make sure that there is a noun in the ngram?
+    cv = CountVectorizer(ngram_range=(2, 4))
     vec = cv.fit_transform([texts]).toarray()[0]
     max_pair_count = np.max(vec)
-    toks = re.findall(r'(?u)\b\w\w+\b', texts.lower())  # use the same tokenization as sklearn
+    # use the same tokenization as sklearn
+    toks = re.findall(r'(?u)\b\w\w+\b', texts.lower())
     tok_counts = Counter(toks)
     max_count = tok_counts.most_common(1)[0][1]
     tok_probs = Counter({w: c / max_count for w, c in tok_counts.items()})
@@ -292,7 +312,8 @@ def pmi_keyphrases(df: pd.DataFrame, window_size: int = 5, stride: int = 3) -> N
                 tok_pair_counts[(tok1, tok2)] += 1
 
     max_pair_count = tok_pair_counts.most_common(1)[0][1]
-    tok_pair_probs = Counter({w: c/max_pair_count for w, c in tok_pair_counts.items()})
+    tok_pair_probs = Counter(
+        {w: c/max_pair_count for w, c in tok_pair_counts.items()})
 
     pmi_pairs = Counter({tok_pair: tok_pair_prob / (tok_probs[tok_pair[0]] * tok_probs[tok_pair[1]])
                          for tok_pair, tok_pair_prob in tok_pair_probs.items()
@@ -320,16 +341,21 @@ def get_sections(text, num_words, permutation=False):
 def get_bart_keywords(df: pd.DataFrame, summary_min_length: int = 300, summary_max_length: int = 300, permutation=False):
     print('\nBART summary')
     utterances = ' '.join(df['Utterance'])
-    model = BartForConditionalGeneration.from_pretrained("philschmid/bart-large-cnn-samsum")
-    tokenizer = BartTokenizer.from_pretrained("philschmid/bart-large-cnn-samsum")
+    model = BartForConditionalGeneration.from_pretrained(
+        "philschmid/bart-large-cnn-samsum")
+    tokenizer = BartTokenizer.from_pretrained(
+        "philschmid/bart-large-cnn-samsum")
     result = ''
-    sections_to_process = get_sections(utterances, 900 - summary_max_length, permutation=permutation)
+    sections_to_process = get_sections(
+        utterances, 900 - summary_max_length, permutation=permutation)
     for section in tqdm(sections_to_process, leave=False):
         text = result + section
-        inputs = tokenizer([text], max_length=1024, return_tensors='pt', truncation=True)
+        inputs = tokenizer([text], max_length=1024,
+                           return_tensors='pt', truncation=True)
         summary_ids = model.generate(inputs['input_ids'], num_beams=4, min_length=summary_min_length,
                                      max_length=summary_max_length, early_stopping=True)
-        result = tokenizer.decode(summary_ids[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
+        result = tokenizer.decode(
+            summary_ids[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
     return result
 
 
@@ -350,7 +376,8 @@ def dep_collocates_of_keywords(df: pd.DataFrame, nlp, keywords: list) -> None:
 
             for kw_tok in kw_toks:
 
-                collocates.extend([tok for tok in kw_tok.children if tok.pos_ in {'NOUN', 'ADJ'}])  # team meeting, difficult meeting
+                collocates.extend([tok for tok in kw_tok.children if tok.pos_ in {
+                                  'NOUN', 'ADJ'}])  # team meeting, difficult meeting
 
                 if kw_tok.head.pos_ == 'VERB':  # summarize the meeting
                     collocates.append(kw_tok.head)
@@ -363,17 +390,20 @@ def dep_collocates_of_keywords(df: pd.DataFrame, nlp, keywords: list) -> None:
         print()
         print(kw, collocates)
         for collocate in collocates:
-            rel_sents = [sent for sent in sents if kw.lower() in sent.lower() and collocate.text.lower() in sent.lower()]
+            rel_sents = [sent for sent in sents if kw.lower(
+            ) in sent.lower() and collocate.text.lower() in sent.lower()]
             print(kw, collocate)
             print(rel_sents)
 
 
-def cluster_key_words(df: pd.DataFrame, key_words:list) -> None:
+def cluster_key_words(df: pd.DataFrame, key_words: list) -> None:
     print('\nKeyword clustering')
     import json
     from scipy.spatial.distance import pdist, squareform
-    wemb = np.load('/home/don/resources/fastText_MUSE/wiki.multi.en.vec_data.npy')
-    wemb_vocab = json.load(open('/home/don/resources/fastText_MUSE/wiki.multi.en.vec_vocab.json'))
+    wemb = np.load(
+        '/home/don/resources/fastText_MUSE/wiki.multi.en.vec_data.npy')
+    wemb_vocab = json.load(
+        open('/home/don/resources/fastText_MUSE/wiki.multi.en.vec_vocab.json'))
     text = ' '.join(df['Utterance'])
     toks = list(set(word_tokenize(text.lower())))
     stops = set(stopwords.words('english'))
@@ -387,7 +417,8 @@ def cluster_key_words(df: pd.DataFrame, key_words:list) -> None:
         sorted_ixs = np.flip(np.argsort(kw_sim_vec))
         sim_toks = np.take(toks, sorted_ixs)
         sims = np.take(kw_sim_vec, sorted_ixs)
-        print(kw, list(zip(sims[1:num_syns], sim_toks[1:num_syns])))  # first one is kw itself
+        # first one is kw itself
+        print(kw, list(zip(sims[1:num_syns], sim_toks[1:num_syns])))
 
 
 def sentence_clustering(df: pd.DataFrame, calc_sim: bool = False, sim_thresh: float = 0.75) -> None:
@@ -407,15 +438,17 @@ def sentence_clustering(df: pd.DataFrame, calc_sim: bool = False, sim_thresh: fl
         sent_sim = np.load('sent_sim.npy')
 
     g = nx.Graph()
-    for i, sim_vec in enumerate(sent_sim): # only iterate through upper right triangle
+    # only iterate through upper right triangle
+    for i, sim_vec in enumerate(sent_sim):
         if np.max(sim_vec) < sim_thresh:
-            g.add_edge(sents[i], sents[np.argmax[sim_vec]], weight=np.max(sim_vec))
+            g.add_edge(sents[i], sents[np.argmax[sim_vec]],
+                       weight=np.max(sim_vec))
         else:
             for j, sim in enumerate(sim_vec[i+1:]):
                 if sim >= sim_thresh:
                     g.add_edge(sents[i], sents[i+1+j], weight=sim)
     # TODO add sentence weights
-    
+
     nx.write_graphml(g, 'sent_graph.graphml')
     for cc in nx.connected_components(g):
         print(cc)
@@ -442,7 +475,8 @@ def sentence_clustering_tfidf(df: pd.DataFrame, calc_sim: bool = True, sim_thres
     print('calculating sentence similarity')
     sent_sim = 1 - squareform(pdist(sent_vecs, metric='cosine'))
     g = nx.Graph()
-    for i, sim_vec in enumerate(sent_sim): # only iterate through upper right triangle
+    # only iterate through upper right triangle
+    for i, sim_vec in enumerate(sent_sim):
         for j, sim in enumerate(sim_vec[i+1:]):
             if sim >= sim_thresh:
                 g.add_edge(sents[i], sents[i+1+j])
@@ -486,18 +520,22 @@ def get_collocation_counts_from_sentences(df: pd.DataFrame, nlp, distance_decay:
                         dist += 1
                         if not tok2.lemma_ == tok1.lemma_:
                             if distance_decay:
-                                tok_pair_counts[(tok1.lemma_, tok2.lemma_)] += 1 / dist
+                                tok_pair_counts[(
+                                    tok1.lemma_, tok2.lemma_)] += 1 / dist
                             else:
-                                tok_pair_counts[(tok1.lemma_, tok2.lemma_)] += 1
+                                tok_pair_counts[(
+                                    tok1.lemma_, tok2.lemma_)] += 1
     return tok_counts, tok_pair_counts
 
 
 def get_pmi_from_sentences(df: pd.DataFrame, nlp) -> Counter:
-    tok_counts, tok_pair_counts = get_collocation_counts_from_sentences(df, nlp, distance_decay=False)
+    tok_counts, tok_pair_counts = get_collocation_counts_from_sentences(
+        df, nlp, distance_decay=False)
     max_count = tok_counts.most_common(1)[0][1]
     tok_probs = Counter({w: c / max_count for w, c in tok_counts.items()})
     max_pair_count = tok_pair_counts.most_common(1)[0][1]
-    tok_pair_probs = Counter({w: c / max_pair_count for w, c in tok_pair_counts.items()})
+    tok_pair_probs = Counter(
+        {w: c / max_pair_count for w, c in tok_pair_counts.items()})
     pmi_pairs = Counter({tok_pair: tok_pair_prob / (tok_probs[tok_pair[0]] + tok_probs[tok_pair[1]])
                          for tok_pair, tok_pair_prob in tok_pair_probs.items()
                          if (tok_counts[tok_pair[0]] > 1 and tok_counts[tok_pair[1]] > 1)}
@@ -529,7 +567,7 @@ def rank_sentences_per_speaker(df: pd.DataFrame, nlp, keywords: Counter) -> None
             score = sum([keywords[noun] for noun in set(noun_lemmas)])
             sent_scores_per_speaker[turn['Speaker']][sent.text] = score
 
-    norm_sents_scores_per_speaker =defaultdict(Counter)
+    norm_sents_scores_per_speaker = defaultdict(Counter)
     for speaker, sents in sent_scores_per_speaker.items():
         max_score = max(sents.values())
         for sent, score in sents.items():
@@ -540,15 +578,18 @@ def rank_sentences_per_speaker(df: pd.DataFrame, nlp, keywords: Counter) -> None
         for _, turn in df.iterrows():
             f.write('<tr><td>' + turn['Speaker'] + '</td><td>')
             for sent in turn['nlp'] .sents:
-                font_size = max([11, 16 * norm_sents_scores_per_speaker[turn['Speaker']][sent.text]])
+                font_size = max(
+                    [11, 16 * norm_sents_scores_per_speaker[turn['Speaker']][sent.text]])
                 """
                 transparency = max([0.2, norm_sents_scores_per_speaker[turn['Speaker']][sent.text]])
                 f.write('<span style="color:  rgba(0, 0, 0, ' + str(transparency) + ')">' + sent.text + ' </span>')
                 """
                 if font_size > 11:
-                    f.write('<span style="font-size:' + str(int(font_size)) + '; font-weight: bold;">' + sent.text + ' </span>')
+                    f.write('<span style="font-size:' + str(int(font_size)) +
+                            '; font-weight: bold;">' + sent.text + ' </span>')
                 else:
-                    f.write('<span style="font-size:' + str(int(font_size)) + '">' + sent.text + ' </span>')
+                    f.write('<span style="font-size:' +
+                            str(int(font_size)) + '">' + sent.text + ' </span>')
 
             f.write('</td></tr>\n')
         f.write('</table></html>')
@@ -566,7 +607,8 @@ def rank_sentences_w_keywords(df: pd.DataFrame, nlp, keywords: Counter) -> Count
         noun_lemmas = [tok.lemma_ for tok in doc if tok.pos_ == 'NOUN']
         lemmata_per_sent[sent] = set(noun_lemmas)
         # score = sum([keywords[noun] for noun in noun_lemmas])
-        score = sum([keywords[noun] for noun in set(noun_lemmas)])  # use set(noun_lemmas) to dampen the length effect of the sentence on the score
+        # use set(noun_lemmas) to dampen the length effect of the sentence on the score
+        score = sum([keywords[noun] for noun in set(noun_lemmas)])
         weighted_sents[sent] = score
         for keyword, _ in keywords.most_common():
             if keyword in sent:
@@ -589,7 +631,7 @@ def rank_sentences_w_keywords(df: pd.DataFrame, nlp, keywords: Counter) -> Count
     return weighted_sents
 
 
-def normalize_vals(counts: Counter, get_norm_val = max) -> Counter:
+def normalize_vals(counts: Counter, get_norm_val=max) -> Counter:
     max_val = get_norm_val(counts.values())
     return Counter({k: v / max_val for k, v in counts.most_common()})
 
@@ -601,20 +643,24 @@ def reweigh_word_frequencies_with_wordnet(keywords: Counter) -> Counter:
 
     avg_path_lenght_to_root = Counter()
     for keyword, score in keywords.most_common():
-        synsets = wn.synsets(keyword, pos='n')  # TODO change pos restrictions if we allow verbs etc.
+        # TODO change pos restrictions if we allow verbs etc.
+        synsets = wn.synsets(keyword, pos='n')
         if synsets:
             path_lengths_to_root = list()
             for synset in synsets:
-                path_length_to_root = np.mean([len(path_to_root) for path_to_root in synset.hypernym_paths()])
+                path_length_to_root = np.mean(
+                    [len(path_to_root) for path_to_root in synset.hypernym_paths()])
                 path_lengths_to_root.append(path_length_to_root)
             avg_path_lenght_to_root[keyword] = np.mean(path_lengths_to_root)
         else:
-            avg_path_lenght_to_root[keyword] = 0  # TODO hm, what to do with stuff that isn't in wordnet?
+            # TODO hm, what to do with stuff that isn't in wordnet?
+            avg_path_lenght_to_root[keyword] = 0
 
     keywords_norm = normalize_vals(keywords)
     avg_path_lenght_to_root_norm = normalize_vals(avg_path_lenght_to_root)
     re_weighted_keywords = Counter(
-        {k: keywords_norm[k] * avg_path_lenght_to_root_norm[k] for k in keywords.keys()}
+        {k: keywords_norm[k] * avg_path_lenght_to_root_norm[k]
+            for k in keywords.keys()}
     )
     return re_weighted_keywords
 
@@ -622,28 +668,33 @@ def reweigh_word_frequencies_with_wordnet(keywords: Counter) -> Counter:
 def reweigh_word_frequencies_with_chisquare(keywords: Counter, df: pd.DataFrame, nlp,
                                             normalize: bool = True) -> Counter:
     from scipy.stats import chisquare
-    tok_counts, tok_pair_counts = get_collocation_counts_from_sentences(df, nlp, distance_decay=False)
+    tok_counts, tok_pair_counts = get_collocation_counts_from_sentences(
+        df, nlp, distance_decay=False)
     chi2_collocation_counts = Counter()
     re_weighted_keywords = Counter()
     for keyword, cnt in keywords.most_common():
-        colloc_counts = [v for k, v in tok_pair_counts.most_common() if keyword in k]
+        colloc_counts = [
+            v for k, v in tok_pair_counts.most_common() if keyword in k]
         if len(colloc_counts) < len(keywords):
-            colloc_counts.extend(np.zeros(len(keywords) - len(colloc_counts)).tolist())
+            colloc_counts.extend(
+                np.zeros(len(keywords) - len(colloc_counts)).tolist())
         chi2_collocation_counts[keyword] = chisquare(colloc_counts).statistic
-        re_weighted_keywords[keyword] = tok_counts[keyword] * chi2_collocation_counts[keyword]
+        re_weighted_keywords[keyword] = tok_counts[keyword] * \
+            chi2_collocation_counts[keyword]
 
     if normalize:
         tok_counts_norm = normalize_vals(tok_counts)
         chi2_collocation_counts_norm = normalize_vals(chi2_collocation_counts)
         re_weighted_keywords = Counter(
-            {k: tok_counts_norm[k] * chi2_collocation_counts_norm[k] for k in keywords.keys()}
+            {k: tok_counts_norm[k] * chi2_collocation_counts_norm[k]
+                for k in keywords.keys()}
         )
 
     return re_weighted_keywords
 
 
 def reweigh_word_frequencies_with_avg_pmi(keywords: Counter, df: pd.DataFrame, nlp,
-                                            normalize: bool = True) -> Counter:
+                                          normalize: bool = True) -> Counter:
     pmi_pairs = get_pmi_from_sentences(df, nlp)
     if normalize:
         pmi_pairs = normalize_vals(pmi_pairs)
@@ -667,11 +718,14 @@ def write_sentence_weighted_transcript(df: pd.DataFrame, weighted_sentences: Cou
         for _, turn in df.iterrows():
             f.write('<tr><td>' + turn['Speaker'] + '</td><td>')
             for sent in nlp(turn['Utterance']).sents:
-                font_size = max([weighted_sentences[sent.text] * font_scaling, 11])
+                font_size = max(
+                    [weighted_sentences[sent.text] * font_scaling, 11])
                 if font_size > 11:
-                    f.write('<span style="font-size: ' + str(int(font_size)) + '; font-weight: bold">' + sent.text + ' </span>')
+                    f.write('<span style="font-size: ' + str(int(font_size)) +
+                            '; font-weight: bold">' + sent.text + ' </span>')
                 else:
-                    f.write('<span style="font-size: ' + str(int(font_size)) + '">' + sent.text + ' </span>')
+                    f.write('<span style="font-size: ' +
+                            str(int(font_size)) + '">' + sent.text + ' </span>')
             f.write('</tr>\n')
         f.write('</table>\n</html>')
 
@@ -686,9 +740,11 @@ def write_keyword_weighted_transcript(df, keywords, nlp) -> None:
             for tok in nlp(turn['Utterance']):
                 font_size = max([keywords[tok.text] * font_scaling, 11])
                 if font_size > 11:
-                    f.write('<span style="font-size: ' + str(int(font_size)) + '; font-weight: bold">' + tok.text + ' </span>')
+                    f.write('<span style="font-size: ' + str(int(font_size)
+                                                             ) + '; font-weight: bold">' + tok.text + ' </span>')
                 else:
-                    f.write('<span style="font-size: ' + str(int(font_size)) + '">' + tok.text + ' </span>')
+                    f.write('<span style="font-size: ' +
+                            str(int(font_size)) + '">' + tok.text + ' </span>')
             f.write('</tr>\n')
         f.write('</table>\n</html>')
 
@@ -712,7 +768,7 @@ def main(csv_file: str, source: str = 'interscriber') -> None:
     2. score each sentence by the number of keywords they contain (weight keywords by rank or similar)
     """
 
-    #sentence_ranking_by_similarity(df)
+    # sentence_ranking_by_similarity(df)
     #dep_collocates_of_keywords(df, nlp, ['meeting', 'docker', 'voice', 'summary'])
     # summary_per_speaker(df)
 
