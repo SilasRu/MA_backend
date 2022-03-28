@@ -6,6 +6,7 @@ from Transcript_Analysis.data_types.Transcript import Transcript
 from Transcript_Analysis.custom_unsupervised_summarizer import *
 import yake
 from rake_nltk import Rake
+from Levenshtein import ratio as similarity_ratio
 from nltk.tokenize import sent_tokenize
 from Transcript_Analysis.extractive.lsa.lsa_summarizer import LsaSummarizer
 
@@ -50,7 +51,13 @@ class Extractive:
             results = [
                 word[0] for word in autocomplete_results
             ]
-            return results
+            return [
+                {
+                    'content': word,
+                    'weight': similarity_ratio(target_word, word)
+                }
+                for word in results
+            ]
         else:
             return []
 
