@@ -1,8 +1,5 @@
-from numpy import size
-from Transcript_Analysis.data_types.Transcript import Transcript
 from fast_autocomplete import AutoComplete
 from collections import Counter
-import nltk
 
 from Transcript_Analysis.utils.utils import Utils
 
