@@ -87,13 +87,23 @@ class Extractive:
         for sentence in list_of_sentences:
             process_sentence(sentence)
 
-        def cos_dis(u, v):
-            dist = 1.0 - np.dot(u, v) / (norm(u) * norm(v))
-            return dist
+        def cos_sim(u, v):
+            sim = np.dot(u, v) / (norm(u) * norm(v))
+            return sim
 
-        sorted_list = sorted(vocab, key=lambda word: cos_dis(
-            cooc[vocab.index(target_word), :], cooc[vocab.index(word), :]))
-        return sorted_list[0:n_keyphrases + 1]
+        vocab_weighted = list(zip(
+            vocab,
+            list(map(lambda word: cos_sim(
+                cooc[vocab.index(target_word), :], cooc[vocab.index(word), :]), vocab))
+        ))
+        sorted_list = sorted(vocab_weighted, key=lambda x: x[1], reverse=True)
+        return [
+            {
+                'content': content,
+                'weight': weight
+            }
+            for content, weight in sorted_list[0:n_keyphrases + 1]
+        ]
 
     @staticmethod
     def get_rake_keywords(
