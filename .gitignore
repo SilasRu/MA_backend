@@ -4,8 +4,8 @@ tmp-01/**
 *.html
 transcript-analysis-0*/
 build/
-Transcript_Analysis.egg-info/
-Transcript_Analysis/Transcript_Analysis.egg-info/
+transcript_analyser.egg-info/
+transcript_analyser/transcript_analyser.egg-info/
 **/.DS_Store
 .ipynb_checkpoints/
 .vscode/

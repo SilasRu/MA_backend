@@ -8,7 +8,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from numpy.linalg import svd as singular_value_decomposition
 from nltk.corpus import stopwords
 
-from Transcript_Analysis.extractive.lsa.base_summarizer import BaseSummarizer
+from transcript_analyser.extractive.lsa.base_summarizer import BaseSummarizer
 
 
 class LsaSummarizer(BaseSummarizer):

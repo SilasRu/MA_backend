@@ -1,7 +1,6 @@
-from pydantic import Extra
-from .abstractive.Abstractive import Abstractive
-from .data_types.Transcript import *
-from .extractive.Extractive import *
+from .abstractive.abstractive import Abstractive
+from .data_types.transcript import *
+from .extractive.extractive import *
 
 
 class CustomError(Exception):
@@ -10,7 +9,12 @@ class CustomError(Exception):
 
 class Interface:
     @staticmethod
-    def apply_conditions(transcript: Transcript, start_times: List[float], end_times: List[float], speaker_ids: List[int]) -> Transcript:
+    def apply_conditions(
+        transcript: Transcript,
+        start_times: List[float],
+        end_times: List[float],
+        speaker_ids: List[int]
+    ) -> Transcript:
         """
         Apply the filters on the speakers and the start times and end times imposed
         """

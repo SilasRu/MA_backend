@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-from Transcript_Analysis.utils.utils import *
+from transcript_analyser.utils.utils import *
 
 
 class Word:

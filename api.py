@@ -2,7 +2,7 @@ from typing import Any, List
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
-from Transcript_Analysis.interface import Interface
+from transcript_analyser.interface import Interface
 from fastapi import Depends, FastAPI, HTTPException, Security
 from fastapi.security.api_key import APIKeyHeader
 import json

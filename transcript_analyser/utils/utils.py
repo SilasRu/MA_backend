@@ -7,9 +7,9 @@ import re
 import os
 import json
 import string
-from Transcript_Analysis.utils.consts import backchannel_consts
+from transcript_analyser.utils.consts import backchannel_consts
 from sklearn.metrics.pairwise import cosine_similarity
-from Transcript_Analysis.utils.network_backbone import *
+from transcript_analyser.utils.network_backbone import *
 import networkx as nx
 from rouge_score import rouge_scorer
 from nltk.tokenize import sent_tokenize

@@ -6,7 +6,7 @@ import tensorflow_hub as hub
 import pandas as pd
 import numpy as np
 import re
-from Transcript_Analysis.utils.utils import *
+from transcript_analyser.utils.utils import *
 from termcolor import colored
 from nltk.tokenize import WhitespaceTokenizer
 from keybert import KeyBERT
