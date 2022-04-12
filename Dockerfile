@@ -1,3 +1,5 @@
+# FROM nvidia/cuda:11.6.1-devel-ubi8
+
 FROM python:3.8.0-slim
 
 ENV API_KEY=bcqoieyqp98DAHJBABJBy3498ypiuqhriuqy984
