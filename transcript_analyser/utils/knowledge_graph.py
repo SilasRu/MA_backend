@@ -18,7 +18,7 @@ class KnowledgeGraph:
 
     def write_graph(self):
         nx.write_gexf(
-            self.G, '/Users/user/Documents/dialogue_summarization/Transcript_Analysis/utils/sample_knowledge_graph.gexf')
+            self.G, '/Users/user/Documents/dialogue_summarization/transcript_analyser/utils/sample_knowledge_graph.gexf')
 
     def gather_graph_nodes_edges(self):
         # extract subject

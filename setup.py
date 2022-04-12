@@ -6,12 +6,12 @@ with open('requirements.txt', 'r') as f:
 
 
 setup(
-    name='Transcript_Analysis',
+    name='transcript_analyser',
     version='0.0.1',
     author='Zhivar Sourati',
     description='This library provides certain tools to analyze the transcript of the meetings.',
     author_email='zhivarsourati@gmail.com',
     package_dir={'': '.'},
-    packages=['Transcript_Analysis'],
+    packages=['transcript_analyser'],
     # install_requires=requirements
 )

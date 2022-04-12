@@ -7,16 +7,16 @@ import spacy
 from community.community_louvain import best_partition
 from kneed.knee_locator import KneeLocator
 from sklearn.cluster import KMeans
-from Transcript_Analysis.data_types.Transcript import Transcript
-from Transcript_Analysis.data_types.general import *
+from transcript_analyser.data_types.transcript import Transcript
+from transcript_analyser.data_types.general import *
 
-from Transcript_Analysis.utils.utils import *
+from transcript_analyser.utils.utils import *
 from keybert import KeyBERT
 from tqdm.auto import tqdm
 from nltk.tokenize import sent_tokenize
 
 
-class Unsupervised_Summarizer:
+class UnsupervisedSummarizer:
 
     def __init__(self, csv_file: str, source_dataframe: pd.DataFrame = None, lang: str = 'en', keyword_pos: Tuple = ('NOUN',)):
         self.keyword_pos = keyword_pos

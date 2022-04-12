@@ -2,15 +2,15 @@ from numpy.linalg import norm
 from typing import Any, DefaultDict, List
 import numpy as np
 
-from Transcript_Analysis.data_types.Transcript import Transcript
-from Transcript_Analysis.custom_unsupervised_summarizer import *
+from transcript_analyser.data_types.transcript import Transcript
+from transcript_analyser.custom_unsupervised_summarizer import *
 import yake
 from rake_nltk import Rake
 from Levenshtein import ratio as similarity_ratio
 from nltk.tokenize import sent_tokenize
-from Transcript_Analysis.extractive.lsa.lsa_summarizer import LsaSummarizer
+from transcript_analyser.extractive.lsa.lsa_summarizer import LsaSummarizer
 
-from Transcript_Analysis.utils.Autocomplete import Meeting_Autocomplete
+from transcript_analyser.utils.autocomplete import Meeting_Autocomplete
 
 
 class Extractive:
@@ -161,7 +161,7 @@ class Extractive:
             source_dataframe = Utils.text2df(transcript)
         else:
             return 'Instance provided by user is not supported!'
-        dt = Unsupervised_Summarizer(
+        dt = UnsupervisedSummarizer(
             csv_file=None,
             source_dataframe=source_dataframe
         )

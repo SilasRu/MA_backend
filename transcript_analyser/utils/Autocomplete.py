@@ -1,7 +1,7 @@
 from fast_autocomplete import AutoComplete
 from collections import Counter
 
-from Transcript_Analysis.utils.utils import Utils
+from transcript_analyser.utils.utils import Utils
 
 
 class Meeting_Autocomplete:

@@ -1,7 +1,7 @@
 from operator import attrgetter
 from collections import namedtuple
 
-from Transcript_Analysis.extractive.lsa.utils import ItemsCount
+from transcript_analyser.extractive.lsa.utils import ItemsCount
 
 SentenceInfo = namedtuple("SentenceInfo", ("sentence", "order", "rating",))
 

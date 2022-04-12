@@ -1,7 +1,7 @@
 from typing import Tuple
 from keybert import KeyBERT
 from transformers import BartForConditionalGeneration, BartTokenizer
-from Transcript_Analysis.utils.utils import *
+from transcript_analyser.utils.utils import *
 from tqdm.auto import tqdm
 import nltk
 
