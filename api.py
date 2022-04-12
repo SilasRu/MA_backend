@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
 from Transcript_Analysis.interface import Interface
-from starlette.concurrency import run_in_threadpool
 from fastapi import Depends, FastAPI, HTTPException, Security
 from fastapi.security.api_key import APIKeyHeader
 import json
@@ -53,15 +52,14 @@ app.add_middleware(
 
 
 @app.post('/TranscriptAnalysis/keyphrases/')
-async def get_keyphrases(
+def get_keyphrases(
     json_obj: dict,
     algorithm: str,
     n_keyphrases: int = 3,
     n_grams_min: int = 1,
     n_grams_max: int = 3
 ) -> List[Any]:
-    return await run_in_threadpool(
-        Interface.get_keyphrases,
+    return Interface.get_keyphrases(
         json_obj=json_obj,
         algorithm=algorithm,
         n_keyphrases=n_keyphrases,
@@ -71,17 +69,14 @@ async def get_keyphrases(
 
 
 @app.post('/TranscriptAnalysis/statistics/')
-async def get_statistics(
+def get_statistics(
     json_obj: dict,
 ) -> json:
-    return await run_in_threadpool(
-        Interface.get_statistics,
-        json_obj=json_obj
-    )
+    return Interface.get_statistics(json_obj=json_obj)
 
 
 @app.post('/TranscriptAnalysis/importantTextBlocks/')
-async def get_important_text_blocks(
+def get_important_text_blocks(
     json_obj: dict,
     output_type: str = "WORD",
     filter_backchannels: bool = True,
@@ -91,8 +86,7 @@ async def get_important_text_blocks(
     clustering_algorithm: str = 'louvain',
     per_cluster_results: bool = False,
 ) -> List[dict or str]:
-    return await run_in_threadpool(
-        Interface.get_important_text_blocks,
+    return Interface.get_important_text_blocks(
         json_obj=json_obj,
         output_type=output_type,
         filter_backchannels=filter_backchannels,
@@ -105,13 +99,12 @@ async def get_important_text_blocks(
 
 
 @app.post('/TranscriptAnalysis/relatedWords/')
-async def get_related_words(
+def get_related_words(
     json_obj: dict,
     target_word: str,
     n_keyphrases: int = 5
 ) -> List[str]:
-    return await run_in_threadpool(
-        Interface.get_related_words,
+    return Interface.get_related_words(
         json_obj=json_obj,
         target_word=target_word,
         n_keyphrases=n_keyphrases
