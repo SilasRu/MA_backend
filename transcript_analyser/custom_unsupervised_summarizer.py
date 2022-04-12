@@ -538,7 +538,7 @@ if __name__ == '__main__':
     #     f.close()
     # transcript = Transcript(data)
     # source_dataframe = transcript.df
-    dt = Unsupervised_Summarizer(
+    dt = UnsupervisedSummarizer(
         csv_file=None, source_dataframe=df)
 
     result = dt(
