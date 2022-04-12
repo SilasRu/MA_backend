@@ -1,3 +1,4 @@
+from inspect import trace
 from typing import Any, List
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
@@ -57,8 +58,9 @@ def get_keyphrases(
     n_grams_min: int = 1,
     n_grams_max: int = 3
 ) -> List[Any]:
+    transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_keyphrases(
-        json_obj=json_obj,
+        transcript=transcript,
         algorithm=algorithm,
         n_keyphrases=n_keyphrases,
         n_grams_min=n_grams_min,
@@ -70,7 +72,10 @@ def get_keyphrases(
 def get_statistics(
     json_obj: dict,
 ) -> json:
-    return Interface.get_statistics(json_obj=json_obj)
+    transcript = Interface.preprocess(json_obj=json_obj)
+    return Interface.get_statistics(
+        transcript=transcript
+    )
 
 
 @app.post('/transcript-analysis/important-text-blocks/')
@@ -84,8 +89,9 @@ def get_important_text_blocks(
     clustering_algorithm: str = 'louvain',
     per_cluster_results: bool = False,
 ) -> List[dict or str]:
+    transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_important_text_blocks(
-        json_obj=json_obj,
+        transcript=transcript,
         output_type=output_type,
         filter_backchannels=filter_backchannels,
         remove_entailed_sentences=remove_entailed_sentences,
@@ -102,8 +108,19 @@ def get_related_words(
     target_word: str,
     n_keyphrases: int = 5
 ) -> List[str]:
+    transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_related_words(
-        json_obj=json_obj,
+        transcript=transcript,
         target_word=target_word,
         n_keyphrases=n_keyphrases
+    )
+
+
+@app.post('/transcript-analysis/sentiments/')
+def get_sentiments(
+    json_obj: dict,
+) -> List[str]:
+    transcript = Interface.preprocess(json_obj=json_obj)
+    return Interface.get_sentiments(
+        transcript=transcript
     )
