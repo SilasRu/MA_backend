@@ -19,9 +19,7 @@ api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
 
 async def get_api_key(
-
     api_key_header: str = Security(api_key_header),
-
 ):
 
     if api_key_header == API_KEY:
@@ -29,7 +27,7 @@ async def get_api_key(
 
     else:
         raise HTTPException(
-            status_code=403, detail="Could not validate credentials"
+            status_code=403, detail="Could not validate credentials!"
         )
 
 
@@ -51,7 +49,7 @@ app.add_middleware(
 )
 
 
-@app.post('/TranscriptAnalysis/keyphrases/')
+@app.post('/transcript-analysis/keyphrases/')
 def get_keyphrases(
     json_obj: dict,
     algorithm: str,
@@ -68,14 +66,14 @@ def get_keyphrases(
     )
 
 
-@app.post('/TranscriptAnalysis/statistics/')
+@app.post('/transcript-analysis/statistics/')
 def get_statistics(
     json_obj: dict,
 ) -> json:
     return Interface.get_statistics(json_obj=json_obj)
 
 
-@app.post('/TranscriptAnalysis/importantTextBlocks/')
+@app.post('/transcript-analysis/important-text-blocks/')
 def get_important_text_blocks(
     json_obj: dict,
     output_type: str = "WORD",
@@ -98,7 +96,7 @@ def get_important_text_blocks(
     )
 
 
-@app.post('/TranscriptAnalysis/relatedWords/')
+@app.post('/transcript-analysis/related-words/')
 def get_related_words(
     json_obj: dict,
     target_word: str,
