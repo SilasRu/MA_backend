@@ -124,3 +124,15 @@ def get_sentiments(
     return Interface.get_sentiments(
         transcript=transcript
     )
+
+
+@app.post('/transcript-analysis/search/')
+def search(
+    json_obj: dict,
+    target_word: str
+) -> Any:
+    transcript = Interface.preprocess(json_obj=json_obj)
+    return Interface.search(
+        transcript=transcript,
+        target_word=target_word
+    )

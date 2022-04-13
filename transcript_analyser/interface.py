@@ -1,4 +1,5 @@
 from transcript_analyser.analysers import sentiment_analyser
+from transcript_analyser.searchers.whoosh_searcher import add_many_documents, get_index, search, autocorrect_query
 from .abstractive.abstractive import Abstractive
 from .data_types.transcript import *
 from .extractive.extractive import *
@@ -14,13 +15,12 @@ class Interface:
     def preprocess(json_obj):
         transcript = Transcript(json_obj['transcript'])
         transcript = Interface.apply_conditions(
-            transcript=transcript, 
+            transcript=transcript,
             start_times=json_obj['start_times'],
             end_times=json_obj['end_times'],
             speaker_ids=json_obj['speaker_ids']
         )
         return transcript
-
 
     @staticmethod
     def apply_conditions(
@@ -53,7 +53,7 @@ class Interface:
         """
         Get the key phrases or the generated summaries
         """
-        
+
         if algorithm == "keybert":
             return Abstractive.get_keybert_keywords(
                 text=transcript.text,
@@ -91,7 +91,7 @@ class Interface:
         """
         Get some descriptive statistics about the utterances being fed
         """
-        
+
         topics = Abstractive.get_keybert_keywords(
             text=transcript.text, keyphrase_ngram_range=(1, 3), n_keyphrases=3)
 
@@ -115,7 +115,6 @@ class Interface:
         """
         Get the important_text_blocks of the meeting based on different algorithms such as Louvain community detection or sentence weights
         """
-        
 
         return Extractive.get_sentence_properties(
             transcript=transcript,
@@ -137,7 +136,7 @@ class Interface:
         """
         Get the list of related words to the target word
         """
-        
+
         return Extractive.get_related_words(
             text=transcript.text,
             target_word=target_word,
@@ -154,7 +153,6 @@ class Interface:
         return sentiment_analyser.get_sentiments(
             transcript.text
         )
-        
 
     @ staticmethod
     def filter_speaker(
@@ -178,5 +176,12 @@ class Interface:
             turn for turn in transcript.turns if len(turn.words) != 0]
         return transcript
 
-
-    
+    @ staticmethod
+    def search(
+        transcript: Transcript,
+        target_word: str
+    ) -> Any:
+        ix, index_exists = get_index()
+        if not index_exists:
+            add_many_documents(ix, transcript=transcript)
+        return search(ix, target_word=target_word)
