@@ -1,3 +1,6 @@
+import json
+import hashlib
+from typing import Dict, Any
 from hmac import trans_5C
 from transcript_analyser.data_types.transcript import Transcript, Turn
 from whoosh.index import create_in
@@ -5,6 +8,7 @@ from whoosh.fields import *
 from whoosh import index
 from tqdm.auto import tqdm
 from whoosh.qparser import QueryParser
+
 import os
 
 
@@ -13,7 +17,17 @@ class TranscriptSchema(SchemaClass):
     body = TEXT(stored=True)
 
 
-def get_index(schema: SchemaClass = TranscriptSchema, index_name: str = 'tmp'):
+def dict_hash(dictionary: Dict[str, Any]) -> str:
+    """MD5 hash of a dictionary."""
+    dhash = hashlib.md5()
+
+    encoded = json.dumps(dictionary, sort_keys=True).encode()
+    dhash.update(encoded)
+    return dhash.hexdigest()
+
+
+def get_index(transcript: Transcript, schema: SchemaClass = TranscriptSchema):
+    index_name = str(dict_hash(transcript.json))
     indices_directory = os.path.join("indices", index_name)
     if not os.path.exists(
         indices_directory
@@ -52,14 +66,23 @@ def search(ix: index.Index, target_word: str):
     q = qp.parse(str(target_word))
     with ix.searcher() as searcher:
         results = searcher.search(q)
-        results = [
+        all_results = [
             dict(result)
             for result
             in results
         ]
-
-    return results
-
-
-def autocorrect_query():
-    raise NotImplementedError()
+        if len(all_results) == 0:
+            corrector = searcher.corrector("body")
+            suggested_words = corrector.suggest(target_word)
+            for suggested_word in suggested_words:
+                q = qp.parse(str(suggested_word))
+                results = searcher.search(q)
+                all_results.extend([
+                    {
+                        "guessed_word": suggested_word,
+                        **dict(result)
+                    }
+                    for result
+                    in results
+                ])
+    return all_results

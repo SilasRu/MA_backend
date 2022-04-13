@@ -1,5 +1,5 @@
 from transcript_analyser.analysers import sentiment_analyser
-from transcript_analyser.searchers.whoosh_searcher import add_many_documents, get_index, search, autocorrect_query
+from transcript_analyser.searchers.whoosh_searcher import add_many_documents, get_index, search
 from .abstractive.abstractive import Abstractive
 from .data_types.transcript import *
 from .extractive.extractive import *
@@ -181,7 +181,7 @@ class Interface:
         transcript: Transcript,
         target_word: str
     ) -> Any:
-        ix, index_exists = get_index()
+        ix, index_exists = get_index(transcript=transcript)
         if not index_exists:
             add_many_documents(ix, transcript=transcript)
         return search(ix, target_word=target_word)
