@@ -1,7 +1,3 @@
-import json
-import hashlib
-from typing import Dict, Any
-from hmac import trans_5C
 from transcript_analyser.data_types.transcript import Transcript, Turn
 from whoosh.index import create_in
 from whoosh.fields import *
@@ -11,23 +7,16 @@ from whoosh.qparser import QueryParser
 
 import os
 
+from transcript_analyser.utils.utils import Utils
+
 
 class TranscriptSchema(SchemaClass):
     speaker = KEYWORD(stored=True)
     body = TEXT(stored=True)
 
 
-def dict_hash(dictionary: Dict[str, Any]) -> str:
-    """MD5 hash of a dictionary."""
-    dhash = hashlib.md5()
-
-    encoded = json.dumps(dictionary, sort_keys=True).encode()
-    dhash.update(encoded)
-    return dhash.hexdigest()
-
-
 def get_index(transcript: Transcript, schema: SchemaClass = TranscriptSchema):
-    index_name = str(dict_hash(transcript.json))
+    index_name = str(Utils.dict_hash(transcript.json))
     indices_directory = os.path.join("indices", index_name)
     if not os.path.exists(
         indices_directory

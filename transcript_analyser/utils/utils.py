@@ -1,4 +1,5 @@
-from typing import List, Tuple, Set
+import hashlib
+from typing import Any, Dict, List, Tuple, Set
 from sentence_transformers.SentenceTransformer import SentenceTransformer
 from transformers import pipeline
 import pandas as pd
@@ -21,6 +22,15 @@ class Utils:
 
     def __init__(self) -> None:
         pass
+
+    @staticmethod
+    def dict_hash(dictionary: Dict[str, Any]) -> str:
+        """MD5 hash of a dictionary."""
+        dhash = hashlib.md5()
+
+        encoded = json.dumps(dictionary, sort_keys=True).encode()
+        dhash.update(encoded)
+        return dhash.hexdigest()
 
     @staticmethod
     def sort_json_by_property(json_obj: List[dict], property: str) -> List:
