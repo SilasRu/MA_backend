@@ -1,3 +1,6 @@
+from typing import Dict, List
+
+from numpy import indices
 from transcript_analyser.data_types.transcript import Transcript, Turn
 from whoosh.index import create_in
 from whoosh.fields import *
@@ -13,6 +16,7 @@ from transcript_analyser.utils.utils import Utils
 class TranscriptSchema(SchemaClass):
     speaker = KEYWORD(stored=True)
     body = TEXT(stored=True)
+    start_time = STORED()
 
 
 def get_index(transcript: Transcript, schema: SchemaClass = TranscriptSchema):
@@ -33,7 +37,8 @@ def add_document(ix: index.Index, turn: Turn):
     writer = ix.writer()
     writer.add_document(
         speaker=str(turn.speaker_id),
-        body=str(turn.text)
+        body=str(turn.text),
+        start_time=turn.start_time
     )
     writer.commit()
     print('success')
@@ -44,13 +49,23 @@ def add_many_documents(ix: index.Index, transcript: Transcript):
     for turn in tqdm(transcript.turns, leave=False):
         writer.add_document(
             speaker=str(turn.speaker_id),
-            body=str(turn.text)
+            body=str(turn.text),
+            start_time=turn.start_time
         )
     writer.commit()
     print('success')
 
 
-def search(ix: index.Index, target_word: str):
+def search(ix: index.Index, target_word: str) -> List[Dict]:
+    """Search in the given index for the target word
+
+    Args:
+        ix (index.Index): the index which the document is stored in
+        target_word (str): the word to search for in the index
+
+    Returns:
+        List[Dict]: The sentences that contain the target word
+    """
     qp = QueryParser("body", schema=ix.schema)
     q = qp.parse(str(target_word))
     with ix.searcher() as searcher:
