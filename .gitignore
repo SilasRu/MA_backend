@@ -10,3 +10,4 @@ transcript_analyser/transcript_analyser.egg-info/
 .ipynb_checkpoints/
 .vscode/
 indices/**
+!indices/.gitkeep
