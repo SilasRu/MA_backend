@@ -13,6 +13,10 @@ import os
 from transcript_analyser.utils.utils import Utils
 
 
+if not os.path.exists('indices'):
+    os.mkdir('indices')
+
+
 class TranscriptSchema(SchemaClass):
     speaker = KEYWORD(stored=True)
     body = TEXT(stored=True)
