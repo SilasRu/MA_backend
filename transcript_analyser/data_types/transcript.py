@@ -30,8 +30,14 @@ class Turn:
 
     def _read_turn_object(self, turn_obj: json) -> None:
         self.speaker_id = turn_obj['attrs']['speakerId']
-        self.start_time = turn_obj['attrs']['startTime']
-        self.end_time = turn_obj['attrs']['endTime']
+        self.start_time = turn_obj['attrs']['startTime'] if turn_obj['attrs']['startTime'] != '' else min([
+            word_obj['attrs']['startTime']
+            for word_obj in turn_obj['content']
+        ])
+        self.end_time = turn_obj['attrs']['endTime'] if turn_obj['attrs']['endTime'] != '' else max([
+            word_obj['attrs']['endTime']
+            for word_obj in turn_obj['content']
+        ])
         for word_obj in turn_obj['content']:
             if word_obj['attrs']['type'] == 'WORD':
                 self.words.append(Word(word_obj))
