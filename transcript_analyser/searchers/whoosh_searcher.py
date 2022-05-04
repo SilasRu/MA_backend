@@ -56,6 +56,7 @@ def add_many_documents(ix: index.Index, transcript: Transcript):
             body=str(turn.text),
             start_time=turn.start_time
         )
+
     writer.commit()
     print('success')
 
