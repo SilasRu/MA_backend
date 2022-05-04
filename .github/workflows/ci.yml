@@ -2,11 +2,11 @@ on:
   push:
     branches:
       - 'main'
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
-  steps:
+    steps:
       -
         name: Checkout 
         uses: actions/checkout@v2
@@ -26,4 +26,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/transcript_analyser:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
