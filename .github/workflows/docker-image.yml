@@ -53,17 +53,15 @@ jobs:
         run: ssh ubuntu@160.85.252.100
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p secrets.DOCKER_HUB_ACCESS_TOKEN
+        
 
       - name: get the docker image
         run: docker pull zhpinkman/transcript-analyser:master
 
-      # - name: remove the previous container running
-      #   continue-on-error: true
-      #   run: docker container stop transcript-analyser; docker container rm transcript-analyser
+      - name: remove the previous container running
+        continue-on-error: true
+        run: docker container stop transcript-analyser; docker container rm transcript-analyser
 
       - name: run the container
         run: docker run -d -p 47122:47122 --name transcript-analyser zhpinkman/transcript-analyser:master
