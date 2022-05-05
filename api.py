@@ -50,7 +50,7 @@ app.add_middleware(
 )
 
 
-@app.post('/transcript-analysis/keyphrases/')
+@app.post('/transcript-analyser/keyphrases/')
 def get_keyphrases(
     json_obj: dict,
     algorithm: str,
@@ -68,7 +68,7 @@ def get_keyphrases(
     )
 
 
-@app.post('/transcript-analysis/statistics/')
+@app.post('/transcript-analyser/statistics/')
 def get_statistics(
     json_obj: dict,
 ) -> json:
@@ -78,7 +78,7 @@ def get_statistics(
     )
 
 
-@app.post('/transcript-analysis/important-text-blocks/')
+@app.post('/transcript-analyser/important-text-blocks/')
 def get_important_text_blocks(
     json_obj: dict,
     output_type: str = "WORD",
@@ -102,7 +102,7 @@ def get_important_text_blocks(
     )
 
 
-@app.post('/transcript-analysis/related-words/')
+@app.post('/transcript-analyser/related-words/')
 def get_related_words(
     json_obj: dict,
     target_word: str,
@@ -116,7 +116,7 @@ def get_related_words(
     )
 
 
-@app.post('/transcript-analysis/sentiments/')
+@app.post('/transcript-analyser/sentiments/')
 def get_sentiments(
     json_obj: dict,
 ) -> List[str]:
@@ -126,7 +126,7 @@ def get_sentiments(
     )
 
 
-@app.post('/transcript-analysis/search/')
+@app.post('/transcript-analyser/search/')
 def search(
     json_obj: dict,
     target_word: str
