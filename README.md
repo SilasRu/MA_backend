@@ -1,4 +1,4 @@
-# transcript_analysis
+# transcript_analyser
 
 Follow these steps to setup the project using docker: 
 
