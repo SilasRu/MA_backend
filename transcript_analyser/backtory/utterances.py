@@ -25,20 +25,20 @@ from transformers import BartTokenizer, BartForConditionalGeneration, BartConfig
 from transformers import LongformerTokenizer, EncoderDecoderModel
 import os
 from sklearn.cluster import KMeans
-import tensorflow.compat.v1 as tf
-tf.disable_eager_execution()
+# import tensorflow.compat.v1 as tf
+# tf.disable_eager_execution()
 
 
 base_path = Path(__file__).parent
 
 
-def embed_useT(module):
-    with tf.Graph().as_default():
-        sentences = tf.placeholder(tf.string)
-        embed = hub.Module(module)
-        embeddings = embed(sentences)
-        session = tf.train.MonitoredSession()
-    return lambda x: session.run(embeddings, {sentences: x})
+# def embed_useT(module):
+#     with tf.Graph().as_default():
+#         sentences = tf.placeholder(tf.string)
+#         embed = hub.Module(module)
+#         embeddings = embed(sentences)
+#         session = tf.train.MonitoredSession()
+#     return lambda x: session.run(embeddings, {sentences: x})
 
 
 class Utterance:
@@ -283,24 +283,24 @@ class Utterance:
         if remove_punctuations:
             self.remove_punctuations()
 
-    def get_utterances_segmented_by_kmeans(self, model_name, n_components):
+    # def get_utterances_segmented_by_kmeans(self, model_name, n_components):
 
-        if model_name == 'use':
-            encoding_matrix = self.embed_fn(self.utterances)
-        elif model_name == 'tfidf':
-            tfidf_vectorizer = TfidfVectorizer()
-            encoding_matrix = tfidf_vectorizer.fit_transform(self.utterances)
-        else:
-            print('error: please provide the model name to extract the encoding matrices')
-            return
-        kmeans = KMeans(n_clusters=n_components,
-                        random_state=0).fit(encoding_matrix)
-        result = []
-        for topic in range(n_components):
-            result.append('. '.join(np.array(self.utterances)[
-                          np.where(kmeans.labels_ == topic)]))
+    #     if model_name == 'use':
+    #         encoding_matrix = self.embed_fn(self.utterances)
+    #     elif model_name == 'tfidf':
+    #         tfidf_vectorizer = TfidfVectorizer()
+    #         encoding_matrix = tfidf_vectorizer.fit_transform(self.utterances)
+    #     else:
+    #         print('error: please provide the model name to extract the encoding matrices')
+    #         return
+    #     kmeans = KMeans(n_clusters=n_components,
+    #                     random_state=0).fit(encoding_matrix)
+    #     result = []
+    #     for topic in range(n_components):
+    #         result.append('. '.join(np.array(self.utterances)[
+    #                       np.where(kmeans.labels_ == topic)]))
 
-        return result
+    #     return result
 
     def get_utterances_segmented_by_lda_or_nmf(self, model_name, n_components):
 
