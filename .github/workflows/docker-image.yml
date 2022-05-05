@@ -52,31 +52,24 @@ jobs:
       
       - name: login to server
         run: ssh ubuntu@160.85.252.100
-      
+
       - name: random
-        run: docker image ls -a
+        run: ls -alh
+      
 
       - name: Log in to Docker Hub
         run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
 
-      - name: random 1
-        run: docker image ls -a
 
       - name: get the docker image
         run: docker pull zhpinkman/transcript-analyser:master
 
-      - name: random 2
-        run: docker image ls -a
 
       - name: remove the previous container running
         continue-on-error: true
         run: docker container stop transcript-analyser; docker container rm transcript-analyser
 
-      - name: random 3
-        run: docker image ls -a
 
       - name: run the container
         run: docker run -d -p 47122:47122 --name transcript-analyser zhpinkman/transcript-analyser:master
 
-      - name: random 4
-        run: docker image ls -a
