@@ -53,7 +53,7 @@ jobs:
         run: ssh ubuntu@160.85.252.100
 
       - name: Log in to Docker Hub
-        run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} --password-stdin secrets.DOCKER_HUB_ACCESS_TOKEN
+        run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
         
 
       - name: get the docker image
