@@ -1,9 +1,8 @@
 from distutils import text_file
 from typing import List
 import pandas as pd
-from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer
 import numpy as np
-import torch as th
 import networkx as nx
 from sklearn.preprocessing import normalize
 from nltk.tokenize import sent_tokenize
@@ -58,9 +57,7 @@ def get_text_embedding(text: str):
 
 
 def get_similarity_matrix(embeddings: np.array, do_normalize: bool = True) -> np.array:
-    embeddings_tensors = th.Tensor(embeddings)
-    similarity_matrix = util.dot_score(
-        embeddings_tensors, embeddings_tensors).numpy()
+    similarity_matrix = np.dot(embeddings, embeddings)
     if do_normalize:
         similarity_matrix = normalize(similarity_matrix)
     np.fill_diagonal(similarity_matrix, 0)
@@ -68,7 +65,7 @@ def get_similarity_matrix(embeddings: np.array, do_normalize: bool = True) -> np
 
 
 def get_similarity_score(a, b):
-    return util.dot_score(th.Tensor(a), th.Tensor(b)).numpy()
+    return np.dot(a, b)
 
 
 def create_sentences_graph(similarity_matrix: np.array, embeddings: np.array) -> nx.DiGraph:

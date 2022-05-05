@@ -1,13 +1,9 @@
-from numpy.random.mtrand import sample
-from pandas.core.construction import extract_array
 from numpy.linalg import norm
 from tqdm import tqdm
-import tensorflow_hub as hub
 import pandas as pd
 import numpy as np
 import re
 from transcript_analyser.utils.utils import *
-from termcolor import colored
 from nltk.tokenize import WhitespaceTokenizer
 from keybert import KeyBERT
 from yake import KeywordExtractor
@@ -15,8 +11,8 @@ from transformers import pipeline
 import json
 from pathlib import Path
 from nltk.tokenize import sent_tokenize
-from textsplit.tools import get_segments
-from textsplit.algorithm import split_optimal
+# from textsplit.tools import get_segments
+# from textsplit.algorithm import split_optimal
 from gensim.models import KeyedVectors
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
@@ -97,8 +93,8 @@ class Utterance:
         result = ''
         while len(utterances) != 0:
             print('length of the left utterances',
-                  colored(len(utterances), 'green'))
-            print('length of the summary', colored(len(result.split()), 'red'))
+                  len(utterances), 'green')
+            print('length of the summary', len(result.split()), 'red')
             summary_length = len(result.split())
             free_space = min(max_tokens - summary_length, len(utterances))
             text = result + ' '.join(utterances[:free_space])
@@ -330,40 +326,40 @@ class Utterance:
 
         return result
 
-    def textsplit(self, transcript, language, seg_limit=None, penalty=None):
-        text = ""
-        utterance_breaks = [0]
-        for utterance in transcript["utterance"].str.lower():
-            sentenced_utterance = sent_tokenize(utterance)
-            utterance_breaks.append(
-                utterance_breaks[-1] + len(sentenced_utterance))
-            text += utterance + " "
-        del utterance_breaks[0]
-        word2vec_path = (
-            base_path / 'googlenews-vectors-negative300.bin').resolve()
-        model = KeyedVectors.load_word2vec_format(word2vec_path, binary=True)
-        wrdvecs = pd.dataframe(model.vectors, index=model.index_to_key)
-        del model
-        sentenced_text = sent_tokenize(text)
-        vecr = CountVectorizer(vocabulary=wrdvecs.index)
-        sentence_vectors = vecr.transform(sentenced_text).dot(wrdvecs)
-        optimal_segments = split_optimal(
-            sentence_vectors, penalty=penalty, seg_limit=seg_limit)
-        segmented_text = get_segments(sentenced_text, optimal_segments)
-        lengths_optimal = [len(segment)
-                           for segment in segmented_text for sentence in segment]
+    # def textsplit(self, transcript, language, seg_limit=None, penalty=None):
+    #     text = ""
+    #     utterance_breaks = [0]
+    #     for utterance in transcript["utterance"].str.lower():
+    #         sentenced_utterance = sent_tokenize(utterance)
+    #         utterance_breaks.append(
+    #             utterance_breaks[-1] + len(sentenced_utterance))
+    #         text += utterance + " "
+    #     del utterance_breaks[0]
+    #     word2vec_path = (
+    #         base_path / 'googlenews-vectors-negative300.bin').resolve()
+    #     model = KeyedVectors.load_word2vec_format(word2vec_path, binary=True)
+    #     wrdvecs = pd.dataframe(model.vectors, index=model.index_to_key)
+    #     del model
+    #     sentenced_text = sent_tokenize(text)
+    #     vecr = CountVectorizer(vocabulary=wrdvecs.index)
+    #     sentence_vectors = vecr.transform(sentenced_text).dot(wrdvecs)
+    #     optimal_segments = split_optimal(
+    #         sentence_vectors, penalty=penalty, seg_limit=seg_limit)
+    #     segmented_text = get_segments(sentenced_text, optimal_segments)
+    #     lengths_optimal = [len(segment)
+    #                        for segment in segmented_text for sentence in segment]
 
-        normalized_splits = [0]
-        for split in optimal_segments.splits:
-            diff = list(map(lambda ub: split - ub, utterance_breaks))
-            smallest_positive_value_index = max(
-                [i for i in range(len(diff)) if diff[i] > 0])
-            normalized_splits.append(smallest_positive_value_index+1)
-        normalized_splits.append(len(transcript)-1)
-        normalized_splits = list(set(normalized_splits))
-        normalized_splits.sort()
+    #     normalized_splits = [0]
+    #     for split in optimal_segments.splits:
+    #         diff = list(map(lambda ub: split - ub, utterance_breaks))
+    #         smallest_positive_value_index = max(
+    #             [i for i in range(len(diff)) if diff[i] > 0])
+    #         normalized_splits.append(smallest_positive_value_index+1)
+    #     normalized_splits.append(len(transcript)-1)
+    #     normalized_splits = list(set(normalized_splits))
+    #     normalized_splits.sort()
 
-        return normalized_splits, optimal_segments.splits, lengths_optimal
+    #     return normalized_splits, optimal_segments.splits, lengths_optimal
 
     def get_longformer_summaries(self, utterances, summary_min_length, summary_max_length, permutation=False):
         model = EncoderDecoderModel.from_pretrained(
@@ -384,29 +380,29 @@ class Utterance:
                 summary_ids[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
         return result
 
-    def get_utterances_segments(self):
-        results_len = 0
-        penalty = 1
-        while results_len < 5:
-            print(f'penalty: {penalty}')
-            try:
-                normalized_splits, _, _ = self.textsplit(
-                    self.transcript_df, 'english', penalty=penalty)
-                results_len = len(normalized_splits)
-            except Exception as e:
-                print(e)
-                continue
-            finally:
-                penalty = penalty + 1
-        return normalized_splits
+    # def get_utterances_segments(self):
+    #     results_len = 0
+    #     penalty = 1
+    #     while results_len < 5:
+    #         print(f'penalty: {penalty}')
+    #         try:
+    #             normalized_splits, _, _ = self.textsplit(
+    #                 self.transcript_df, 'english', penalty=penalty)
+    #             results_len = len(normalized_splits)
+    #         except Exception as e:
+    #             print(e)
+    #             continue
+    #         finally:
+    #             penalty = penalty + 1
+    #     return normalized_splits
 
-    def get_utterances_segmented_by_context(self):
-        splits = self.get_utterances_segments()
-        result = []
-        for i in range(len(splits) - 1):
-            result.append(' '.join(self.utterances[splits[i]:min(
-                splits[i + 1] + 1, len(self.utterances))]))
-        return result
+    # def get_utterances_segmented_by_context(self):
+    #     splits = self.get_utterances_segments()
+    #     result = []
+    #     for i in range(len(splits) - 1):
+    #         result.append(' '.join(self.utterances[splits[i]:min(
+    #             splits[i + 1] + 1, len(self.utterances))]))
+    #     return result
 
     def get_agg_results_with_bart(self, text, num_runs, minimum_length, maximum_length):
         results = []
@@ -530,11 +526,11 @@ if __name__ == '__main__':
         'transcriptsforkeyphraseextraction/2021-07-12 14.35.38 interscriber wrapup.m4a.csv')
     data = Utterance(df)
     first_pass_keywords = data.get_keybert_keywords(text)
-    print(colored('First pass', 'red'))
+    print('First pass', 'red')
     print(first_pass_keywords)
     second_pass_keywords = data.get_keybert_keywords(
         first_pass_keywords, keyphrase_ngram_range=(1, 3), top_n=1)
-    print(colored('Second pass', 'red'))
+    print('Second pass', 'red')
     print(second_pass_keywords)
-    print(colored('Actual topics', 'green'))
+    print('Actual topics', 'green')
     print(topics)

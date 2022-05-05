@@ -11,3 +11,5 @@ transcript_analyser/transcript_analyser.egg-info/
 .vscode/
 indices/**
 !indices/.gitkeep
+env/
+dist/
