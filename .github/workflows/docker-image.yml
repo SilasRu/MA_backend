@@ -49,27 +49,30 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      
-      - name: login to server
-        run: ssh ubuntu@160.85.252.100
 
-      - name: random
-        run: ls -alh
-      
-
-      - name: Log in to Docker Hub
-        run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
-
-
-      - name: get the docker image
-        run: docker pull zhpinkman/transcript-analyser:master
+      - name: Remote SSH Commands
+        uses: fifsky/ssh-action@v0.0.6
+        with:
+          command: |
+            ls -alh
+          host: ${{ secrets.SSH_HOST }}
+          user: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY}}
 
 
-      - name: remove the previous container running
-        continue-on-error: true
-        run: docker container stop transcript-analyser; docker container rm transcript-analyser
+      # - name: Log in to Docker Hub
+      #   run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
 
 
-      - name: run the container
-        run: docker run -d -p 47122:47122 --name transcript-analyser zhpinkman/transcript-analyser:master
+      # - name: get the docker image
+      #   run: docker pull zhpinkman/transcript-analyser:master
+
+
+      # - name: remove the previous container running
+      #   continue-on-error: true
+      #   run: docker container stop transcript-analyser; docker container rm transcript-analyser
+
+
+      # - name: run the container
+      #   run: docker run -d -p 47122:47122 --name transcript-analyser zhpinkman/transcript-analyser:master
 
