@@ -61,9 +61,12 @@ jobs:
       - name: get the docker image
         run: docker pull zhpinkman/transcript-analyser:master
 
-      - name: remove the previous container running
-        continue-on-error: true
-        run: docker container stop transcript-analyser; docker container rm transcript-analyser
+      # - name: remove the previous container running
+      #   continue-on-error: true
+      #   run: docker container stop transcript-analyser; docker container rm transcript-analyser
 
       - name: run the container
         run: docker run -d -p 47122:47122 --name transcript-analyser zhpinkman/transcript-analyser:master
+
+      - name: random stuff
+        run: docker image ls -a
