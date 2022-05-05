@@ -62,6 +62,7 @@ jobs:
         run: docker pull zhpinkman/transcript-analyser:master
 
       - name: remove the previous container running
+        continue-on-error: true
         run: docker container stop transcript-analyser; docker container rm transcript-analyser
 
       - name: run the container
