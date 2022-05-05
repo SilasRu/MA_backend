@@ -23,5 +23,5 @@ jobs:
       run: docker build . --file Dockerfile --tag transcript-analyser:latest
     
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/transcript-analyser:latest
+      run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/transcript-analyser
         
