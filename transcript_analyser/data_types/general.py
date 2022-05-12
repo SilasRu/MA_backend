@@ -1,7 +1,7 @@
 import numpy as np
 import json
 from enum import Enum, auto, unique
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -56,3 +56,18 @@ class SentimentsResponseObj(BaseModel):
                        example="POSITIVE")
     score: float = Field(..., description='Confidence score of the sentiment that is being assigned to this sentence.',
                          example=0.9716441035270691)
+
+
+class RelatedWordsResponseObj(BaseModel):
+    content: str = Field(..., example="kitchen")
+    weight: float = Field(..., example=0.9999999999999998)
+
+
+class SearchResponseObj(BaseModel):
+
+    guessed_word: str = Field(
+        None, description='If the specific words that is being searched for is not found in the text, different candidate words would be used to search which are specified in this field.')
+    body: str = Field(..., description='The document which is returned in response to the search of word.')
+    speaker: str = Field(..., description="The speaker that has uttered the document being returned as response of the search.")
+    start_time: float = Field(
+        ..., description='The start time of the document or the utterance that is being returned for search.')

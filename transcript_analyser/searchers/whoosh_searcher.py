@@ -76,7 +76,10 @@ def search(ix: index.Index, target_word: str) -> List[Dict]:
     with ix.searcher() as searcher:
         results = searcher.search(q)
         all_results = [
-            dict(result)
+            {
+                "guessed_word": target_word,
+                **dict(result)
+            }
             for result
             in results
         ]

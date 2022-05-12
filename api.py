@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
 from transcript_analyser.consts import *
-from transcript_analyser.data_types.general import SentimentsResponseObj, StatisticsResponseObj, TranscriptInputObj
+from transcript_analyser.data_types.general import RelatedWordsResponseObj, SearchResponseObj, SentimentsResponseObj, StatisticsResponseObj, TranscriptInputObj
 
 from transcript_analyser.interface import Interface
 from fastapi import Depends, FastAPI, HTTPException, Query, Security
@@ -107,13 +107,13 @@ def get_important_text_blocks(
     )
 
 
-@app.post('/transcript-analyser/related-words/')
+@app.post('/transcript-analyser/related-words/', response_model=RelatedWordsResponseObj)
 def get_related_words(
     json_obj: TranscriptInputObj,
     target_word: str,
     n_keyphrases: int = Query(N_KEYPHRASES,
                               description=N_KEYPHRASES_DESC)
-) -> List[str]:
+):
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_related_words(
         transcript=transcript,
@@ -132,11 +132,11 @@ def get_sentiments(
     )
 
 
-@app.post('/transcript-analyser/search/')
+@app.post('/transcript-analyser/search/', response_model=List[SearchResponseObj])
 def search(
     json_obj: TranscriptInputObj,
     target_word: str
-) -> Any:
+):
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.search(
         transcript=transcript,
