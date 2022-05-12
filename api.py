@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
 from transcript_analyser.consts import *
-from transcript_analyser.data_types.general import StatisticsResponseObj, TranscriptInputObj
+from transcript_analyser.data_types.general import SentimentsResponseObj, StatisticsResponseObj, TranscriptInputObj
 
 from transcript_analyser.interface import Interface
 from fastapi import Depends, FastAPI, HTTPException, Query, Security
@@ -71,7 +71,7 @@ def get_keyphrases(
 @app.post('/transcript-analyser/statistics/', response_model=StatisticsResponseObj)
 def get_statistics(
     json_obj: TranscriptInputObj,
-) -> json:
+):
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_statistics(
         transcript=transcript
@@ -122,10 +122,10 @@ def get_related_words(
     )
 
 
-@app.post('/transcript-analyser/sentiments/')
+@app.post('/transcript-analyser/sentiments/', response_model=List[SentimentsResponseObj])
 def get_sentiments(
     json_obj: TranscriptInputObj,
-) -> List[str]:
+):
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_sentiments(
         transcript=transcript

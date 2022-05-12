@@ -42,8 +42,17 @@ class StatisticsResponseObj(BaseModel):
     statistics: Dict[str, Any] = Field(..., description='Some simple statistics about the meeting like the number of speakers or the proportion of the meeting that they are speaking in.', example={
         "num_speakers": 2,
         "num_utterances": 18,
-        "speaker_times": {
+        "speaker_utterances_durations": {
             "2": 36.78999999999999,
             "1": 66.77000000000001
         }
     })
+
+
+class SentimentsResponseObj(BaseModel):
+    content: str = Field(..., description="Sentence.",
+                         example="Uh huh mary hi hello, I'm Susan Thompson Resource manager.")
+    label: str = Field(..., description="The overal sentiment for the sentence.",
+                       example="POSITIVE")
+    score: float = Field(..., description='Confidence score of the sentiment that is being assigned to this sentence.',
+                         example=0.9716441035270691)
