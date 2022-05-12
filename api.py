@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
@@ -47,7 +47,7 @@ app.add_middleware(
 )
 
 
-@app.post('/transcript-analyser/keyphrases/', response_model=List[str])
+@app.post('/transcript-analyser/keyphrases/', response_model=Union[List[str], str])
 def get_keyphrases(
     json_obj: TranscriptInputObj,
     algorithm: str,
