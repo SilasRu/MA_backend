@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
@@ -8,7 +8,6 @@ from transcript_analyser.data_types.general import RelatedWordsResponseObj, Sear
 from transcript_analyser.interface import Interface
 from fastapi import Depends, FastAPI, HTTPException, Query, Security
 from fastapi.security.api_key import APIKeyHeader
-import json
 import os
 
 
@@ -48,16 +47,16 @@ app.add_middleware(
 )
 
 
-@app.post('/transcript-analyser/keyphrases/')
+@app.post('/transcript-analyser/keyphrases/', response_model=List[str])
 def get_keyphrases(
     json_obj: TranscriptInputObj,
     algorithm: str,
-    n_keyphrases: int = Query(N_KEYPHRASES,
+    n_keyphrases: int = Query(default=N_KEYPHRASES,
                               description=N_KEYPHRASES_DESC),
     n_grams_min: int = Query(
-        N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
-    n_grams_max: int = Query(N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
-) -> List[Any]:
+        default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
+    n_grams_max: int = Query(default=N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
+):
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_keyphrases(
         transcript=transcript,
@@ -78,22 +77,23 @@ def get_statistics(
     )
 
 
+# TODO write the documentation for the repsonse model
 @app.post('/transcript-analyser/important-text-blocks/')
 def get_important_text_blocks(
     json_obj: TranscriptInputObj,
-    output_type: str = Query("WORD", description=OUTPUT_TYPE_DESC),
+    output_type: str = Query(default="WORD", description=OUTPUT_TYPE_DESC),
     filter_backchannels: bool = Query(
-        True, description=FILTER_BACKCHANNELS_DESC),
+        default=True, description=FILTER_BACKCHANNELS_DESC),
     remove_entailed_sentences: bool = Query(
-        True, description=REMOVE_ENTAILED_SENTENCES_DESC),
+        default=True, description=REMOVE_ENTAILED_SENTENCES_DESC),
     get_graph_backbone: bool = Query(
-        True, description=GET_GRAPH_BACKBONE_DESC),
-    do_cluster: bool = Query(True, description=DO_CLUSTER_DESC),
+        default=True, description=GET_GRAPH_BACKBONE_DESC),
+    do_cluster: bool = Query(default=True, description=DO_CLUSTER_DESC),
     clustering_algorithm: str = Query(
-        'louvain', description=CLUSTERING_ALGORITHM_DESC),
+        default='louvain', description=CLUSTERING_ALGORITHM_DESC),
     per_cluster_results: bool = Query(
-        False, description=PER_CLUSTER_RESULTS_DESC),
-) -> List[dict or str]:
+        default=False, description=PER_CLUSTER_RESULTS_DESC),
+):
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_important_text_blocks(
         transcript=transcript,
@@ -107,11 +107,11 @@ def get_important_text_blocks(
     )
 
 
-@app.post('/transcript-analyser/related-words/', response_model=RelatedWordsResponseObj)
+@app.post('/transcript-analyser/related-words/', response_model=List[RelatedWordsResponseObj])
 def get_related_words(
     json_obj: TranscriptInputObj,
-    target_word: str,
-    n_keyphrases: int = Query(N_KEYPHRASES,
+    target_word: str = Query(default=None, min_length=1),
+    n_keyphrases: int = Query(default=N_KEYPHRASES,
                               description=N_KEYPHRASES_DESC)
 ):
     transcript = Interface.preprocess(json_obj=json_obj)
@@ -135,7 +135,7 @@ def get_sentiments(
 @app.post('/transcript-analyser/search/', response_model=List[SearchResponseObj])
 def search(
     json_obj: TranscriptInputObj,
-    target_word: str
+    target_word: str = Query(default=None, min_length=1)
 ):
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.search(
