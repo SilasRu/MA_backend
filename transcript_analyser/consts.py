@@ -8,7 +8,8 @@ FORBIDDEN_STATUS_CODE = 403
 N_GRAMS_MIN = 1
 N_GRAMS_MAX = 3
 N_KEYPHRASES = 5
-
+MIN_WORD_LEN = 1
+CACHING_TIME_TOLERANCE = 10
 
 PER_CLUSTER_RESULTS_DESC = 'Whether to get the results per cluster, per_cluster_results = [true, false].'
 CLUSTERING_ALGORITHM_DESC = "The clustering algorithm that you want to be used for the clustering phase, clustering_algorithm = ['kmeans', 'louvain']."
@@ -17,3 +18,4 @@ GET_GRAPH_BACKBONE_DESC = "Whether to get the sentence graph backbone when analy
 REMOVE_ENTAILED_SENTENCES_DESC = "Whether to remove the sentences which can be entailed from the other sentences or not, it can be assigned by one of the following values, remove_entailed_sentences = [false, true]."
 FILTER_BACKCHANNELS_DESC = "Whether to filter the backchannels or not as a preprocessing step, it can be set to one of the following values, filter_backchannels = [false, true]."
 OUTPUT_TYPE_DESC = "The type of the output you want to get. it can be one of the following optionts, output_types = ['SENTENCE', 'WORD']."
+JOB_DOES_NOT_EXISTS = "There is no job with this job id."

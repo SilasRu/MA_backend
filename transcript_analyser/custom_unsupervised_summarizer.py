@@ -7,7 +7,6 @@ import spacy
 from community.community_louvain import best_partition
 from kneed.knee_locator import KneeLocator
 from sklearn.cluster import KMeans
-from transcript_analyser.data_types.transcript import Transcript
 from transcript_analyser.data_types.general import *
 
 from transcript_analyser.utils.utils import *
@@ -45,23 +44,17 @@ class UnsupervisedSummarizer:
 
     def __call__(
         self,
-            output: Output_type,
-            filter_backchannels: bool = True,
-            remove_entailed_sentences: bool = True,
-            get_graph_backbone: bool = True,
-            do_cluster: bool = True,
-            clustering_algorithm: str = 'louvain',
-            per_cluster_results: bool = True
+        **kwargs
     ):
         """
         Get the summary of the meeting alongside the important words
         """
-
-        if filter_backchannels:
+        output_type = Output_type[kwargs.get("output_type")]
+        if kwargs.get('filter_backchannels'):
             self.filter_backchannels_duplicates()
         self.count_keywords()
 
-        if output == Output_type.WORD:
+        if output_type == Output_type.WORD:
             return self.keyword_counts
 
         self.weigh_sentences()
@@ -72,26 +65,26 @@ class UnsupervisedSummarizer:
 
         self.generate_sentence_similarity_graph()
 
-        if remove_entailed_sentences:
+        if kwargs.get('remove_entailed_sentences'):
             self.simple_entailment()
             self.remove_nodes_based_on_entailment_matrix_and_similarity_graph()
 
-        if get_graph_backbone:
+        if kwargs.get("get_graph_backbone"):
             self.sentence_similarity_graph = Utils.get_graph_backbone(
                 self.sentence_similarity_graph)
 
         # TODO use the information gathered by the sentence similarity graph to the clustering algorithm input
-        if do_cluster:
-            if clustering_algorithm == 'louvain':
+        if kwargs.get("do_cluster"):
+            if kwargs.get("clustering_algorithm") == 'louvain':
                 self.cluster_sentences_by_louvain()
-            elif clustering_algorithm == 'kmeans':
+            elif kwargs.get("clustering_algorithm") == 'kmeans':
                 self.cluster_sentences()
 
             else:
                 raise Exception(
                     'the algorithm specified is not in the accepted ones!'
                 )
-            if per_cluster_results:
+            if kwargs.get("per_cluster_results"):
                 output_bert = self.get_clustered_sentences_w_keywords()
                 output_tfidf = self.get_keywords_per_sentence_cluster()
                 output_best_per_cluster = self.best_sentences_per_cluster()
@@ -102,7 +95,7 @@ class UnsupervisedSummarizer:
                     'output_best_per_cluster': output_best_per_cluster
                 }
 
-        if output == Output_type.SENTENCE:
+        if output_type == Output_type.SENTENCE:
             return [
                 {
                     'content': node[0],
@@ -110,8 +103,6 @@ class UnsupervisedSummarizer:
                 }
                 for node in self.sentence_similarity_graph.nodes(data=True)
             ]
-        # if output == Output_type.HTML:
-            # return {'HTML': self.write_dataframe_with_weight_community_html()}
 
     def remove_unnecessary_sentences(self):
         if self.sentence_weights is None:

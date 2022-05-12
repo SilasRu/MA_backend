@@ -16,6 +16,7 @@ sentence_transformers==2.1.0
 tabulate==0.8.9
 tqdm==4.62.3
 transformers
+path
 umap==0.1.1
 visdom==0.1.8.9
 fastapi~=0.70.1

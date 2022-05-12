@@ -148,13 +148,7 @@ class Extractive:
     @staticmethod
     def get_sentence_properties(
         transcript: Transcript or str,
-        output_type: Output_type,
-        filter_backchannels: bool = True,
-        remove_entailed_sentences: bool = True,
-        get_graph_backbone: bool = True,
-        do_cluster: bool = True,
-        clustering_algorithm: str = 'louvain',
-        per_cluster_results: bool = True,
+        **kwargs
     ) -> List[dict]:
         if isinstance(transcript, Transcript):
             source_dataframe = transcript.df
@@ -167,15 +161,9 @@ class Extractive:
             source_dataframe=source_dataframe
         )
         results = dt(
-            output=output_type,
-            filter_backchannels=filter_backchannels,
-            remove_entailed_sentences=remove_entailed_sentences,
-            get_graph_backbone=get_graph_backbone,
-            do_cluster=do_cluster,
-            clustering_algorithm=clustering_algorithm,
-            per_cluster_results=per_cluster_results,
+            **kwargs
         )
-        if output_type == Output_type.WORD:
+        if Output_type[kwargs.get("output_type")] == Output_type.WORD:
             results = [
                 {
                     'content': word,
@@ -183,20 +171,10 @@ class Extractive:
                 }
                 for word, cnt in results.items()
             ]
-        elif output_type == Output_type.SENTENCE:
-            if per_cluster_results:
+        elif Output_type[kwargs.get("output_type")] == Output_type.SENTENCE:
+            if kwargs.get("per_cluster_results"):
                 return results
-            results = [
-                {
-                    'content': sentence,
-                    'weight': properties['weight'],
-                    'properties': {
-                        key: value
-                        for key, value in properties.items() if key != 'weight'
-                    }
-                }
-                for sentence, properties in results.items()
-            ]
+
         else:
             raise Exception(
                 'The output type you requested is not being supported!')

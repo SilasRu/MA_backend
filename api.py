@@ -5,11 +5,13 @@ import warnings
 from transcript_analyser.consts import *
 from transcript_analyser.data_types.general import RelatedWordsResponseObj, SearchResponseObj, SentimentsResponseObj, StatisticsResponseObj, TranscriptInputObj
 
-from transcript_analyser.interface import Interface
-from fastapi import Depends, FastAPI, HTTPException, Query, Security
+from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Security
 from fastapi.security.api_key import APIKeyHeader
 import os
 
+from transcript_analyser.job_manager import JobManager
+
+job_manager = JobManager()
 
 warnings.filterwarnings("ignore")
 
@@ -50,6 +52,7 @@ app.add_middleware(
 @app.post('/transcript-analyser/keyphrases/', response_model=Union[List[str], str])
 def get_keyphrases(
     json_obj: TranscriptInputObj,
+    background_tasks: BackgroundTasks,
     algorithm: str,
     n_keyphrases: int = Query(default=N_KEYPHRASES,
                               description=N_KEYPHRASES_DESC),
@@ -57,9 +60,10 @@ def get_keyphrases(
         default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
     n_grams_max: int = Query(default=N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
 ):
-    transcript = Interface.preprocess(json_obj=json_obj)
-    return Interface.get_keyphrases(
-        transcript=transcript,
+    return job_manager.do_job(
+        json_obj=json_obj,
+        background_tasks=background_tasks,
+        task='get_keyphrases',
         algorithm=algorithm,
         n_keyphrases=n_keyphrases,
         n_grams_min=n_grams_min,
@@ -70,10 +74,12 @@ def get_keyphrases(
 @app.post('/transcript-analyser/statistics/', response_model=StatisticsResponseObj)
 def get_statistics(
     json_obj: TranscriptInputObj,
+    background_tasks: BackgroundTasks
 ):
-    transcript = Interface.preprocess(json_obj=json_obj)
-    return Interface.get_statistics(
-        transcript=transcript
+    return job_manager.do_job(
+        json_obj=json_obj,
+        background_tasks=background_tasks,
+        task='get_statistics'
     )
 
 
@@ -81,6 +87,7 @@ def get_statistics(
 @app.post('/transcript-analyser/important-text-blocks/')
 def get_important_text_blocks(
     json_obj: TranscriptInputObj,
+    background_tasks: BackgroundTasks,
     output_type: str = Query(default="WORD", description=OUTPUT_TYPE_DESC),
     filter_backchannels: bool = Query(
         default=True, description=FILTER_BACKCHANNELS_DESC),
@@ -94,9 +101,10 @@ def get_important_text_blocks(
     per_cluster_results: bool = Query(
         default=False, description=PER_CLUSTER_RESULTS_DESC),
 ):
-    transcript = Interface.preprocess(json_obj=json_obj)
-    return Interface.get_important_text_blocks(
-        transcript=transcript,
+    return job_manager.do_job(
+        json_obj=json_obj,
+        background_tasks=background_tasks,
+        task='get_important_text_blocks',
         output_type=output_type,
         filter_backchannels=filter_backchannels,
         remove_entailed_sentences=remove_entailed_sentences,
@@ -110,13 +118,15 @@ def get_important_text_blocks(
 @app.post('/transcript-analyser/related-words/', response_model=List[RelatedWordsResponseObj])
 def get_related_words(
     json_obj: TranscriptInputObj,
-    target_word: str = Query(default=None, min_length=1),
+    background_tasks: BackgroundTasks,
+    target_word: str = Query(default=None, min_length=MIN_WORD_LEN),
     n_keyphrases: int = Query(default=N_KEYPHRASES,
                               description=N_KEYPHRASES_DESC)
 ):
-    transcript = Interface.preprocess(json_obj=json_obj)
-    return Interface.get_related_words(
-        transcript=transcript,
+    return job_manager.do_job(
+        json_obj=json_obj,
+        task='get_related_words',
+        background_tasks=background_tasks,
         target_word=target_word,
         n_keyphrases=n_keyphrases
     )
@@ -125,20 +135,24 @@ def get_related_words(
 @app.post('/transcript-analyser/sentiments/', response_model=List[SentimentsResponseObj])
 def get_sentiments(
     json_obj: TranscriptInputObj,
+    background_tasks: BackgroundTasks
 ):
-    transcript = Interface.preprocess(json_obj=json_obj)
-    return Interface.get_sentiments(
-        transcript=transcript
+    return job_manager.do_job(
+        json_obj=json_obj,
+        task='get_sentiments',
+        background_tasks=background_tasks
     )
 
 
 @app.post('/transcript-analyser/search/', response_model=List[SearchResponseObj])
 def search(
     json_obj: TranscriptInputObj,
-    target_word: str = Query(default=None, min_length=1)
+    background_tasks: BackgroundTasks,
+    target_word: str = Query(default=None, min_length=MIN_WORD_LEN),
 ):
-    transcript = Interface.preprocess(json_obj=json_obj)
-    return Interface.search(
-        transcript=transcript,
+    return job_manager.do_job(
+        json_obj=json_obj,
+        task='search',
+        background_tasks=background_tasks,
         target_word=target_word
     )

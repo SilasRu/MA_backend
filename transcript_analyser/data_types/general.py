@@ -1,3 +1,4 @@
+from ctypes import Union
 import numpy as np
 import json
 from enum import Enum, auto, unique
@@ -71,3 +72,11 @@ class SearchResponseObj(BaseModel):
     speaker: str = Field(..., description="The speaker that has uttered the document being returned as response of the search.")
     start_time: float = Field(
         ..., description='The start time of the document or the utterance that is being returned for search.')
+
+
+class JobResponseObj(BaseModel):
+    status: str = Field(..., description='The status of the job.')
+    output: Dict or SearchResponseObj or RelatedWordsResponseObj or SentimentsResponseObj or StatisticsResponseObj
+
+
+# TODO change this later to omit Dict as a general json object from it

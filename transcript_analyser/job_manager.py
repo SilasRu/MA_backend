@@ -1,22 +1,89 @@
-from transcript_analyser.analysers import sentiment_analyser
-from transcript_analyser.consts import N_GRAMS_MAX, N_GRAMS_MIN, N_KEYPHRASES
+import json
+from fastapi import BackgroundTasks
+from regex import F
+from transcript_analyser.abstractive.abstractive import Abstractive
+from transcript_analyser.consts import CACHING_TIME_TOLERANCE, N_GRAMS_MAX, N_GRAMS_MIN, N_KEYPHRASES
+from transcript_analyser.data_types.general import TranscriptInputObj
+from transcript_analyser.extractive.extractive import Extractive
 from transcript_analyser.searchers.whoosh_searcher import add_many_documents, get_index, search
-from .abstractive.abstractive import Abstractive
-from .data_types.transcript import *
-from .extractive.extractive import *
+from transcript_analyser.analysers import sentiment_analyser
+from typing import Any, Dict, List, Union
+from path import Path
+import os
+import time
+
+from transcript_analyser.data_types.transcript import Transcript
+from transcript_analyser.utils.utils import Utils
+
+JOBS_DIRECTORY = ((Path(__file__).parent.parent.parent) / 'jobs').abspath()
+if not os.path.exists(JOBS_DIRECTORY):
+    os.mkdir(JOBS_DIRECTORY)
 
 
 class CustomError(Exception):
     pass
 
 
-class Interface:
+class JobManager:
 
-    @staticmethod
-    def preprocess(json_obj: Dict):
+    def do_job(
+        self,
+        background_tasks: BackgroundTasks,
+        json_obj: TranscriptInputObj,
+        task: str,
+        **kwargs
+    ) -> str:
+        transcript = self.__preprocess(json_obj=json_obj)
+
+        job_id = self.__get_job_id(transcript, task, **kwargs)
+        cached_results = self.__get_job(job_id=job_id)
+        if cached_results:
+            return cached_results
+
+        start_time = time.time()
+        results = getattr(self, task)(transcript, **kwargs)
+        end_time = time.time()
+
+        if end_time - start_time > CACHING_TIME_TOLERANCE:
+            self.__store_job(job_id=job_id, output=results)
+
+        return results
+
+    def __get_job_id(
+        self,
+        transcript: Transcript,
+        task: str,
+        **kwargs
+    ) -> str:
+        return Utils.dict_hash({
+            "transcript": transcript.json,
+            "task": task,
+            **kwargs
+        })
+
+    def __store_job(
+        self,
+        job_id: str,
+        output: dict
+    ) -> None:
+        path = os.path.join(JOBS_DIRECTORY, f'{job_id}.json')
+        with open(path, 'w') as f:
+            json.dump(output, f)
+
+    def __get_job(
+        self,
+        job_id: str
+    ) -> Union[None, Dict]:
+        path = os.path.join(JOBS_DIRECTORY, f'{job_id}.json')
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                return json.load(f)
+        return None
+
+    def __preprocess(self, json_obj: TranscriptInputObj):
         json_obj = json_obj.dict()
         transcript = Transcript(json_obj['transcript'])
-        transcript = Interface.apply_conditions(
+        transcript = self.__apply_conditions(
             transcript=transcript,
             start_times=json_obj['start_times'],
             end_times=json_obj['end_times'],
@@ -24,8 +91,8 @@ class Interface:
         )
         return transcript
 
-    @staticmethod
-    def apply_conditions(
+    def __apply_conditions(
+        self,
         transcript: Transcript,
         start_times: List[float],
         end_times: List[float],
@@ -35,59 +102,57 @@ class Interface:
         Apply the filters on the speakers and the start times and end times imposed
         """
         if len(speaker_ids) != 0:
-            transcript = Interface.filter_speaker(transcript, speaker_ids)
+            transcript = self.__filter_speaker(transcript, speaker_ids)
         if len(start_times) != len(end_times):
             raise CustomError(
                 'The length of the start times and end times should be the same')
         if len(start_times) != 0:
-            transcript = Interface.filter_time(
+            transcript = self.__filter_time(
                 transcript, start_times, end_times)
         return transcript
 
-    @staticmethod
     def get_keyphrases(
+        self,
         transcript: Transcript,
-        algorithm: str,
-        n_keyphrases: int,
-        n_grams_min: int,
-        n_grams_max: int
+        **kwargs
     ) -> List[str or dict] or str:
         """
         Get the key phrases or the generated summaries
         """
 
-        if algorithm == "keybert":
+        if kwargs.get('algorithm') == "keybert":
             return Abstractive.get_keybert_keywords(
                 text=transcript.text,
-                keyphrase_ngram_range=(n_grams_min, n_grams_max),
-                n_keyphrases=n_keyphrases
+                keyphrase_ngram_range=(kwargs.get(
+                    'n_grams_min'), kwargs.get('n_grams_max')),
+                n_keyphrases=kwargs.get('n_keyphrases')
             )
 
-        elif algorithm == "rake":
+        elif kwargs.get('algorithm') == "rake":
             return Extractive.get_rake_keywords(
                 text=transcript.text,
-                top_n=n_keyphrases
+                top_n=kwargs.get('n_keyphrases')
             )
 
-        elif algorithm == "yake":
+        elif kwargs.get('algorithm') == "yake":
             return Extractive.get_yake_keywords(
                 text=transcript.text
             )
 
-        elif algorithm == "bart":
+        elif kwargs.get('algorithm') == "bart":
             return Abstractive.get_bart_summary(
                 text=transcript.text
             )
-        elif algorithm == "lsa":
+        elif kwargs.get('algorithm') == "lsa":
             return Extractive.get_lsa_sentences(
                 text=transcript.text,
-                n_keyphrases=n_keyphrases
+                n_keyphrases=kwargs.get('n_keyphrases')
             )
         else:
             raise NotImplementedError
 
-    @staticmethod
     def get_statistics(
+        self,
         transcript: Transcript,
     ) -> Any:
         """
@@ -103,37 +168,24 @@ class Interface:
             'statistics': statistics
         }
 
-    @staticmethod
     def get_important_text_blocks(
+        self,
         transcript: Transcript,
-        output_type: str = "WORD",
-        filter_backchannels: bool = True,
-        remove_entailed_sentences: bool = True,
-        get_graph_backbone: bool = True,
-        do_cluster: bool = True,
-        clustering_algorithm: str = 'louvain',
-        per_cluster_results: bool = False,
+        **kwargs
     ) -> List[dict or str]:
         """
         Get the important_text_blocks of the meeting based on different algorithms such as Louvain community detection or sentence weights
         """
 
         return Extractive.get_sentence_properties(
-            transcript=transcript,
-            output_type=Output_type[output_type],
-            filter_backchannels=filter_backchannels,
-            remove_entailed_sentences=remove_entailed_sentences,
-            get_graph_backbone=get_graph_backbone,
-            do_cluster=do_cluster,
-            clustering_algorithm=clustering_algorithm,
-            per_cluster_results=per_cluster_results
+            transcript,
+            **kwargs
         )
 
-    @staticmethod
     def get_related_words(
+        self,
         transcript: Transcript,
-        target_word: str,
-        n_keyphrases: int
+        **kwargs
     ) -> List[str]:
         """
         Get the list of related words to the target word
@@ -141,12 +193,12 @@ class Interface:
 
         return Extractive.get_related_words(
             text=transcript.text,
-            target_word=target_word,
-            n_keyphrases=n_keyphrases
+            target_word=kwargs.get("target_word"),
+            n_keyphrases=kwargs.get("n_keyphrases")
         )
 
-    @ staticmethod
     def get_sentiments(
+        self,
         transcript: Transcript,
     ) -> List[dict]:
         """
@@ -156,8 +208,8 @@ class Interface:
             transcript.text
         )
 
-    @ staticmethod
-    def filter_speaker(
+    def __filter_speaker(
+        self,
         transcript: Transcript,
         speaker_ids: List[int]
     ) -> Transcript:
@@ -165,8 +217,8 @@ class Interface:
             turn for turn in transcript.turns if turn.speaker_id in speaker_ids]
         return transcript
 
-    @ staticmethod
-    def filter_time(
+    def __filter_time(
+        self,
         transcript: Transcript,
         start_times: List[float],
         end_times: List[float]
@@ -178,12 +230,12 @@ class Interface:
             turn for turn in transcript.turns if len(turn.words) != 0]
         return transcript
 
-    @ staticmethod
     def search(
+        self,
         transcript: Transcript,
-        target_word: str
+        **kwargs
     ) -> Any:
         ix, index_exists = get_index(transcript=transcript)
         if not index_exists:
             add_many_documents(ix, transcript=transcript)
-        return search(ix, target_word=target_word)
+        return search(ix, target_word=kwargs.get("target_word"))

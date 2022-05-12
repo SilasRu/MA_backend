@@ -1,20 +1,19 @@
 from typing import Dict, List
-
-from numpy import indices
 from transcript_analyser.data_types.transcript import Transcript, Turn
-from whoosh.index import create_in
 from whoosh.fields import *
 from whoosh import index
 from tqdm.auto import tqdm
 from whoosh.qparser import QueryParser
-
+from path import Path
 import os
 
 from transcript_analyser.utils.utils import Utils
 
+INDICES_DIRECTORY = (
+    (Path(__file__).parent.parent.parent) / "indices").abspath()
 
-if not os.path.exists('indices'):
-    os.mkdir('indices')
+if not os.path.exists(INDICES_DIRECTORY):
+    os.mkdir(INDICES_DIRECTORY)
 
 
 class TranscriptSchema(SchemaClass):
@@ -25,7 +24,7 @@ class TranscriptSchema(SchemaClass):
 
 def get_index(transcript: Transcript, schema: SchemaClass = TranscriptSchema):
     index_name = str(Utils.dict_hash(transcript.json))
-    indices_directory = os.path.join("indices", index_name)
+    indices_directory = os.path.join(INDICES_DIRECTORY, index_name)
     if not os.path.exists(
         indices_directory
     ):
