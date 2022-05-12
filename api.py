@@ -1,12 +1,12 @@
-from inspect import trace
 from typing import Any, List
-from xml.dom import VALIDATION_ERR
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
-from transcript_analyser.consts import FORBIDDEN_STATUS_CODE, TranscriptInputObj
+
+from transcript_analyser.consts import *
+from transcript_analyser.data_types.general import StatisticsResponseObj, TranscriptInputObj
 
 from transcript_analyser.interface import Interface
-from fastapi import Depends, FastAPI, HTTPException, Security, Body
+from fastapi import Depends, FastAPI, HTTPException, Query, Security
 from fastapi.security.api_key import APIKeyHeader
 import json
 import os
@@ -52,9 +52,11 @@ app.add_middleware(
 def get_keyphrases(
     json_obj: TranscriptInputObj,
     algorithm: str,
-    n_keyphrases: int = 3,
-    n_grams_min: int = 1,
-    n_grams_max: int = 3
+    n_keyphrases: int = Query(N_KEYPHRASES,
+                              description=N_KEYPHRASES_DESC),
+    n_grams_min: int = Query(
+        N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
+    n_grams_max: int = Query(N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
 ) -> List[Any]:
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_keyphrases(
@@ -66,7 +68,7 @@ def get_keyphrases(
     )
 
 
-@app.post('/transcript-analyser/statistics/')
+@app.post('/transcript-analyser/statistics/', response_model=StatisticsResponseObj)
 def get_statistics(
     json_obj: TranscriptInputObj,
 ) -> json:
@@ -79,13 +81,18 @@ def get_statistics(
 @app.post('/transcript-analyser/important-text-blocks/')
 def get_important_text_blocks(
     json_obj: TranscriptInputObj,
-    output_type: str = "WORD",
-    filter_backchannels: bool = True,
-    remove_entailed_sentences: bool = True,
-    get_graph_backbone: bool = True,
-    do_cluster: bool = True,
-    clustering_algorithm: str = 'louvain',
-    per_cluster_results: bool = False,
+    output_type: str = Query("WORD", description=OUTPUT_TYPE_DESC),
+    filter_backchannels: bool = Query(
+        True, description=FILTER_BACKCHANNELS_DESC),
+    remove_entailed_sentences: bool = Query(
+        True, description=REMOVE_ENTAILED_SENTENCES_DESC),
+    get_graph_backbone: bool = Query(
+        True, description=GET_GRAPH_BACKBONE_DESC),
+    do_cluster: bool = Query(True, description=DO_CLUSTER_DESC),
+    clustering_algorithm: str = Query(
+        'louvain', description=CLUSTERING_ALGORITHM_DESC),
+    per_cluster_results: bool = Query(
+        False, description=PER_CLUSTER_RESULTS_DESC),
 ) -> List[dict or str]:
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_important_text_blocks(
@@ -104,7 +111,8 @@ def get_important_text_blocks(
 def get_related_words(
     json_obj: TranscriptInputObj,
     target_word: str,
-    n_keyphrases: int = 5
+    n_keyphrases: int = Query(N_KEYPHRASES,
+                              description=N_KEYPHRASES_DESC)
 ) -> List[str]:
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_related_words(

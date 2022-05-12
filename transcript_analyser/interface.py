@@ -1,4 +1,5 @@
 from transcript_analyser.analysers import sentiment_analyser
+from transcript_analyser.consts import N_GRAMS_MAX, N_GRAMS_MIN, N_KEYPHRASES
 from transcript_analyser.searchers.whoosh_searcher import add_many_documents, get_index, search
 from .abstractive.abstractive import Abstractive
 from .data_types.transcript import *
@@ -12,7 +13,8 @@ class CustomError(Exception):
 class Interface:
 
     @staticmethod
-    def preprocess(json_obj):
+    def preprocess(json_obj: Dict):
+        json_obj = json_obj.dict()
         transcript = Transcript(json_obj['transcript'])
         transcript = Interface.apply_conditions(
             transcript=transcript,
@@ -93,7 +95,7 @@ class Interface:
         """
 
         topics = Abstractive.get_keybert_keywords(
-            text=transcript.text, keyphrase_ngram_range=(1, 3), n_keyphrases=3)
+            text=transcript.text, keyphrase_ngram_range=(N_GRAMS_MIN, N_GRAMS_MAX), n_keyphrases=N_KEYPHRASES)
 
         statistics = Extractive.get_statistics(transcript=transcript)
         return {

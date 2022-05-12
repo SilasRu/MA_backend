@@ -18,7 +18,7 @@ class Abstractive:
         text: str,
         keyphrase_ngram_range: Tuple,
         n_keyphrases: int
-    ):
+    ) -> List[str]:
         if cls.keybert_model == None:
             cls.keybert_model = KeyBERT()
         keywords = [entity for entity in

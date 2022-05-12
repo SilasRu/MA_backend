@@ -103,8 +103,13 @@ class UnsupervisedSummarizer:
                 }
 
         if output == Output_type.SENTENCE:
-            return dict(self.sentence_similarity_graph.nodes(data=True))
-
+            return [
+                {
+                    'content': node[0],
+                    **node[1]
+                }
+                for node in self.sentence_similarity_graph.nodes(data=True)
+            ]
         # if output == Output_type.HTML:
             # return {'HTML': self.write_dataframe_with_weight_community_html()}
 

@@ -1,6 +1,7 @@
 from numpy.linalg import norm
 from typing import Any, DefaultDict, List
 import numpy as np
+from transcript_analyser.consts import TYPE_NOT_SUPPORTED
 
 from transcript_analyser.data_types.transcript import Transcript
 from transcript_analyser.custom_unsupervised_summarizer import *
@@ -160,7 +161,7 @@ class Extractive:
         elif isinstance(transcript, str):
             source_dataframe = Utils.text2df(transcript)
         else:
-            return 'Instance provided by user is not supported!'
+            return TYPE_NOT_SUPPORTED
         dt = UnsupervisedSummarizer(
             csv_file=None,
             source_dataframe=source_dataframe
@@ -220,7 +221,7 @@ class Extractive:
         return {
             'num_speakers': num_speakers,
             'num_utterances': num_utterances,
-            'speaker_times': speakers_total_times
+            'speaker_utterances_durations': speakers_total_times
         }
 
 
