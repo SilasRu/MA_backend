@@ -1,10 +1,12 @@
 from inspect import trace
 from typing import Any, List
+from xml.dom import VALIDATION_ERR
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
+from transcript_analyser.consts import FORBIDDEN_STATUS_CODE, TranscriptInputObj
 
 from transcript_analyser.interface import Interface
-from fastapi import Depends, FastAPI, HTTPException, Security
+from fastapi import Depends, FastAPI, HTTPException, Security, Body
 from fastapi.security.api_key import APIKeyHeader
 import json
 import os
@@ -22,20 +24,16 @@ api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 async def get_api_key(
     api_key_header: str = Security(api_key_header),
 ):
-
     if api_key_header == API_KEY:
         return api_key_header
 
     else:
         raise HTTPException(
-            status_code=403, detail="Could not validate credentials!"
+            status_code=FORBIDDEN_STATUS_CODE, detail=VALIDATION_ERR
         )
 
 
 app = FastAPI(
-    docs_url=None,
-    redoc_url=None,
-    openapi_url=None,
     dependencies=[Depends(get_api_key)]
 )
 
@@ -52,7 +50,7 @@ app.add_middleware(
 
 @app.post('/transcript-analyser/keyphrases/')
 def get_keyphrases(
-    json_obj: dict,
+    json_obj: TranscriptInputObj,
     algorithm: str,
     n_keyphrases: int = 3,
     n_grams_min: int = 1,
@@ -70,7 +68,7 @@ def get_keyphrases(
 
 @app.post('/transcript-analyser/statistics/')
 def get_statistics(
-    json_obj: dict,
+    json_obj: TranscriptInputObj,
 ) -> json:
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_statistics(
@@ -80,7 +78,7 @@ def get_statistics(
 
 @app.post('/transcript-analyser/important-text-blocks/')
 def get_important_text_blocks(
-    json_obj: dict,
+    json_obj: TranscriptInputObj,
     output_type: str = "WORD",
     filter_backchannels: bool = True,
     remove_entailed_sentences: bool = True,
@@ -104,7 +102,7 @@ def get_important_text_blocks(
 
 @app.post('/transcript-analyser/related-words/')
 def get_related_words(
-    json_obj: dict,
+    json_obj: TranscriptInputObj,
     target_word: str,
     n_keyphrases: int = 5
 ) -> List[str]:
@@ -118,7 +116,7 @@ def get_related_words(
 
 @app.post('/transcript-analyser/sentiments/')
 def get_sentiments(
-    json_obj: dict,
+    json_obj: TranscriptInputObj,
 ) -> List[str]:
     transcript = Interface.preprocess(json_obj=json_obj)
     return Interface.get_sentiments(
@@ -128,7 +126,7 @@ def get_sentiments(
 
 @app.post('/transcript-analyser/search/')
 def search(
-    json_obj: dict,
+    json_obj: TranscriptInputObj,
     target_word: str
 ) -> Any:
     transcript = Interface.preprocess(json_obj=json_obj)
