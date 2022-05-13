@@ -71,7 +71,7 @@ jobs:
             docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
             docker pull zhpinkman/transcript-analyser:prod
             docker container stop transcript-analyser; docker container rm transcript-analyser
-            docker run --restart unless-stopped -d -p 47122:47122 --name transcript-analyser zhpinkman/transcript-analyser:prod
+            docker run --mount 'type=volume,src=transcript_analyser_storage,dst=/transcript_analyser_storage' --restart unless-stopped -d -p 47122:47122 --name transcript-analyser zhpinkman/transcript-analyser:prod
           host: ${{ secrets.SSH_HOST }}
           user: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY}}

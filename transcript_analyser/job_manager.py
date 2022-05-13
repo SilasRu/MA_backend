@@ -15,7 +15,8 @@ import time
 from transcript_analyser.data_types.transcript import Transcript
 from transcript_analyser.utils.utils import Utils
 
-JOBS_DIRECTORY = ((Path(__file__).parent.parent.parent) / 'jobs').abspath()
+
+JOBS_DIRECTORY = os.getenv('JOBS_DIR')
 if not os.path.exists(JOBS_DIRECTORY):
     os.mkdir(JOBS_DIRECTORY)
 
@@ -60,6 +61,10 @@ class JobManager:
             "task": task,
             **kwargs
         })
+
+
+# TODO, store the data companied with the status of the job being ["in_progress", "completed"]
+
 
     def __store_job(
         self,

@@ -9,8 +9,7 @@ import os
 
 from transcript_analyser.utils.utils import Utils
 
-INDICES_DIRECTORY = (
-    (Path(__file__).parent.parent.parent) / "indices").abspath()
+INDICES_DIRECTORY = os.getenv('INDICES_DIR')
 
 if not os.path.exists(INDICES_DIRECTORY):
     os.mkdir(INDICES_DIRECTORY)
