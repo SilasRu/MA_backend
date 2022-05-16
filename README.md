@@ -11,7 +11,7 @@ If you want to run the package locally without docker:
 
 - > pip install -r requirements.txt
 
-- > JOBS_DIR=jobs INDICES_DIR=indices python -m uvicorn api:app --reload
+- > API_KEY_NAME=[replace with the API_KEY_NAME you're using] API_KEY=[replace with the API_KEY used] JOBS_DIR=jobs INDICES_DIR=indices python -m uvicorn api:app --reload
 
 
 
