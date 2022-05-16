@@ -4,14 +4,14 @@ Follow these steps to setup the project using docker:
 
 - > docker build --tag transcript_analysis .
 
-- > docker run -dp 47122:47122 transcript_analysis
+- > docker run --mount 'type=volume,src=transcript_analyser_storage,dst=/transcript_analyser_storage' --restart unless-stopped -d -p 47122:47122 --name transcript-analyser transcript_analysis
 
 
 If you want to run the package locally without docker: 
 
 - > pip install -r requirements.txt
 
-- > python -m uvicorn api:app --reload
+- > JOBS_DIR=jobs INDICES_DIR=indices python -m uvicorn api:app --reload
 
 
 
