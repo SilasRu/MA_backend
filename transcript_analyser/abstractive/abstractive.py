@@ -1,6 +1,7 @@
 from typing import Tuple
 from keybert import KeyBERT
 from transformers import BartForConditionalGeneration, BartTokenizer
+from keyphrase_vectorizers import KeyphraseCountVectorizer
 from transcript_analyser.utils.utils import *
 from tqdm.auto import tqdm
 import nltk
@@ -21,9 +22,11 @@ class Abstractive:
     ) -> List[str]:
         if cls.keybert_model == None:
             cls.keybert_model = KeyBERT()
+        vectorizer = KeyphraseCountVectorizer()
         keywords = [entity for entity in
                     cls.keybert_model.extract_keywords(
                         text,
+                        vectorizer=vectorizer,
                         keyphrase_ngram_range=keyphrase_ngram_range,
                         top_n=n_keyphrases
                     )]
