@@ -44,7 +44,7 @@ class Turn:
 
     @property
     def text(self):
-        return "".join([word.text for word in self.words])
+        return " ".join([word.text for word in self.words])
 
     @property
     def json(self):
@@ -72,7 +72,7 @@ class Transcript:
 
     @property
     def text(self):
-        return "".join([turn.text for turn in self.turns])
+        return " ".join([turn.text for turn in self.turns])
 
     @property
     def df(self):

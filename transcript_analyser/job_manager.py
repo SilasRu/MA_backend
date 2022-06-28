@@ -146,7 +146,7 @@ class JobManager:
 
         elif kwargs.get('algorithm') == "bart":
             return Abstractive.get_bart_summary(
-                text=transcript.text
+                turns=transcript.turns
             )
         elif kwargs.get('algorithm') == "lsa":
             return Extractive.get_lsa_sentences(

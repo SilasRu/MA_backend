@@ -98,13 +98,13 @@ class Utils:
         type: str, default or nlp
             type of back channel detection.
 
-        model_name: str 
+        model_name: str
             Pass the any sentence transfromer model name which use similary when backchannel type is nlp
 
         Returns
         -------
         questions: pd.dataframe or pd.Series
-            Returns the dataframe or series 
+            Returns the dataframe or series
         """
         if type == 'default':
             backchannel = [cls._is_backchannel(sent) for sent in sentences]
@@ -172,17 +172,77 @@ class Utils:
         return len(previous_versions)
 
     @staticmethod
-    def get_sections(text: str, num_words: int, permutation: bool = False):
-        text = text.split()
-        result = np.arange(0, len(text), num_words)
-        if result[-1] != len(text):
-            result = np.append(result, len(text))
-        sections = []
-        for index in range(len(result) - 1):
-            sections.append(' '.join(text[result[index]:result[index + 1]]))
-        if permutation:
-            sections = np.random.permutation(np.array(sections))
-        return sections
+    def break_up_long_sentences(sentences: List[str], num_words: int):
+        def get_sections(text: str, num_words: int):
+            text = text.split()
+            result = np.arange(0, len(text), num_words)
+            if result[-1] != len(text):
+                result = np.append(result, len(text))
+            sections = []
+            for index in range(len(result) - 1):
+                sections.append(
+                    ' '.join(text[result[index]:result[index + 1]]))
+
+            return sections
+
+        results = []
+        for sentence in sentences:
+            if len(sentence.split()) >= num_words:
+                results.extend(get_sections(sentence, num_words))
+            else:
+                results.append(sentence)
+
+        return results
+
+    @staticmethod
+    def get_sections_from_texts(texts: Any, num_words: int):
+        if isinstance(texts, str):
+            all_utterances = sent_tokenize(texts)
+            all_speakers = ['' for _ in range(len(all_utterances))]
+
+        else:
+            all_speakers, all_utterances = list(zip(*texts))
+            all_utterances = list(all_utterances)
+            all_speakers = [f'{speaker}: ' for speaker in list(all_speakers)]
+
+        results = []
+        section_text = ''
+        section_length = 0
+        while len(all_utterances):
+            utterance = all_utterances[0]
+            length = len(utterance.split())
+            speaker = all_speakers[0]
+
+            if length + section_length <= num_words:
+                section_text += f'{speaker}{utterance} '
+                section_length += length
+                all_utterances.pop(0)
+                all_speakers.pop(0)
+
+            else:
+                last_utterance_sentences = sent_tokenize(utterance)
+                last_utterance_sentences = Utils.break_up_long_sentences(
+                    last_utterance_sentences, num_words)
+                for sent_index, sent in enumerate(last_utterance_sentences):
+                    sent_length = len(sent.split())
+                    if sent_length + section_length <= num_words:
+                        if sent_index == 0:
+                            section_text += f'{speaker}{sent} '
+                        else:
+                            section_text += sent
+                        section_length += sent_length
+                    else:
+                        results.append(section_text)
+                        section_text = ''
+                        section_length = 0
+                        all_utterances[0] = ' '.join(
+                            last_utterance_sentences[sent_index:])
+                        break
+
+        if section_text != '':
+            results.append(section_text)
+
+        return results
 
     @staticmethod
     def get_graph_backbone(G: nx.Graph, alpha: float = 0.3):
