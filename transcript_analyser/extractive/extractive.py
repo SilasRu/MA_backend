@@ -181,25 +181,16 @@ class Extractive:
         return Utils.sort_json_by_property(results, "weight")
 
     @staticmethod
-    def get_statistics(transcript: Transcript) -> Any:
-        """
-        Get certain statistics regarding the speakers and the whole utterances
-        """
-
-        def get_time_for_all_speakers() -> float:
-            speakers_total_times = DefaultDict(lambda: 0)
-            for turn in transcript.turns:
-                speakers_total_times[turn.speaker_id] += turn.end_time - \
-                    turn.start_time
-            return speakers_total_times
-
-        num_speakers = len(set([turn.speaker_id for turn in transcript.turns]))
-        num_utterances = len(transcript)
-        speakers_total_times = get_time_for_all_speakers()
+    def get_statistics(transcript: Transcript, speaker_id: str) -> dict:
+        num_utterances = 0
+        time_spoken = 0
+        for turn in transcript.turns:
+            if turn.speaker_id == speaker_id:
+                num_utterances += 1
+                time_spoken += turn.end_time - turn.start_time
         return {
-            'num_speakers': num_speakers,
             'num_utterances': num_utterances,
-            'speaker_utterances_durations': speakers_total_times
+            'time_spoken': time_spoken
         }
 
 

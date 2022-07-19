@@ -168,10 +168,29 @@ class JobManager:
         topics = Abstractive.get_keybert_keywords(
             text=transcript.text, keyphrase_ngram_range=(N_GRAMS_MIN, N_GRAMS_MAX), n_keyphrases=N_KEYPHRASES)
 
-        statistics = Extractive.get_statistics(transcript=transcript)
+        speaker_ids = set([turn.speaker_id for turn in transcript.turns])
+        speaker_stats = {}
+        for speaker_id in speaker_ids:
+            speaker_stats[speaker_id] = Extractive.get_statistics(
+                transcript=transcript, speaker_id=speaker_id)
+            speaker_turns = [
+                turn for turn in transcript.turns if turn.speaker_id == speaker_id]
+            speaker_stats[speaker_id]['topics'] = Abstractive.get_keybert_keywords(
+                text=' '.join([turn.text for turn in speaker_turns]),
+                keyphrase_ngram_range=(N_GRAMS_MIN, N_GRAMS_MAX),
+                n_keyphrases=N_KEYPHRASES
+            )
+        num_utterances = len(transcript.turns)
+        meeting_duration = sum(
+            [speaker_stats[speaker_id]['time_spoken']
+                for speaker_id in speaker_ids]
+        )
+
         return {
             'topics': topics,
-            'statistics': statistics
+            'num_utterances': num_utterances,
+            'meeting_duration': meeting_duration,
+            'speaker_stats': speaker_stats
         }
 
     def get_important_text_blocks(
