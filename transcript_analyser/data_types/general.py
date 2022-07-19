@@ -40,14 +40,15 @@ class StatisticsResponseObj(BaseModel):
     topics: List[str] = Field(
         ..., description='The most important topics discussed in the meeting.', example=['Topic A', 'Topic B', 'Topic C']
     )
-    statistics: Dict[str, Any] = Field(..., description='Some simple statistics about the meeting like the number of speakers or the proportion of the meeting that they are speaking in.', example={
-        "num_speakers": 2,
-        "num_utterances": 18,
-        "speaker_utterances_durations": {
-            "2": 36.78999999999999,
-            "1": 66.77000000000001
-        }
-    })
+
+    num_utterances: int = Field(
+        ..., description='The number of utterances in the meeting.', example=10)
+
+    meeting_duration: float = Field(...,
+                                    description='The duration of the meeting.', example=10.0)
+    speaker_stats: Dict[str, Dict[str, Any]] = Field(
+        ..., description='The statistics of the speakers.', example={'speaker_1': {'num_utterances': 10, 'duration': 10.0, 'topics': ['Topic A', 'Topic B', 'Topic C']}, 'speaker_2': {'num_utterances': 10, 'duration': 10.0, 'topics': ['Topic A', 'Topic B', 'Topic C']}}
+    )
 
 
 class SentimentsResponseObj(BaseModel):
