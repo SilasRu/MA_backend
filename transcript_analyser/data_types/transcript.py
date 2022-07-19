@@ -94,6 +94,14 @@ class Transcript:
             output_json.append(turn.json)
         return output_json
 
+    def lower(self):
+        import copy
+        new_transcript = copy.deepcopy(self)
+        for turn in new_transcript.turns:
+            for word in turn.words:
+                word.text = word.text.lower()
+        return new_transcript
+
 
 def main():
     with open('transcriptsforkeyphraseextraction/transcript_document.json') as f:

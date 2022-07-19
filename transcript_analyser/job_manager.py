@@ -106,6 +106,7 @@ class JobManager:
         """
         Apply the filters on the speakers and the start times and end times imposed
         """
+        transcript = self.__lower_case(transcript)
         if len(speaker_ids) != 0:
             transcript = self.__filter_speaker(transcript, speaker_ids)
         if len(start_times) != len(end_times):
@@ -212,6 +213,9 @@ class JobManager:
         return sentiment_analyser.get_sentiments(
             transcript.text
         )
+
+    def __lower_case(self, transcript: Transcript):
+        return transcript.lower()
 
     def __filter_speaker(
         self,
