@@ -92,7 +92,8 @@ class JobManager:
             transcript=transcript,
             start_times=json_obj['start_times'],
             end_times=json_obj['end_times'],
-            speaker_ids=json_obj['speaker_ids']
+            speaker_ids=json_obj['speaker_ids'],
+            speaker_info=json_obj['speaker_info']
         )
         return transcript
 
@@ -101,7 +102,8 @@ class JobManager:
         transcript: Transcript,
         start_times: List[float],
         end_times: List[float],
-        speaker_ids: List[int]
+        speaker_ids: List[int],
+        speaker_info: List[Dict]
     ) -> Transcript:
         """
         Apply the filters on the speakers and the start times and end times imposed
@@ -115,6 +117,7 @@ class JobManager:
         if len(start_times) != 0:
             transcript = self.__filter_time(
                 transcript, start_times, end_times)
+        transcript.speaker_info = {i['id']: i['name'] for i in speaker_info}
         return transcript
 
     def get_keyphrases(
@@ -147,7 +150,9 @@ class JobManager:
 
         elif kwargs.get('algorithm') == "bart":
             return Abstractive.get_bart_summary(
-                turns=transcript.turns
+                turns=transcript.turns,
+                speaker_info=transcript.speaker_info,
+                model=kwargs.get('model')
             )
         elif kwargs.get('algorithm') == "lsa":
             return Extractive.get_lsa_sentences(

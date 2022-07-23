@@ -28,6 +28,8 @@ class NpEncoder(json.JSONEncoder):
 class TranscriptInputObj(BaseModel):
     speaker_ids: List[int] = Field(
         [], description='The list of the speakers regarding them, the transcript would be filtered!', example=[1, 2])
+    speaker_info: List[Dict] = Field(
+        [], description='The list of the speakers info', example=[{"id": 1, "name": "Bob"}])
     start_times: List[float or int] = Field(
         [], description='The list of the start times using them you want to filter the transcript to be analyzed.', example=[0])
     end_times: List[float or int] = Field(

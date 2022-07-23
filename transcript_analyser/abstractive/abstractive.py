@@ -1,6 +1,6 @@
-from typing import Tuple
+from typing import Tuple, Optional
 from keybert import KeyBERT
-from transformers import BartForConditionalGeneration, BartTokenizer
+from transformers import BartForConditionalGeneration, BartTokenizer, AutoModelForSeq2SeqLM, AutoTokenizer
 from keyphrase_vectorizers import KeyphraseCountVectorizer
 from transcript_analyser.data_types.transcript import Turn
 from transcript_analyser.utils.utils import *
@@ -11,7 +11,6 @@ import nltk
 class Abstractive:
 
     keybert_model = None
-
     classifier = None
 
     @classmethod
@@ -33,6 +32,20 @@ class Abstractive:
                     )]
         keywords = sorted(keywords, key=lambda x: x[1], reverse=True)
         return [keyword[0] for keyword in keywords]
+
+    @staticmethod
+    def get_bart_keyphrases_finetuned(utterances: List[Tuple[str, str]], model_name: str):
+        model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        sections_to_process = Utils.get_sections_from_texts(utterances, 400)
+
+        summary_sections = {}
+        for i, section in enumerate(sections_to_process):
+            inputs = tokenizer([section], max_length=1024, return_tensors='pt', truncation=True)
+            summary_ids = model.generate(inputs["input_ids"], num_beams=4, min_length=0, max_length=200)
+            decoded = tokenizer.batch_decode(summary_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+            summary_sections[i] = decoded
+        return {'sections': summary_sections}
 
     @staticmethod
     def get_bart_keywords_openai(utterances: List[Tuple[str, str]], debug: bool = False):
@@ -100,9 +113,14 @@ class Abstractive:
     def get_bart_summary(
         cls,
         turns: List[Turn],
+        speaker_info: {},
+        model: Optional[str] = None
     ) -> str:
         turns_with_speakers_agg = [
-            (f'Speaker {speaker}', text)
-            for speaker, text in zip([turn.speaker_id for turn in turns], [turn.text for turn in turns])
+            (f'{speaker_info[speaker_id]}', text)
+            for speaker_id, text in zip([turn.speaker_id for turn in turns], [turn.text for turn in turns])
         ]
-        return cls.get_bart_keywords_openai(turns_with_speakers_agg)
+        if model:
+            return cls.get_bart_keyphrases_finetuned(turns_with_speakers_agg, model)
+        else:
+            return cls.get_bart_keywords_openai(turns_with_speakers_agg)

@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Dict
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
@@ -49,15 +49,14 @@ app.add_middleware(
 )
 
 
-@app.post('/transcript-analyser/keyphrases/', response_model=Union[List[str], str])
+@app.post('/transcript-analyser/keyphrases/', response_model=Union[List[str], str, Dict])
 def get_keyphrases(
     json_obj: TranscriptInputObj,
     background_tasks: BackgroundTasks,
     algorithm: str,
-    n_keyphrases: int = Query(default=N_KEYPHRASES,
-                              description=N_KEYPHRASES_DESC),
-    n_grams_min: int = Query(
-        default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
+    model: str,
+    n_keyphrases: int = Query(default=N_KEYPHRASES,description=N_KEYPHRASES_DESC),
+    n_grams_min: int = Query(default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
     n_grams_max: int = Query(default=N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
 ):
     return job_manager.do_job(
@@ -65,6 +64,7 @@ def get_keyphrases(
         background_tasks=background_tasks,
         task='get_keyphrases',
         algorithm=algorithm,
+        model=model,
         n_keyphrases=n_keyphrases,
         n_grams_min=n_grams_min,
         n_grams_max=n_grams_max
