@@ -37,10 +37,11 @@ class Abstractive:
     def get_bart_keyphrases_finetuned(utterances: List[Tuple[str, str]], model_name: str):
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
         tokenizer = AutoTokenizer.from_pretrained(model_name)
-        sections_to_process = Utils.get_sections_from_texts(utterances, 400)
+        # n_words = len([word for word in ''.join([section for _, section in utterances]).split(' ') if word != ''])
+        sections_to_process = Utils.get_sections_from_texts(utterances, 175)
 
         summary_sections = {}
-        for i, section in enumerate(sections_to_process):
+        for i, section   in enumerate(sections_to_process):
             inputs = tokenizer([section], max_length=1024, return_tensors='pt', truncation=True)
             summary_ids = model.generate(inputs["input_ids"], num_beams=4, min_length=0, max_length=200)
             decoded = tokenizer.batch_decode(summary_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)

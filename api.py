@@ -1,4 +1,4 @@
-from typing import List, Union, Dict
+from typing import List, Union, Dict, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
@@ -54,7 +54,7 @@ def get_keyphrases(
     json_obj: TranscriptInputObj,
     background_tasks: BackgroundTasks,
     algorithm: str,
-    model: str,
+    model: Optional[str] = None,
     n_keyphrases: int = Query(default=N_KEYPHRASES,description=N_KEYPHRASES_DESC),
     n_grams_min: int = Query(default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
     n_grams_max: int = Query(default=N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
@@ -135,12 +135,14 @@ def get_related_words(
 @app.post('/transcript-analyser/sentiments/', response_model=List[SentimentsResponseObj])
 def get_sentiments(
     json_obj: TranscriptInputObj,
-    background_tasks: BackgroundTasks
+    background_tasks: BackgroundTasks,
+    dimension: Optional[str] = None
 ):
     return job_manager.do_job(
         json_obj=json_obj,
         task='get_sentiments',
-        background_tasks=background_tasks
+        background_tasks=background_tasks,
+        dimension=dimension,
     )
 
 

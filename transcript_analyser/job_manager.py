@@ -230,12 +230,14 @@ class JobManager:
     def get_sentiments(
         self,
         transcript: Transcript,
+        dimension: str
     ) -> List[dict]:
         """
         Get the sentiment for each sentence in the meeting
         """
         return sentiment_analyser.get_sentiments(
-            transcript.text
+            text=transcript.text,
+            dimension=dimension
         )
 
     def __lower_case(self, transcript: Transcript):
