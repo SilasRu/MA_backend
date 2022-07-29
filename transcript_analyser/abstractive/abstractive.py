@@ -1,4 +1,5 @@
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Union
+from collections import OrderedDict
 from keybert import KeyBERT
 from transformers import BartForConditionalGeneration, BartTokenizer, AutoModelForSeq2SeqLM, AutoTokenizer
 from keyphrase_vectorizers import KeyphraseCountVectorizer
@@ -9,16 +10,15 @@ import nltk
 
 
 class Abstractive:
-
     keybert_model = None
     classifier = None
 
     @classmethod
     def get_keybert_keywords(
-        cls,
-        text: str,
-        keyphrase_ngram_range: Tuple,
-        n_keyphrases: int
+            cls,
+            text: str,
+            keyphrase_ngram_range: Tuple,
+            n_keyphrases: int
     ) -> List[str]:
         if cls.keybert_model == None:
             cls.keybert_model = KeyBERT()
@@ -34,19 +34,27 @@ class Abstractive:
         return [keyword[0] for keyword in keywords]
 
     @staticmethod
-    def get_bart_keyphrases_finetuned(utterances: List[Tuple[str, str]], model_name: str):
+    def get_bart_keyphrases_finetuned(utterances: List[Tuple[str, str]],
+                                      utterances_by_speaker: OrderedDict[int: Tuple[str, str]],
+                                      model_name: str, section_length) -> Dict:
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
         tokenizer = AutoTokenizer.from_pretrained(model_name)
-        # n_words = len([word for word in ''.join([section for _, section in utterances]).split(' ') if word != ''])
-        sections_to_process = Utils.get_sections_from_texts(utterances, 175)
+        time_sections_to_process = Utils.get_sections_from_texts(utterances, section_length)
+        speaker_sections_to_process = [Utils.get_sections_from_texts(speaker, section_length) for speaker in
+                                       utterances_by_speaker.values()]
 
-        summary_sections = {}
-        for i, section   in enumerate(sections_to_process):
-            inputs = tokenizer([section], max_length=1024, return_tensors='pt', truncation=True)
+        def generate_summaries(summary_section: [str]) -> str:
+            print(summary_section)
+            inputs = tokenizer(summary_section, max_length=1024, return_tensors='pt', truncation=True, padding=True)
             summary_ids = model.generate(inputs["input_ids"], num_beams=4, min_length=0, max_length=200)
             decoded = tokenizer.batch_decode(summary_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
-            summary_sections[i] = decoded
-        return {'sections': summary_sections}
+            return decoded
+
+        dimensions = {
+            'time': {i: generate_summaries([section]) for i, section in enumerate(time_sections_to_process)},
+            'speaker': {i: generate_summaries(section) for i, section in enumerate(speaker_sections_to_process)}
+        }
+        return {'dimensions': dimensions}
 
     @staticmethod
     def get_bart_keywords_openai(utterances: List[Tuple[str, str]], debug: bool = False):
@@ -112,16 +120,25 @@ class Abstractive:
 
     @classmethod
     def get_bart_summary(
-        cls,
-        turns: List[Turn],
-        speaker_info: {},
-        model: Optional[str] = None
-    ) -> str:
-        turns_with_speakers_agg = [
+            cls,
+            turns: List[Turn],
+            speaker_info: {},
+            section_length: int,
+            model: Optional[str] = None,
+    ) -> Union[dict, str]:
+        turns_segmented_by_time = [
             (f'{speaker_info[speaker_id]}', text)
             for speaker_id, text in zip([turn.speaker_id for turn in turns], [turn.text for turn in turns])
         ]
+        turns_segmented_by_speaker = OrderedDict()
+        for speaker_id in speaker_info.keys():
+            turns_segmented_by_speaker[speaker_id] = [
+                (f'{speaker_info[speaker_id]}', turn.text) for turn in turns if turn.speaker_id == speaker_id
+            ]
+
         if model:
-            return cls.get_bart_keyphrases_finetuned(turns_with_speakers_agg, model)
+            return cls.get_bart_keyphrases_finetuned(
+                turns_segmented_by_time, turns_segmented_by_speaker, model, section_length
+            )
         else:
-            return cls.get_bart_keywords_openai(turns_with_speakers_agg)
+            return cls.get_bart_keywords_openai(turns_segmented_by_time)

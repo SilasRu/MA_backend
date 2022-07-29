@@ -152,7 +152,8 @@ class JobManager:
             return Abstractive.get_bart_summary(
                 turns=transcript.turns,
                 speaker_info=transcript.speaker_info,
-                model=kwargs.get('model')
+                model=kwargs.get('model'),
+                section_length=int(kwargs.get('section_length'))
             )
         elif kwargs.get('algorithm') == "lsa":
             return Extractive.get_lsa_sentences(

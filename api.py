@@ -55,6 +55,7 @@ def get_keyphrases(
     background_tasks: BackgroundTasks,
     algorithm: str,
     model: Optional[str] = None,
+    section_length: Optional[str] = 175,
     n_keyphrases: int = Query(default=N_KEYPHRASES,description=N_KEYPHRASES_DESC),
     n_grams_min: int = Query(default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
     n_grams_max: int = Query(default=N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
@@ -65,6 +66,7 @@ def get_keyphrases(
         task='get_keyphrases',
         algorithm=algorithm,
         model=model,
+        section_length=section_length,
         n_keyphrases=n_keyphrases,
         n_grams_min=n_grams_min,
         n_grams_max=n_grams_max
