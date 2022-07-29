@@ -36,7 +36,7 @@ class Abstractive:
     @staticmethod
     def get_bart_keyphrases_finetuned(utterances: List[Tuple[str, str]],
                                       utterances_by_speaker: OrderedDict[int: Tuple[str, str]],
-                                      model_name: str, section_length) -> Dict:
+                                      model_name: str, section_length: int) -> Dict:
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         time_sections_to_process = Utils.get_sections_from_texts(utterances, section_length)
@@ -44,7 +44,6 @@ class Abstractive:
                                        utterances_by_speaker.values()]
 
         def generate_summaries(summary_section: [str]) -> str:
-            print(summary_section)
             inputs = tokenizer(summary_section, max_length=1024, return_tensors='pt', truncation=True, padding=True)
             summary_ids = model.generate(inputs["input_ids"], num_beams=4, min_length=0, max_length=200)
             decoded = tokenizer.batch_decode(summary_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)

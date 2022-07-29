@@ -231,14 +231,17 @@ class JobManager:
     def get_sentiments(
         self,
         transcript: Transcript,
-        dimension: str
-    ) -> List[dict]:
+        **kwargs
+    ) -> dict[str, dict[str, object]]:
         """
         Get the sentiment for each sentence in the meeting
         """
         return sentiment_analyser.get_sentiments(
             text=transcript.text,
-            dimension=dimension
+            turns=transcript.turns,
+            speaker_info=transcript.speaker_info,
+            dimensions=kwargs.get('dimensions'),
+            section_length=int(kwargs.get('section_length'))
         )
 
     def __lower_case(self, transcript: Transcript):

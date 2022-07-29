@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
 from transcript_analyser.consts import *
-from transcript_analyser.data_types.general import RelatedWordsResponseObj, SearchResponseObj, SentimentsResponseObj, StatisticsResponseObj, TranscriptInputObj
+from transcript_analyser.data_types.general import RelatedWordsResponseObj, SearchResponseObj, SentimentsResponseObj, \
+    StatisticsResponseObj, TranscriptInputObj
 
 from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Security
 from fastapi.security.api_key import APIKeyHeader
@@ -17,7 +18,6 @@ warnings.filterwarnings("ignore")
 
 API_KEY = os.getenv('API_KEY')
 API_KEY_NAME = os.getenv('API_KEY_NAME')
-
 
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
@@ -51,14 +51,14 @@ app.add_middleware(
 
 @app.post('/transcript-analyser/keyphrases/', response_model=Union[List[str], str, Dict])
 def get_keyphrases(
-    json_obj: TranscriptInputObj,
-    background_tasks: BackgroundTasks,
-    algorithm: str,
-    model: Optional[str] = None,
-    section_length: Optional[str] = 175,
-    n_keyphrases: int = Query(default=N_KEYPHRASES,description=N_KEYPHRASES_DESC),
-    n_grams_min: int = Query(default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
-    n_grams_max: int = Query(default=N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
+        json_obj: TranscriptInputObj,
+        background_tasks: BackgroundTasks,
+        algorithm: str,
+        model: Optional[str] = None,
+        section_length: Optional[str] = 175,
+        n_keyphrases: int = Query(default=N_KEYPHRASES, description=N_KEYPHRASES_DESC),
+        n_grams_min: int = Query(default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
+        n_grams_max: int = Query(default=N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
 ):
     return job_manager.do_job(
         json_obj=json_obj,
@@ -75,8 +75,8 @@ def get_keyphrases(
 
 @app.post('/transcript-analyser/statistics/', response_model=StatisticsResponseObj)
 def get_statistics(
-    json_obj: TranscriptInputObj,
-    background_tasks: BackgroundTasks
+        json_obj: TranscriptInputObj,
+        background_tasks: BackgroundTasks
 ):
     return job_manager.do_job(
         json_obj=json_obj,
@@ -88,20 +88,20 @@ def get_statistics(
 # TODO write the documentation for the repsonse model
 @app.post('/transcript-analyser/important-text-blocks/')
 def get_important_text_blocks(
-    json_obj: TranscriptInputObj,
-    background_tasks: BackgroundTasks,
-    output_type: str = Query(default="WORD", description=OUTPUT_TYPE_DESC),
-    filter_backchannels: bool = Query(
-        default=True, description=FILTER_BACKCHANNELS_DESC),
-    remove_entailed_sentences: bool = Query(
-        default=True, description=REMOVE_ENTAILED_SENTENCES_DESC),
-    get_graph_backbone: bool = Query(
-        default=True, description=GET_GRAPH_BACKBONE_DESC),
-    do_cluster: bool = Query(default=True, description=DO_CLUSTER_DESC),
-    clustering_algorithm: str = Query(
-        default='louvain', description=CLUSTERING_ALGORITHM_DESC),
-    per_cluster_results: bool = Query(
-        default=False, description=PER_CLUSTER_RESULTS_DESC),
+        json_obj: TranscriptInputObj,
+        background_tasks: BackgroundTasks,
+        output_type: str = Query(default="WORD", description=OUTPUT_TYPE_DESC),
+        filter_backchannels: bool = Query(
+            default=True, description=FILTER_BACKCHANNELS_DESC),
+        remove_entailed_sentences: bool = Query(
+            default=True, description=REMOVE_ENTAILED_SENTENCES_DESC),
+        get_graph_backbone: bool = Query(
+            default=True, description=GET_GRAPH_BACKBONE_DESC),
+        do_cluster: bool = Query(default=True, description=DO_CLUSTER_DESC),
+        clustering_algorithm: str = Query(
+            default='louvain', description=CLUSTERING_ALGORITHM_DESC),
+        per_cluster_results: bool = Query(
+            default=False, description=PER_CLUSTER_RESULTS_DESC),
 ):
     return job_manager.do_job(
         json_obj=json_obj,
@@ -119,11 +119,11 @@ def get_important_text_blocks(
 
 @app.post('/transcript-analyser/related-words/', response_model=List[RelatedWordsResponseObj])
 def get_related_words(
-    json_obj: TranscriptInputObj,
-    background_tasks: BackgroundTasks,
-    target_word: str = Query(default=None, min_length=MIN_WORD_LEN),
-    n_keyphrases: int = Query(default=N_KEYPHRASES,
-                              description=N_KEYPHRASES_DESC)
+        json_obj: TranscriptInputObj,
+        background_tasks: BackgroundTasks,
+        target_word: str = Query(default=None, min_length=MIN_WORD_LEN),
+        n_keyphrases: int = Query(default=N_KEYPHRASES,
+                                  description=N_KEYPHRASES_DESC)
 ):
     return job_manager.do_job(
         json_obj=json_obj,
@@ -134,25 +134,28 @@ def get_related_words(
     )
 
 
-@app.post('/transcript-analyser/sentiments/', response_model=List[SentimentsResponseObj])
+@app.post('/transcript-analyser/sentiments/',
+          response_model=Union[List[SentimentsResponseObj], Dict[str, Dict[str, Dict]]])
 def get_sentiments(
-    json_obj: TranscriptInputObj,
-    background_tasks: BackgroundTasks,
-    dimension: Optional[str] = None
+        json_obj: TranscriptInputObj,
+        background_tasks: BackgroundTasks,
+        dimensions: Optional[bool] = False,
+        section_length: Optional[str] = 175
 ):
     return job_manager.do_job(
         json_obj=json_obj,
         task='get_sentiments',
         background_tasks=background_tasks,
-        dimension=dimension,
+        section_length=section_length,
+        dimensions=dimensions
     )
 
 
 @app.post('/transcript-analyser/search/', response_model=List[SearchResponseObj])
 def search(
-    json_obj: TranscriptInputObj,
-    background_tasks: BackgroundTasks,
-    target_word: str = Query(default=None, min_length=MIN_WORD_LEN),
+        json_obj: TranscriptInputObj,
+        background_tasks: BackgroundTasks,
+        target_word: str = Query(default=None, min_length=MIN_WORD_LEN),
 ):
     return job_manager.do_job(
         json_obj=json_obj,
