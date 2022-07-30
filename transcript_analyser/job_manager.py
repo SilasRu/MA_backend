@@ -15,7 +15,6 @@ import time
 from transcript_analyser.data_types.transcript import Transcript
 from transcript_analyser.utils.utils import Utils
 
-
 JOBS_DIRECTORY = os.getenv('JOBS_DIR')
 if not os.path.exists(JOBS_DIRECTORY):
     os.mkdir(JOBS_DIRECTORY)
@@ -28,11 +27,11 @@ class CustomError(Exception):
 class JobManager:
 
     def do_job(
-        self,
-        background_tasks: BackgroundTasks,
-        json_obj: TranscriptInputObj,
-        task: str,
-        **kwargs
+            self,
+            background_tasks: BackgroundTasks,
+            json_obj: TranscriptInputObj,
+            task: str,
+            **kwargs
     ) -> str:
         transcript = self.__preprocess(json_obj=json_obj)
 
@@ -51,10 +50,10 @@ class JobManager:
         return results
 
     def __get_job_id(
-        self,
-        transcript: Transcript,
-        task: str,
-        **kwargs
+            self,
+            transcript: Transcript,
+            task: str,
+            **kwargs
     ) -> str:
         return Utils.dict_hash({
             "transcript": transcript.json,
@@ -62,22 +61,20 @@ class JobManager:
             **kwargs
         })
 
-
-# TODO, store the data companied with the status of the job being ["in_progress", "completed"]
-
+    # TODO, store the data companied with the status of the job being ["in_progress", "completed"]
 
     def __store_job(
-        self,
-        job_id: str,
-        output: dict
+            self,
+            job_id: str,
+            output: dict
     ) -> None:
         path = os.path.join(JOBS_DIRECTORY, f'{job_id}.json')
         with open(path, 'w') as f:
             json.dump(output, f)
 
     def __get_job(
-        self,
-        job_id: str
+            self,
+            job_id: str
     ) -> Union[None, Dict]:
         path = os.path.join(JOBS_DIRECTORY, f'{job_id}.json')
         if os.path.exists(path):
@@ -93,17 +90,17 @@ class JobManager:
             start_times=json_obj['start_times'],
             end_times=json_obj['end_times'],
             speaker_ids=json_obj['speaker_ids'],
-            speaker_info=json_obj['speaker_info']
+            speaker_info=json_obj['speaker_info'],
         )
         return transcript
 
     def __apply_conditions(
-        self,
-        transcript: Transcript,
-        start_times: List[float],
-        end_times: List[float],
-        speaker_ids: List[int],
-        speaker_info: List[Dict]
+            self,
+            transcript: Transcript,
+            start_times: List[float],
+            end_times: List[float],
+            speaker_ids: List[int],
+            speaker_info: List[Dict]
     ) -> Transcript:
         """
         Apply the filters on the speakers and the start times and end times imposed
@@ -120,10 +117,35 @@ class JobManager:
         transcript.speaker_info = {i['id']: i['name'] for i in speaker_info}
         return transcript
 
+    def get_keywords(self, transcript: Transcript, **kwargs) -> Dict[str, Dict[str, Any]]:
+        """
+        Get the keywords
+        """
+        job_id = self.__get_job_id(transcript, 'keyphrase_dimensions', **kwargs)
+        cached_results = self.__get_job(job_id=job_id)
+        if cached_results:
+            cached_keyphrase_dimensions = cached_results
+        else:
+            cached_keyphrase_dimensions = Abstractive.get_bart_summary(
+                turns=transcript.turns,
+                speaker_info=transcript.speaker_info,
+                model=kwargs.get('model'),
+                section_length=int(kwargs.get('section_length'))
+            )
+            self.__store_job(job_id=job_id, output=cached_keyphrase_dimensions)
+
+        return Abstractive.get_attention_keywords(
+            turns=transcript.turns,
+            speaker_info=transcript.speaker_info,
+            section_length=int(kwargs.get('section_length')),
+            keyphrase_dimensions=cached_keyphrase_dimensions
+        )
+
+
     def get_keyphrases(
-        self,
-        transcript: Transcript,
-        **kwargs
+            self,
+            transcript: Transcript,
+            **kwargs
     ) -> List[str or dict] or str:
         """
         Get the key phrases or the generated summaries
@@ -164,8 +186,8 @@ class JobManager:
             raise NotImplementedError
 
     def get_statistics(
-        self,
-        transcript: Transcript,
+            self,
+            transcript: Transcript,
     ) -> Any:
         """
         Get some descriptive statistics about the utterances being fed
@@ -189,7 +211,7 @@ class JobManager:
         num_utterances = len(transcript.turns)
         meeting_duration = sum(
             [speaker_stats[speaker_id]['time_spoken']
-                for speaker_id in speaker_ids]
+             for speaker_id in speaker_ids]
         )
 
         return {
@@ -200,9 +222,9 @@ class JobManager:
         }
 
     def get_important_text_blocks(
-        self,
-        transcript: Transcript,
-        **kwargs
+            self,
+            transcript: Transcript,
+            **kwargs
     ) -> List[dict or str]:
         """
         Get the important_text_blocks of the meeting based on different algorithms such as Louvain community detection or sentence weights
@@ -214,9 +236,9 @@ class JobManager:
         )
 
     def get_related_words(
-        self,
-        transcript: Transcript,
-        **kwargs
+            self,
+            transcript: Transcript,
+            **kwargs
     ) -> List[str]:
         """
         Get the list of related words to the target word
@@ -229,9 +251,9 @@ class JobManager:
         )
 
     def get_sentiments(
-        self,
-        transcript: Transcript,
-        **kwargs
+            self,
+            transcript: Transcript,
+            **kwargs
     ) -> dict[str, dict[str, object]]:
         """
         Get the sentiment for each sentence in the meeting
@@ -248,19 +270,19 @@ class JobManager:
         return transcript.lower()
 
     def __filter_speaker(
-        self,
-        transcript: Transcript,
-        speaker_ids: List[int]
+            self,
+            transcript: Transcript,
+            speaker_ids: List[int]
     ) -> Transcript:
         transcript.turns = [
             turn for turn in transcript.turns if turn.speaker_id in speaker_ids]
         return transcript
 
     def __filter_time(
-        self,
-        transcript: Transcript,
-        start_times: List[float],
-        end_times: List[float]
+            self,
+            transcript: Transcript,
+            start_times: List[float],
+            end_times: List[float]
     ) -> Transcript:
         for turn in transcript.turns:
             turn.words = [word for word in turn.words if Utils.contains(
@@ -270,9 +292,9 @@ class JobManager:
         return transcript
 
     def search(
-        self,
-        transcript: Transcript,
-        **kwargs
+            self,
+            transcript: Transcript,
+            **kwargs
     ) -> Any:
         ix, index_exists = get_index(transcript=transcript)
         if not index_exists:

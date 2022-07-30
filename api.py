@@ -4,7 +4,7 @@ import warnings
 
 from transcript_analyser.consts import *
 from transcript_analyser.data_types.general import RelatedWordsResponseObj, SearchResponseObj, SentimentsResponseObj, \
-    StatisticsResponseObj, TranscriptInputObj
+    StatisticsResponseObj, TranscriptInputObj, KeywordsResponseObj
 
 from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Security
 from fastapi.security.api_key import APIKeyHeader
@@ -48,6 +48,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.post('/transcript-analyser/keywords/', response_model=KeywordsResponseObj)
+def get_keywords(
+        json_obj: TranscriptInputObj,
+        background_tasks: BackgroundTasks,
+        section_length: Optional[str] = 175,
+        model: Optional[str] = None
+):
+    return job_manager.do_job(
+        json_obj=json_obj,
+        task='get_keywords',
+        model=model,
+        background_tasks=background_tasks,
+        section_length=section_length
+    )
 
 @app.post('/transcript-analyser/keyphrases/', response_model=Union[List[str], str, Dict])
 def get_keyphrases(

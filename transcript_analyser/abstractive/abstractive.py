@@ -14,6 +14,146 @@ class Abstractive:
     classifier = None
 
     @classmethod
+    def get_attention_keywords(
+            cls,
+            turns: List,
+            speaker_info: {},
+            section_length: int,
+            keyphrase_dimensions: {}) -> Dict[str, Dict[str, Any]]:
+
+        stop_words = set(nltk.corpus.stopwords.words('english'))
+        nltk_tokenizer = nltk.RegexpTokenizer(r"\w+")
+        for i in speaker_info.values():
+            stop_words.add(i.lower())
+
+        turns_segmented_by_time = [
+            (f'{speaker_info[speaker_id]}', text)
+            for speaker_id, text in zip([turn.speaker_id for turn in turns], [turn.text for turn in turns])
+        ]
+        turns_segmented_by_speaker = OrderedDict()
+        for speaker_id in speaker_info.keys():
+            turns_segmented_by_speaker[speaker_id] = [
+                (f'{speaker_info[speaker_id]}', turn.text) for turn in turns if turn.speaker_id == speaker_id
+            ]
+        time_sections_to_process = Utils.get_sections_from_texts(turns_segmented_by_time, section_length)
+        speaker_sections_to_process = [''.join(Utils.get_sections_from_texts(speaker, section_length)) for speaker in
+                                       turns_segmented_by_speaker.values()]
+
+        def tokenize(transcript, summary):
+            input_tokens = nltk_tokenizer.tokenize(transcript)
+            input_tokens = [w for w in input_tokens if not w.lower() in stop_words]
+            output_tokens = nltk_tokenizer.tokenize(summary)
+            output_tokens = [w for w in output_tokens if not w.lower() in stop_words]
+            return input_tokens, output_tokens
+
+        def compute_matches(input_tokens, output_tokens):
+            matches = OrderedDict()
+            for in_index in range(len(input_tokens)):
+                i, o, = in_index, 0
+                cur_index_range = []
+                curr_str = []
+
+                while i < len(input_tokens) and o < len(output_tokens):
+                    if input_tokens[i].lower() == output_tokens[o].lower():
+                        '''
+                            Append token if it appears at the same spot in both input and output
+                            input_tokens=     ['this', 'is', 'the', 'input']
+                                                            i
+                            output_tokens=    ['the', 'input']
+                                                o
+                            curr_str=['the']
+                            curr_index_range=[2] 
+                        '''
+                        cur_index_range.append(i)
+                        curr_str.append(input_tokens[i])
+                        i, o = i + 1, o + 1
+                    else:
+                        if i - 1 in cur_index_range:
+                            '''
+                                Check if last token was added in the index range - used for softening the constraint 
+                                so one token can be skipped and still account for the n-gram succession
+                                input_tokens=     ['this', 'is', 'the', 'someword' 'input']
+                                                                            i
+                                output_tokens=    ['the', 'input']
+                                                            o
+                                curr_str=['the']
+                                curr_index_range=[2]
+                                i += 1 
+                            '''
+                            i += 1
+                        elif len(curr_str) > 0:
+                            matches['_'.join([str(i) for i in cur_index_range])] = curr_str
+                            cur_index_range = []
+                            curr_str = []
+                            o += 1
+                        else:
+                            o += 1
+            return matches
+
+        def compute_max_n_gram(matches_dict):
+            indexes_with_length = OrderedDict()
+
+            for index_group in matches_dict.keys():
+                indexes = index_group.split('_')
+                for idx in indexes:
+                    if idx in indexes_with_length:
+                        if indexes_with_length[idx] < len(indexes):
+                            indexes_with_length[idx] = len(indexes)
+                    else:
+                        indexes_with_length[idx] = len(indexes)
+
+            return indexes_with_length
+
+        def deduplicate_matches(matches_dict, max_n_grams_per_idx):
+            # Deduplicate based on index
+            deduplicated_matches = []
+            for key in matches_dict.keys():
+                indexes = key.split('_')
+                is_longest = True
+                for idx in indexes:
+                    if max_n_grams_per_idx[idx] > len(indexes):
+                        is_longest = False
+
+                if is_longest:
+                    deduplicated_matches.append(matches_dict[key])
+
+            # Deduplicate 1-grams based on word occurence
+            seen = set()
+            deduplicated_words = []
+            for n_gram in deduplicated_matches:
+                if len(n_gram) == 1:
+                    if n_gram[0].lower() in seen:
+                        continue
+                    else:
+                        seen.add(n_gram[0].lower())
+                        deduplicated_words.append(n_gram)
+                else:
+                    for word in n_gram:
+                        if word.lower() not in seen:
+                            seen.add(word.lower())
+                    deduplicated_words.append(n_gram)
+
+            return [' '.join(i) for i in deduplicated_words]
+
+        def process_sections(raw_sections, summary_dimension):
+            dimension_kws = []
+            for section, summary in zip(raw_sections, keyphrase_dimensions['dimensions'][summary_dimension].values()):
+                input_tokens, output_tokens = tokenize(section, ''.join(summary))
+                matches_dict = compute_matches(input_tokens, output_tokens)
+                max_n_grams_per_idx = compute_max_n_gram(matches_dict)
+                keywords_for_section = deduplicate_matches(matches_dict, max_n_grams_per_idx)
+                dimension_kws.append(keywords_for_section)
+            return dimension_kws
+
+        speaker_sections = process_sections(speaker_sections_to_process, 'speaker')
+        time_sections = process_sections(time_sections_to_process, 'time')
+        dimensions = {
+            'time': {i: ','.join(section) for i, section in enumerate(time_sections)},
+            'speaker': {i: ','.join(section) for i, section in enumerate(speaker_sections)}
+        }
+        return {'dimensions': dimensions}
+
+    @classmethod
     def get_keybert_keywords(
             cls,
             text: str,

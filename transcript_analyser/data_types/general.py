@@ -1,4 +1,3 @@
-from ctypes import Union
 import numpy as np
 import json
 from enum import Enum, auto, unique
@@ -36,6 +35,13 @@ class TranscriptInputObj(BaseModel):
         [], description='The list of end times that with them you want to filter the transcript to be analyzed.', example=[200])
     transcript: Dict = Field(
         ..., description='The json object of the transcript which has to be in the Interscriber Format.')
+
+
+class KeywordsResponseObj(BaseModel):
+    dimensions: Dict[str, Dict[str, Any]] = Field(
+        {}, description='Dimensions that keywords are returned for',
+        example={'time': {'0': 'Foo'}, 'speaker': {'0': 'Foo'}}
+    )
 
 
 class StatisticsResponseObj(BaseModel):
