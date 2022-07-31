@@ -105,7 +105,7 @@ class JobManager:
         """
         Apply the filters on the speakers and the start times and end times imposed
         """
-        transcript = self.__lower_case(transcript)
+        # transcript = self.__lower_case(transcript)
         if len(speaker_ids) != 0:
             transcript = self.__filter_speaker(transcript, speaker_ids)
         if len(start_times) != len(end_times):
@@ -141,6 +141,14 @@ class JobManager:
             keyphrase_dimensions=cached_keyphrase_dimensions
         )
 
+    def get_entities(self, transcript: Transcript, **kwargs) -> Dict[str, Dict[str, Any]]:
+        """
+        Get the entities
+        """
+        return Extractive.get_entities(
+            transcript=transcript,
+            section_length=int(kwargs.get('section_length')),
+        )
 
     def get_keyphrases(
             self,

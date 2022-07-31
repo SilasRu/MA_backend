@@ -1,10 +1,10 @@
-from typing import List, Union, Dict, Optional
+from typing import List, Union, Dict, Optional, Any
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
 from transcript_analyser.consts import *
 from transcript_analyser.data_types.general import RelatedWordsResponseObj, SearchResponseObj, SentimentsResponseObj, \
-    StatisticsResponseObj, TranscriptInputObj, KeywordsResponseObj
+    StatisticsResponseObj, TranscriptInputObj, KeywordsResponseObj, EntitiesResponseObj
 
 from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Security
 from fastapi.security.api_key import APIKeyHeader
@@ -60,6 +60,20 @@ def get_keywords(
         json_obj=json_obj,
         task='get_keywords',
         model=model,
+        background_tasks=background_tasks,
+        section_length=section_length
+    )
+
+
+@app.post('/transcript-analyser/entities/', response_model=EntitiesResponseObj)
+def get_keywords(
+        json_obj: TranscriptInputObj,
+        background_tasks: BackgroundTasks,
+        section_length: Optional[str] = 175
+):
+    return job_manager.do_job(
+        json_obj=json_obj,
+        task='get_entities',
         background_tasks=background_tasks,
         section_length=section_length
     )
@@ -150,7 +164,7 @@ def get_related_words(
 
 
 @app.post('/transcript-analyser/sentiments/',
-          response_model=Union[List[SentimentsResponseObj], Dict[str, Dict[str, Dict]]])
+          response_model=Union[List[SentimentsResponseObj], Dict])
 def get_sentiments(
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks,

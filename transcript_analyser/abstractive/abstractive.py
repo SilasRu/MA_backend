@@ -148,8 +148,8 @@ class Abstractive:
         speaker_sections = process_sections(speaker_sections_to_process, 'speaker')
         time_sections = process_sections(time_sections_to_process, 'time')
         dimensions = {
-            'time': {i: ','.join(section) for i, section in enumerate(time_sections)},
-            'speaker': {i: ','.join(section) for i, section in enumerate(speaker_sections)}
+            'time': {i: section for i, section in enumerate(time_sections)},
+            'speaker': {i: section for i, section in enumerate(speaker_sections)}
         }
         return {'dimensions': dimensions}
 
@@ -183,11 +183,11 @@ class Abstractive:
         speaker_sections_to_process = [Utils.get_sections_from_texts(speaker, section_length) for speaker in
                                        utterances_by_speaker.values()]
 
-        def generate_summaries(summary_section: [str]) -> str:
+        def generate_summaries(summary_section: [str]) -> list:
             inputs = tokenizer(summary_section, max_length=1024, return_tensors='pt', truncation=True, padding=True)
             summary_ids = model.generate(inputs["input_ids"], num_beams=4, min_length=0, max_length=200)
             decoded = tokenizer.batch_decode(summary_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
-            return decoded
+            return [i.lstrip() for i in decoded[0].split('.') if (i and i != ' ')]
 
         dimensions = {
             'time': {i: generate_summaries([section]) for i, section in enumerate(time_sections_to_process)},

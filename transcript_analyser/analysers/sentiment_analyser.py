@@ -47,10 +47,16 @@ def get_sentiments(text: str, turns: List[Turn], speaker_info: {}, dimensions: b
                               turns_segmented_by_speaker.items()}
         scores_per_time_segment = {i: classifier(''.join(utterances).split('.')) for i, utterances in
                                    enumerate(turns_segmented_by_time)}
-        return {'dimensions': {
-            'time': aggregate_scores(scores_per_speaker),
-            'speaker': aggregate_scores(scores_per_time_segment)
-        }}
+
+        sentences = sent_tokenize(text)
+        results = classifier(sentences)
+        return {
+            'dimensions': {
+                'time': aggregate_scores(scores_per_speaker),
+                'speaker': aggregate_scores(scores_per_time_segment)
+            },
+            'sentiments': [{'content': sent, **result} for sent, result in list(zip(sentences, results))]
+        }
 
     else:
         sentences = sent_tokenize(text)

@@ -60,6 +60,7 @@ class Turn:
 
 class Transcript:
     def __init__(self, json_obj: dict) -> None:
+        self.speaker_info = None
         self.turns: List[Turn] = []
         self._read_json_file(json_obj)
 

@@ -1,8 +1,11 @@
+from collections import OrderedDict
+
 from numpy.linalg import norm
 from typing import Any, DefaultDict, List
 import numpy as np
 from transcript_analyser.consts import TYPE_NOT_SUPPORTED
-
+from transformers import pipeline
+import nltk
 from transcript_analyser.data_types.transcript import Transcript
 from transcript_analyser.custom_unsupervised_summarizer import *
 import yake
@@ -17,9 +20,54 @@ from transcript_analyser.utils.autocomplete import Meeting_Autocomplete
 class Extractive:
 
     @staticmethod
+    def get_entities(transcript, section_length) -> Dict[str, Dict[str, Any]]:
+        ner = pipeline("ner", aggregation_strategy='average')
+        nltk_tokenizer = nltk.RegexpTokenizer(r"\w+")
+        turns_segmented_by_time = [
+            (f' ', text)
+            for speaker_id, text in
+            zip([turn.speaker_id for turn in transcript.turns], [turn.text for turn in transcript.turns])
+        ]
+        turns_segmented_by_speaker = OrderedDict()
+        for speaker_id in transcript.speaker_info.keys():
+            turns_segmented_by_speaker[speaker_id] = [
+                (f' ', turn.text) for turn in transcript.turns if
+                turn.speaker_id == speaker_id
+            ]
+        time_sections_to_process = Utils.get_sections_from_texts(turns_segmented_by_time, section_length)
+        speaker_sections_to_process = [''.join(Utils.get_sections_from_texts(speaker, section_length)) for speaker in
+                                       turns_segmented_by_speaker.values()]
+
+        def get_entities_for_dimension(sections):
+            dimension = {}
+            speakers = [word.lower() for word in transcript.speaker_info.values()]
+            for i, utterance in enumerate(sections):
+                dimension[i] = []
+                entities = ner(utterance)
+                tokenized_utterance = nltk_tokenizer.tokenize(utterance)
+
+                for entity in entities:
+                    in_speakers = entity['word'].lower() in speakers
+                    occurrence = len([word for word in tokenized_utterance if word == entity['word']])
+                    dimension[i].append(
+                        {'in_speakers': in_speakers, 'word': entity['word'], 'entity_group': entity['entity_group'],
+                         'occurrence': occurrence})
+                dimension[i] = list({v['word']: v for v in dimension[i]}.values())
+            return dimension
+
+        dimensions = {
+            'time': get_entities_for_dimension(time_sections_to_process),
+            'speaker': get_entities_for_dimension(speaker_sections_to_process)
+        }
+        flat_dimension = [item for sublist in dimensions['time'].values() for item in sublist]
+        entities = list({v['word']: v for v in flat_dimension}.values())
+
+        return {'entities': entities, 'dimensions': dimensions}
+
+    @staticmethod
     def get_lsa_sentences(
-        text: str,
-        n_keyphrases: int
+            text: str,
+            n_keyphrases: int
     ) -> str:
 
         summarizer = LsaSummarizer()
@@ -32,9 +80,9 @@ class Extractive:
 
     @staticmethod
     def get_related_words(
-        text: str,
-        target_word: str,
-        n_keyphrases: int
+            text: str,
+            target_word: str,
+            n_keyphrases: int
     ) -> List:
         autocomplete_obj = Meeting_Autocomplete(text=text)
         autocomplete_results = autocomplete_obj.search(
@@ -64,9 +112,9 @@ class Extractive:
 
     @staticmethod
     def get_related_words_cooc_matrix(
-        text: str,
-        target_word: str,
-        n_keyphrases: int
+            text: str,
+            target_word: str,
+            n_keyphrases: int
     ) -> np.array:
         """
         Get the co-occurrence matrix
@@ -83,7 +131,7 @@ class Extractive:
 
         stop_words = Utils.load_stop_words()
         text = ' '.join([word for word in text.split()
-                        if word not in stop_words])
+                         if word not in stop_words])
 
         splited_text = Utils.sentence_to_wordlist(text)
         vocab = list(set(splited_text))
@@ -115,8 +163,8 @@ class Extractive:
 
     @staticmethod
     def get_rake_keywords(
-        text: str,
-        top_n: int = 10
+            text: str,
+            top_n: int = 10
     ) -> List[Any]:
         """
         get the keywords using the Rake algorithm
@@ -128,27 +176,28 @@ class Extractive:
 
     @staticmethod
     def get_yake_keywords(
-        text: str,
-        language="en",
-        max_ngram_size=3,
-        deduplication_thresold=0.9,
-        deduplication_algo='seqm',
-        windowSize=1,
-        numOfKeywords=10,
+            text: str,
+            language="en",
+            max_ngram_size=3,
+            deduplication_thresold=0.9,
+            deduplication_algo='seqm',
+            windowSize=1,
+            numOfKeywords=10,
     ) -> List[Any]:
         """
         Get the YAKE keywords based on https://github.com/LIAAD/yake
         """
         custom_kw_extractor = yake.KeywordExtractor(lan=language, n=max_ngram_size, dedupLim=deduplication_thresold,
-                                                    dedupFunc=deduplication_algo, windowsSize=windowSize, top=numOfKeywords, features=None)
+                                                    dedupFunc=deduplication_algo, windowsSize=windowSize,
+                                                    top=numOfKeywords, features=None)
         keywords = custom_kw_extractor.extract_keywords(text)
         keywords = [keyword[0] for keyword in keywords]
         return keywords
 
     @staticmethod
     def get_sentence_properties(
-        transcript: Transcript or str,
-        **kwargs
+            transcript: Transcript or str,
+            **kwargs
     ) -> List[dict]:
         if isinstance(transcript, Transcript):
             source_dataframe = transcript.df
