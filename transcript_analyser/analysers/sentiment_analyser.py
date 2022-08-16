@@ -50,12 +50,26 @@ def get_sentiments(text: str, turns: List[Turn], speaker_info: {}, dimensions: b
 
         sentences = sent_tokenize(text)
         results = classifier(sentences)
+
+        time_counter = []
+        for turn in turns:
+            turn_sents = sent_tokenize(turn.text)
+            word_counter = 0
+            for sent in turn_sents:
+                fragment_len = len([word for word in sent.split(' ') if word != ''])
+                start_time = turn.words[word_counter].start_time
+                end_time = turn.words[word_counter + fragment_len - 1].end_time
+                avg_time = (end_time - start_time) + start_time
+                word_counter += fragment_len
+                time_counter.append(round(avg_time, 2))
+
         return {
             'dimensions': {
                 'time': aggregate_scores(scores_per_speaker),
                 'speaker': aggregate_scores(scores_per_time_segment)
             },
-            'sentiments': [{'content': sent, **result} for sent, result in list(zip(sentences, results))]
+            'sentiments': [{'content': sent, **result, 'timestamp': timestamp} for sent, result, timestamp in
+                           list(zip(sentences, results, time_counter))]
         }
 
     else:
