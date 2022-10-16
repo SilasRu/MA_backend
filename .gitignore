@@ -15,3 +15,4 @@ jobs/**
 !jobs/.gitkeep
 env/
 dist/
+/venv/

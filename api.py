@@ -35,7 +35,7 @@ async def get_api_key(
 
 
 app = FastAPI(
-    dependencies=[Depends(get_api_key)]
+    # dependencies=[Depends(get_api_key)]
 )
 
 origins = ["*"]

@@ -49,6 +49,7 @@ def get_sentiments(text: str, turns: List[Turn], speaker_info: {}, dimensions: b
                                    enumerate(turns_segmented_by_time)}
 
         sentences = sent_tokenize(text)
+        sentences = [s if len(s) < 1100 else s[:1100] for s in sentences]
         results = classifier(sentences)
 
         time_counter = []
@@ -56,17 +57,21 @@ def get_sentiments(text: str, turns: List[Turn], speaker_info: {}, dimensions: b
             turn_sents = sent_tokenize(turn.text)
             word_counter = 0
             for sent in turn_sents:
-                fragment_len = len([word for word in sent.split(' ') if word != ''])
-                start_time = turn.words[word_counter].start_time
-                end_time = turn.words[word_counter + fragment_len - 1].end_time
-                avg_time = (end_time - start_time) + start_time
-                word_counter += fragment_len
-                time_counter.append(round(avg_time, 2))
+                # if word_counter in turn.words:
+                try:
+                    fragment_len = len([word for word in sent.split(' ') if word != ''])
+                    start_time = float(turn.words[word_counter].start_time)
+                    end_time = float(turn.words[word_counter + fragment_len - 1].end_time)
+                    avg_time = (end_time - start_time) + start_time
+                    word_counter += fragment_len
+                    time_counter.append(round(avg_time, 2))
+                except:
+                    continue
 
         return {
             'dimensions': {
-                'time': aggregate_scores(scores_per_speaker),
-                'speaker': aggregate_scores(scores_per_time_segment)
+                'time': aggregate_scores(scores_per_time_segment),
+                'speaker': aggregate_scores(scores_per_speaker)
             },
             'sentiments': [{'content': sent, **result, 'timestamp': timestamp} for sent, result, timestamp in
                            list(zip(sentences, results, time_counter))]

@@ -191,6 +191,7 @@ class Abstractive:
 
         dimensions = {
             'time': {i: generate_summaries([section]) for i, section in enumerate(time_sections_to_process)},
+            'source_time_section': {i: section for i, section in enumerate(time_sections_to_process)},
             'speaker': {i: generate_summaries(section) for i, section in enumerate(speaker_sections_to_process)}
         }
         return {'dimensions': dimensions}

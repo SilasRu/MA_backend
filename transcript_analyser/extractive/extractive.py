@@ -21,7 +21,7 @@ class Extractive:
 
     @staticmethod
     def get_entities(transcript, section_length) -> Dict[str, Dict[str, Any]]:
-        ner = pipeline("ner", aggregation_strategy='average')
+        ner = pipeline("ner", aggregation_strategy='average', model='xlm-roberta-large-finetuned-conll03-english')
         nltk_tokenizer = nltk.RegexpTokenizer(r"\w+")
         turns_segmented_by_time = [
             (f' ', text)
