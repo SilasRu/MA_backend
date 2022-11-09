@@ -30,8 +30,7 @@ def aggregate_scores(segments: object) -> object:
     return res
 
 
-def get_sentiments(text: str, turns: List[Turn], speaker_info: {}, dimensions: bool, section_length: int) -> \
-        Union[dict[str, dict[str, object]], List[dict]]:
+def get_sentiments(text: str, turns, speaker_info, dimensions, section_length):
     if dimensions:
         turns_segmented_by_speaker = OrderedDict()
         for speaker_id in speaker_info.keys():

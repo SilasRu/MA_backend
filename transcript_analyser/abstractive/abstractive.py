@@ -174,8 +174,8 @@ class Abstractive:
         return [keyword[0] for keyword in keywords]
 
     @staticmethod
-    def get_bart_keyphrases_finetuned(utterances: List[Tuple[str, str]],
-                                      utterances_by_speaker: OrderedDict[int: Tuple[str, str]],
+    def get_bart_keyphrases_finetuned(utterances,
+                                      utterances_by_speaker,
                                       model_name: str, section_length: int) -> Dict:
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
         tokenizer = AutoTokenizer.from_pretrained(model_name)

@@ -262,7 +262,7 @@ class JobManager:
             self,
             transcript: Transcript,
             **kwargs
-    ) -> dict[str, dict[str, object]]:
+    ):
         """
         Get the sentiment for each sentence in the meeting
         """

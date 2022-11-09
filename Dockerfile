@@ -2,8 +2,8 @@ FROM python:3.8.0-slim
 
 ENV API_KEY=bcqoieyqp98DAHJBABJBy3498ypiuqhriuqy984
 ENV API_KEY_NAME=access_token
-ENV INDICES_DIR=/transcript_analyser_storage/indices
-ENV JOBS_DIR=/transcript_analyser_storage/jobs
+ENV INDICES_DIR=/indices
+ENV JOBS_DIR=/jobs
 
 EXPOSE 47122
 
