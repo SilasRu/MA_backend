@@ -48,6 +48,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/hello")
+def root():
+    return {"message": "Hello World"}
 
 @app.post('/transcript-analyser/keywords/', response_model=KeywordsResponseObj)
 def get_keywords(
