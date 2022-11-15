@@ -16,7 +16,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 
 RUN pip install wheel\
-    && pip install -r requirements.txt
+    && pip install -r requirements.txt --no-cache-dir
 
 COPY . .
 
