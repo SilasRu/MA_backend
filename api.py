@@ -6,7 +6,7 @@ from transcript_analyser.consts import *
 from transcript_analyser.data_types.general import RelatedWordsResponseObj, SearchResponseObj, SentimentsResponseObj, \
     StatisticsResponseObj, TranscriptInputObj, KeywordsResponseObj, EntitiesResponseObj
 
-from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Security
+from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Security, Response
 from fastapi.security.api_key import APIKeyHeader
 import os
 
@@ -38,7 +38,7 @@ app = FastAPI(
     # dependencies=[Depends(get_api_key)]
 )
 
-origins = ["*"]
+origins = ["*", "http://157.230.79.158:3000"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -49,16 +49,19 @@ app.add_middleware(
 )
 
 @app.get("/hello")
-def root():
+def root(response: Response):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return {"message": "Hello World"}
 
 @app.post('/transcript-analyser/keywords/', response_model=KeywordsResponseObj)
 def get_keywords(
+response: Response,
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks,
         section_length: Optional[str] = 175,
         model: Optional[str] = None
 ):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return job_manager.do_job(
         json_obj=json_obj,
         task='get_keywords',
@@ -70,10 +73,12 @@ def get_keywords(
 
 @app.post('/transcript-analyser/entities/', response_model=EntitiesResponseObj)
 def get_keywords(
+response: Response,
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks,
         section_length: Optional[str] = 175
 ):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return job_manager.do_job(
         json_obj=json_obj,
         task='get_entities',
@@ -83,6 +88,7 @@ def get_keywords(
 
 @app.post('/transcript-analyser/keyphrases/', response_model=Union[List[str], str, Dict])
 def get_keyphrases(
+response: Response,
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks,
         algorithm: str,
@@ -92,6 +98,7 @@ def get_keyphrases(
         n_grams_min: int = Query(default=N_GRAMS_MIN, description=N_GRAMS_MIN_DESC),
         n_grams_max: int = Query(default=N_GRAMS_MAX, description=N_GRAMS_MAX_DESC)
 ):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return job_manager.do_job(
         json_obj=json_obj,
         background_tasks=background_tasks,
@@ -107,9 +114,11 @@ def get_keyphrases(
 
 @app.post('/transcript-analyser/statistics/', response_model=StatisticsResponseObj)
 def get_statistics(
+response: Response,
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks
 ):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return job_manager.do_job(
         json_obj=json_obj,
         background_tasks=background_tasks,
@@ -120,6 +129,7 @@ def get_statistics(
 # TODO write the documentation for the repsonse model
 @app.post('/transcript-analyser/important-text-blocks/')
 def get_important_text_blocks(
+response: Response,
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks,
         output_type: str = Query(default="WORD", description=OUTPUT_TYPE_DESC),
@@ -135,6 +145,7 @@ def get_important_text_blocks(
         per_cluster_results: bool = Query(
             default=False, description=PER_CLUSTER_RESULTS_DESC),
 ):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return job_manager.do_job(
         json_obj=json_obj,
         background_tasks=background_tasks,
@@ -151,12 +162,14 @@ def get_important_text_blocks(
 
 @app.post('/transcript-analyser/related-words/', response_model=List[RelatedWordsResponseObj])
 def get_related_words(
+response: Response,
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks,
         target_word: str = Query(default=None, min_length=MIN_WORD_LEN),
         n_keyphrases: int = Query(default=N_KEYPHRASES,
                                   description=N_KEYPHRASES_DESC)
 ):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return job_manager.do_job(
         json_obj=json_obj,
         task='get_related_words',
@@ -169,11 +182,13 @@ def get_related_words(
 @app.post('/transcript-analyser/sentiments/',
           response_model=Union[List[SentimentsResponseObj], Dict])
 def get_sentiments(
+response: Response,
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks,
         dimensions: Optional[bool] = False,
         section_length: Optional[str] = 175
 ):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return job_manager.do_job(
         json_obj=json_obj,
         task='get_sentiments',
@@ -185,10 +200,12 @@ def get_sentiments(
 
 @app.post('/transcript-analyser/search/', response_model=List[SearchResponseObj])
 def search(
+response: Response,
         json_obj: TranscriptInputObj,
         background_tasks: BackgroundTasks,
         target_word: str = Query(default=None, min_length=MIN_WORD_LEN),
 ):
+    response.headers['Access-Control-Allow-Private-Network'] = 'true'
     return job_manager.do_job(
         json_obj=json_obj,
         task='search',
